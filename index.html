@@ -641,6 +641,7 @@ section {
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   position: relative;
   overflow: hidden;
+  display: block;
 }
 
 .project-card::before {
@@ -878,8 +879,11 @@ footer {
   font-size: clamp(3rem, 6vw, 5rem);
   font-weight: 700;
   color: rgba(255,255,255,0.03);
-  padding: 0 2rem;
   flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 2rem;
+  padding-right: 2rem;
 }
 
 .marquee span em {
@@ -957,7 +961,7 @@ footer {
   <div class="hero-bg-text">K</div>
   <div class="hero-greeting reveal">Hallo, ik ben</div>
   <h1 class="hero-title reveal reveal-delay-1">
-    Kobe<br><em>— in opleiding,</em><br>in groei.
+    Kobe<br><em>— orthopedagogisch begeleider</em><br>in opleiding.
   </h1>
   <p class="hero-description reveal reveal-delay-2">
     Student Orthopedagogische Begeleiding aan UCLL. Stagiair in de psychiatrie. 
@@ -1002,7 +1006,7 @@ footer {
   </div>
   <div class="about-content">
     <div class="section-label reveal">Over mij</div>
-    <h2 class="reveal reveal-delay-1">Grote softie,<br><em>sterke schouders.</em></h2>
+    <h2 class="reveal reveal-delay-1">Warm hart,<br><em>scherpe blik.</em></h2>
     <p class="about-text reveal reveal-delay-2">
       Ik ben Kobe — een warme, reflectieve mens met een bewogen achtergrond en een 
       duidelijke drive om verder te groeien. Wat begon als overleven, is geëvolueerd 
@@ -1015,7 +1019,7 @@ footer {
     </p>
     <div class="about-stats reveal reveal-delay-4">
       <div class="stat">
-        <div class="stat-number">3</div>
+        <div class="stat-number">2</div>
         <div class="stat-label">Stages voltooid</div>
       </div>
       <div class="stat">
@@ -1023,7 +1027,7 @@ footer {
         <div class="stat-label">Sociale School</div>
       </div>
       <div class="stat">
-        <div class="stat-number">'25</div>
+        <div class="stat-number">'26</div>
         <div class="stat-label">Afstudeerjaar</div>
       </div>
     </div>
@@ -1077,7 +1081,7 @@ footer {
       <div class="timeline-dot"></div>
       <div class="timeline-period">Stage 3 — Beroepspraktijk 3 (huidig)</div>
       <div class="timeline-title">De Zeilen 2 — Zorggroep Myna</div>
-      <div class="timeline-org">Psychiatrische setting — afdeling met gemengd profiel</div>
+      <div class="timeline-org">Psychiatrisch ziekenhuis — afdeling voor personen met een verstandelijke beperking en psychiatrische problematiek</div>
       <div class="timeline-description">
         Mijn eindstage. Hier breng ik alles samen: inhoudelijke kennis, 
         relationele vaardigheden en een eigen professionele identiteit. 
@@ -1100,7 +1104,7 @@ footer {
   <h2 class="reveal reveal-delay-1">Wat ik maak</h2>
   
   <div class="projects-grid">
-    <div class="project-card reveal reveal-delay-1">
+    <a href="https://kobec00.github.io/EMFI/" target="_blank" class="project-card reveal reveal-delay-1" style="text-decoration:none;color:inherit;">
       <div class="project-icon">🧠</div>
       <div class="project-title">EMFI Check-in App</div>
       <div class="project-description">
@@ -1114,7 +1118,7 @@ footer {
         <span>Psychiatrie</span>
         <span>PWA</span>
       </div>
-    </div>
+    </a>
     
     <div class="project-card reveal reveal-delay-2">
       <div class="project-icon">🏳️‍🌈</div>
@@ -1132,7 +1136,7 @@ footer {
       </div>
     </div>
     
-    <div class="project-card reveal reveal-delay-3">
+    <a href="https://kobec00.github.io/kobe-dashboard/" target="_blank" class="project-card reveal reveal-delay-3" style="text-decoration:none;color:inherit;">
       <div class="project-icon">📊</div>
       <div class="project-title">Persoonlijk Dashboard</div>
       <div class="project-description">
@@ -1144,7 +1148,7 @@ footer {
         <span>PWA</span>
         <span>GitHub Pages</span>
       </div>
-    </div>
+    </a>
   </div>
 </section>
 
@@ -1189,7 +1193,7 @@ footer {
         en het creëren van ruimte voor groei.</p>
     </div>
     <div class="visie-item reveal reveal-delay-2">
-      <div class="visie-item-icon">💡</div>
+      <div class="visie-item-icon">🏳️‍🌈</div>
       <h3>Inclusieve zorg</h3>
       <p>LGBTQ+-vriendelijke en gendersensitieve begeleiding is geen extra — het 
         is een basisvoorwaarde voor veilige zorg.</p>
@@ -1206,7 +1210,7 @@ footer {
     Je vindt me hier.
   </p>
   <div class="contact-links reveal reveal-delay-3">
-    <a href="mailto:jouw@email.be" class="contact-link">✉️ E-mail</a>
+    <a href="mailto:kobe.cornelis4@gmail.com" class="contact-link">✉️ E-mail</a>
     <a href="https://www.linkedin.com/in/kobecornelis/" class="contact-link" target="_blank">💼 LinkedIn</a>
     <a href="https://github.com/kobec00" class="contact-link" target="_blank">🖥️ GitHub</a>
   </div>
@@ -1214,7 +1218,7 @@ footer {
 
 <!-- ═══════════ FOOTER ═══════════ -->
 <footer>
-  <p>© 2025 Kobe — Gemaakt met passie en late avonden.</p>
+  <p>© 2026 Kobe Cornelis — Gemaakt met passie en late avonden.</p>
 </footer>
 
 <!-- ═══════════ SCRIPTS ═══════════ -->
