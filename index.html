@@ -281,13 +281,71 @@ section {
   overflow: hidden;
 }
 
+/* Animated gradient orbs */
+.hero-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  opacity: 0;
+  animation: orbFadeIn 2s ease 3s forwards;
+}
+
+.hero-orb--1 {
+  width: clamp(300px, 40vw, 600px);
+  height: clamp(300px, 40vw, 600px);
+  background: radial-gradient(circle, rgba(196, 149, 106, 0.12) 0%, transparent 70%);
+  top: 10%;
+  right: -5%;
+  animation: orbFloat1 12s ease-in-out infinite, orbFadeIn 2s ease 3s forwards;
+}
+
+.hero-orb--2 {
+  width: clamp(200px, 25vw, 400px);
+  height: clamp(200px, 25vw, 400px);
+  background: radial-gradient(circle, rgba(122, 158, 142, 0.1) 0%, transparent 70%);
+  bottom: 15%;
+  left: 5%;
+  animation: orbFloat2 15s ease-in-out infinite, orbFadeIn 2s ease 3.5s forwards;
+}
+
+.hero-orb--3 {
+  width: clamp(150px, 20vw, 350px);
+  height: clamp(150px, 20vw, 350px);
+  background: radial-gradient(circle, rgba(155, 138, 184, 0.08) 0%, transparent 70%);
+  top: 55%;
+  right: 20%;
+  animation: orbFloat3 18s ease-in-out infinite, orbFadeIn 2s ease 4s forwards;
+}
+
+@keyframes orbFadeIn {
+  to { opacity: 1; }
+}
+
+@keyframes orbFloat1 {
+  0%, 100% { transform: translate(0, 0); }
+  33% { transform: translate(-30px, 20px); }
+  66% { transform: translate(15px, -25px); }
+}
+
+@keyframes orbFloat2 {
+  0%, 100% { transform: translate(0, 0); }
+  33% { transform: translate(20px, -15px); }
+  66% { transform: translate(-25px, 10px); }
+}
+
+@keyframes orbFloat3 {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(-20px, -20px); }
+}
+
 .hero-bg-text {
   position: absolute;
   top: 50%;
   right: -5%;
   transform: translateY(-50%);
   font-family: var(--font-display);
-  font-size: clamp(10rem, 25vw, 30rem);
+  font-size: clamp(15rem, 35vw, 45rem);
   font-weight: 700;
   color: rgba(255,255,255,0.015);
   line-height: 0.85;
@@ -295,21 +353,49 @@ section {
   user-select: none;
 }
 
+/* Horizontal rule accent */
+.hero-rule {
+  width: 60px;
+  height: 2px;
+  background: var(--accent);
+  margin-bottom: 1.5rem;
+  opacity: 0;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease;
+}
+
+.hero-rule.active {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
 .hero-greeting {
   font-family: var(--font-mono);
   font-size: 0.85rem;
   color: var(--accent);
   letter-spacing: 0.15em;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
 }
 
 .hero-title {
   font-family: var(--font-display);
-  font-size: clamp(3rem, 7vw, 6.5rem);
+  font-size: clamp(2.8rem, 6.5vw, 5.5rem);
   font-weight: 700;
-  line-height: 1.05;
-  margin-bottom: 1.5rem;
-  max-width: 900px;
+  line-height: 1.1;
+  margin-bottom: 2rem;
+  max-width: 850px;
+}
+
+.hero-title .hero-name {
+  display: block;
+  font-size: clamp(4rem, 9vw, 8rem);
+  line-height: 1;
+  margin-bottom: 0.2em;
+  background: linear-gradient(135deg, var(--text) 0%, rgba(232, 230, 225, 0.7) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .hero-title em {
@@ -317,10 +403,20 @@ section {
   color: var(--accent);
 }
 
-.hero-description {
-  font-size: 1.15rem;
+.hero-subtitle-line {
+  display: block;
+  font-size: clamp(1.1rem, 2.5vw, 1.6rem);
+  font-family: var(--font-body);
+  font-weight: 300;
   color: var(--text-muted);
-  max-width: 550px;
+  letter-spacing: 0.02em;
+  margin-top: 1em;
+}
+
+.hero-description {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  max-width: 500px;
   line-height: 1.8;
   margin-bottom: 2.5rem;
   font-weight: 300;
@@ -562,10 +658,31 @@ section {
 
 .timeline-period {
   font-family: var(--font-mono);
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   color: var(--accent);
-  letter-spacing: 0.1em;
-  margin-bottom: 0.5rem;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.8rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.timeline-period .tp-label {
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+}
+
+.timeline-period .tp-meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.25rem 0.7rem;
+  border-radius: 100px;
+  border: 1px solid currentColor;
+  opacity: 0.7;
+  font-size: 0.65rem;
 }
 
 .timeline-item:nth-child(2) .timeline-period { color: var(--accent2); }
@@ -614,6 +731,199 @@ section {
   border-color: var(--accent);
   color: var(--accent);
   background: var(--accent-glow);
+}
+
+/* ═══════════════════════════════════════
+   CERTIFICATES
+   ═══════════════════════════════════════ */
+#certificaten {
+  max-width: 1200px;
+  margin: 0 auto;
+  min-height: auto;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+
+.cert-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  align-items: stretch;
+}
+
+.cert-card {
+  background: linear-gradient(145deg, #1a1a22 0%, #16161e 100%);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 4px;
+  padding: 2.2rem 2rem;
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  min-height: 220px;
+}
+
+/* Double border inset */
+.cert-card::before {
+  content: '';
+  position: absolute;
+  inset: 6px;
+  border: 1px solid rgba(255,255,255,0.04);
+  border-radius: 2px;
+  pointer-events: none;
+  transition: border-color 0.4s ease;
+}
+
+/* Top accent line */
+.cert-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cert-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(255,255,255,0.12);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+}
+
+.cert-card:hover::before {
+  border-color: rgba(255,255,255,0.06);
+}
+
+.cert-card:hover::after {
+  transform: scaleX(1);
+}
+
+.cert-card:nth-child(1)::after { background: var(--accent); }
+.cert-card:nth-child(2)::after { background: var(--accent2); }
+.cert-card:nth-child(3)::after { background: var(--accent3); }
+.cert-card:nth-child(4)::after { background: var(--accent2); }
+
+/* Seal/stamp watermark */
+.cert-seal {
+  position: absolute;
+  bottom: -8px;
+  right: -8px;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.03);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  opacity: 0.12;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.cert-card:hover .cert-seal { opacity: 0.2; }
+
+.cert-university {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.cert-card:nth-child(1) .cert-university { color: var(--accent); }
+.cert-card:nth-child(2) .cert-university { color: var(--accent2); }
+.cert-card:nth-child(3) .cert-university { color: var(--accent3); }
+.cert-card:nth-child(4) .cert-university { color: var(--accent2); }
+
+.cert-link-icon {
+  font-size: 1rem;
+  opacity: 0.4;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.cert-card:hover .cert-link-icon {
+  opacity: 1;
+  transform: translate(2px, -2px);
+}
+
+.cert-divider {
+  width: 30px;
+  height: 1px;
+  position: relative;
+  z-index: 1;
+}
+
+.cert-card:nth-child(1) .cert-divider { background: rgba(196, 149, 106, 0.3); }
+.cert-card:nth-child(2) .cert-divider { background: rgba(122, 158, 142, 0.3); }
+.cert-card:nth-child(3) .cert-divider { background: rgba(155, 138, 184, 0.3); }
+.cert-card:nth-child(4) .cert-divider { background: rgba(122, 158, 142, 0.3); }
+
+.cert-title {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 700;
+  line-height: 1.4;
+  position: relative;
+  z-index: 1;
+}
+
+.cert-platform {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-top: auto;
+  position: relative;
+  z-index: 1;
+}
+
+.cert-card.cert-coming {
+  border-style: dashed;
+  border-color: rgba(255,255,255,0.06);
+  background: transparent;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  cursor: default;
+}
+
+.cert-card.cert-coming:hover {
+  transform: none;
+  box-shadow: none;
+  border-color: rgba(255,255,255,0.1);
+}
+
+.cert-card.cert-coming::before,
+.cert-card.cert-coming::after {
+  display: none;
+}
+
+.cert-coming-icon {
+  font-size: 1.8rem;
+  opacity: 0.25;
+  margin-bottom: 0.3rem;
+}
+
+.cert-coming-text {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  letter-spacing: 0.1em;
+  opacity: 0.6;
 }
 
 /* ═══════════════════════════════════════
@@ -900,6 +1210,70 @@ footer {
 }
 
 /* ═══════════════════════════════════════
+   ABOUT DETAILS CARD
+   ═══════════════════════════════════════ */
+.about-details {
+  margin-top: 2rem;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.6rem 1.2rem;
+  padding: 1.8rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  position: relative;
+  overflow: hidden;
+}
+
+.about-details::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 3px;
+  height: 100%;
+  background: linear-gradient(to bottom, var(--accent), var(--accent2), var(--accent3));
+}
+
+.about-details-label {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  padding-top: 0.15rem;
+}
+
+.about-details-value {
+  font-size: 0.9rem;
+  color: var(--text);
+  font-weight: 400;
+}
+
+.about-details-value .detail-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.about-details-value .detail-tag {
+  display: inline-block;
+  padding: 0.2rem 0.65rem;
+  border-radius: 100px;
+  font-size: 0.75rem;
+  font-family: var(--font-mono);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  transition: all 0.3s ease;
+}
+
+.about-details-value .detail-tag:nth-child(1) { border-color: rgba(196, 149, 106, 0.3); color: var(--accent); }
+.about-details-value .detail-tag:nth-child(2) { border-color: rgba(122, 158, 142, 0.3); color: var(--accent2); }
+.about-details-value .detail-tag:nth-child(3) { border-color: rgba(155, 138, 184, 0.3); color: var(--accent3); }
+.about-details-value .detail-tag:nth-child(4) { border-color: rgba(196, 149, 106, 0.3); color: var(--accent); }
+.about-details-value .detail-tag:nth-child(5) { border-color: rgba(122, 158, 142, 0.3); color: var(--accent2); }
+
+/* ═══════════════════════════════════════
    MOBILE RESPONSIVE
    ═══════════════════════════════════════ */
 @media (max-width: 900px) {
@@ -907,6 +1281,15 @@ footer {
   
   nav { padding: 1rem 1.5rem; }
   .nav-links { display: none; }
+  
+  #hero { padding: 0 1.5rem; }
+  
+  .hero-orb--1 { filter: blur(60px); opacity: 0.7; }
+  .hero-orb--2 { filter: blur(50px); }
+  
+  .hero-title .hero-name {
+    font-size: clamp(3.2rem, 12vw, 5rem);
+  }
   
   #about {
     grid-template-columns: 1fr;
@@ -916,15 +1299,41 @@ footer {
   .about-visual { max-height: 350px; }
   .about-stats { grid-template-columns: repeat(3, 1fr); gap: 1rem; }
   
+  .about-details { gap: 0.5rem 1rem; padding: 1.4rem; }
+  
   .projects-grid { grid-template-columns: 1fr; }
+  .cert-grid { grid-template-columns: 1fr; }
   
   .hero-cta { flex-direction: column; }
   .btn { justify-content: center; }
+  
+  .timeline { padding-left: 2.5rem; }
+  .timeline-dot { left: -2.95rem; }
+  
+  .timeline-period {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.4rem;
+  }
 }
 
 @media (max-width: 500px) {
   .about-stats { grid-template-columns: 1fr; }
   .visie-grid { grid-template-columns: 1fr; }
+  
+  .about-details { grid-template-columns: 1fr; gap: 0.2rem; }
+  .about-details-label { margin-top: 0.6rem; }
+  
+  .hero-title .hero-name {
+    font-size: clamp(2.8rem, 14vw, 4rem);
+  }
+  
+  .hero-bg-text {
+    font-size: clamp(10rem, 45vw, 20rem);
+    right: -15%;
+  }
+  
+  .hero-scroll-indicator { display: none; }
 }
 </style>
 </head>
@@ -954,6 +1363,7 @@ footer {
     <li><a href="#about">Over mij</a></li>
     <li><a href="#stages">Stages</a></li>
     <li><a href="#projecten">Projecten</a></li>
+    <li><a href="#certificaten">Certificaten</a></li>
     <li><a href="#visie">Visie</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
@@ -961,10 +1371,16 @@ footer {
 
 <!-- ═══════════ HERO ═══════════ -->
 <section id="hero">
+  <div class="hero-orb hero-orb--1"></div>
+  <div class="hero-orb hero-orb--2"></div>
+  <div class="hero-orb hero-orb--3"></div>
   <div class="hero-bg-text">K</div>
+  <div class="hero-rule reveal"></div>
   <div class="hero-greeting reveal">Hallo, ik ben</div>
   <h1 class="hero-title reveal reveal-delay-1">
-    Kobe<br><em>— orthopedagogisch begeleider</em><br>in opleiding.
+    <span class="hero-name">Kobe.</span>
+    <em>Orthopedagogisch begeleider</em>
+    <span class="hero-subtitle-line">in opleiding.</span>
   </h1>
   <p class="hero-description reveal reveal-delay-2">
     Student Orthopedagogische Begeleiding aan UCLL. Stagiair in de psychiatrie. 
@@ -1034,6 +1450,23 @@ footer {
         <div class="stat-label">Afstudeerjaar</div>
       </div>
     </div>
+    
+    <div class="about-details reveal reveal-delay-5">
+      <span class="about-details-label">Leeftijd</span>
+      <span class="about-details-value">25 — ° 26 mei 2000</span>
+      <span class="about-details-label">Woonplaats</span>
+      <span class="about-details-value">Leuven</span>
+      <span class="about-details-label">Interesses</span>
+      <span class="about-details-value">
+        <span class="detail-tags">
+          <span class="detail-tag">videografie</span>
+          <span class="detail-tag">hond Bink 🐕</span>
+          <span class="detail-tag">hardlopen</span>
+          <span class="detail-tag">culturen ontdekken</span>
+          <span class="detail-tag">tech-geek</span>
+        </span>
+      </span>
+    </div>
   </div>
 </section>
 
@@ -1046,7 +1479,7 @@ footer {
     <!-- Stage 1 -->
     <div class="timeline-item reveal">
       <div class="timeline-dot"></div>
-      <div class="timeline-period">Stage 1 — Beroepspraktijk 1 · 200 uur · okt 2024 – jan 2025</div>
+      <div class="timeline-period"><span class="tp-label">Beroepspraktijk 1</span><span class="tp-meta">200 uur · okt 2024 – jan 2025</span></div>
       <div class="timeline-title">Rozemarijn VZW</div>
       <div class="timeline-org">Leefgroep voor personen met een verstandelijke beperking</div>
       <div class="timeline-description">
@@ -1064,7 +1497,7 @@ footer {
     <!-- Stage 2 -->
     <div class="timeline-item reveal">
       <div class="timeline-dot"></div>
-      <div class="timeline-period">Stage 2 — Beroepspraktijk 2 · 200 uur · apr 2025 – jun 2025</div>
+      <div class="timeline-period"><span class="tp-label">Beroepspraktijk 2</span><span class="tp-meta">200 uur · apr 2025 – jun 2025</span></div>
       <div class="timeline-title">Sint-Kamillus OPM</div>
       <div class="timeline-org">Psychiatrisch ziekenhuis — observatie- en behandelunit</div>
       <div class="timeline-description">
@@ -1082,7 +1515,7 @@ footer {
     <!-- Stage 3 -->
     <div class="timeline-item reveal">
       <div class="timeline-dot"></div>
-      <div class="timeline-period">Stage 3 — Beroepspraktijk 3 (huidig) · 400 uur · feb 2026 – heden</div>
+      <div class="timeline-period"><span class="tp-label">Beroepspraktijk 3 (huidig)</span><span class="tp-meta">400 uur · feb 2026 – heden</span></div>
       <div class="timeline-title">De Zeilen 2 — Zorggroep Myna</div>
       <div class="timeline-org">Psychiatrisch ziekenhuis — afdeling voor personen met een verstandelijke beperking en psychiatrische problematiek</div>
       <div class="timeline-description">
@@ -1155,6 +1588,62 @@ footer {
   </div>
 </section>
 
+<!-- ═══════════ CERTIFICATES ═══════════ -->
+<section id="certificaten">
+  <div class="section-label reveal">Certificaten</div>
+  
+  <div class="cert-grid">
+    <a href="https://coursera.org/share/2d4270b6cde45d2e7e779ac6a45296f8" target="_blank" class="cert-card reveal reveal-delay-1">
+      <div class="cert-seal">🏥</div>
+      <div class="cert-university">
+        <span>Johns Hopkins University</span>
+        <span class="cert-link-icon">↗</span>
+      </div>
+      <div class="cert-divider"></div>
+      <div class="cert-title">Psychological First Aid</div>
+      <div class="cert-platform">Coursera · 2025</div>
+    </a>
+    
+    <a href="https://coursera.org/share/243639fad6c604bc6e9fe5b40a6b2a3c" target="_blank" class="cert-card reveal reveal-delay-2">
+      <div class="cert-seal">🏳️‍🌈</div>
+      <div class="cert-university">
+        <span>University of Colorado</span>
+        <span class="cert-link-icon">↗</span>
+      </div>
+      <div class="cert-divider"></div>
+      <div class="cert-title">Queering Identities: LGBTQ+ Sexuality and Gender Identity</div>
+      <div class="cert-platform">Coursera · 2026</div>
+    </a>
+    
+    <a href="https://coursera.org/share/fa6f59888cfb55cd9e94e5ffbdecad36" target="_blank" class="cert-card reveal reveal-delay-3">
+      <div class="cert-seal">🧠</div>
+      <div class="cert-university">
+        <span>The University of Edinburgh</span>
+        <span class="cert-link-icon">↗</span>
+      </div>
+      <div class="cert-divider"></div>
+      <div class="cert-title">Philosophy and the Sciences: Introduction to the Philosophy of Cognitive Sciences</div>
+      <div class="cert-platform">Coursera · 2026</div>
+    </a>
+    
+    <a href="vbm-certificaat.pdf" target="_blank" class="cert-card reveal reveal-delay-4">
+      <div class="cert-seal">🏛️</div>
+      <div class="cert-university">
+        <span>Sint-Kamillus Zorggroep</span>
+        <span class="cert-link-icon">↗</span>
+      </div>
+      <div class="cert-divider"></div>
+      <div class="cert-title">Vrijheidsbeperkende Maatregelen (VBM)</div>
+      <div class="cert-platform">E-Learning · 2025</div>
+    </a>
+    
+    <div class="cert-card cert-coming reveal reveal-delay-5">
+      <div class="cert-coming-icon">+</div>
+      <div class="cert-coming-text">Meer onderweg...</div>
+    </div>
+  </div>
+</section>
+
 <!-- ═══════════ MARQUEE 2 ═══════════ -->
 <div class="marquee-section">
   <div class="marquee" style="animation-direction: reverse;">
@@ -1213,7 +1702,7 @@ footer {
     Je vindt me hier.
   </p>
   <div class="contact-links reveal reveal-delay-3">
-    <a href="mailto:kobe.cornelis4@gmail.com" class="contact-link">✉️ E-mail</a>
+    <a href="/cdn-cgi/l/email-protection#43282c21266d202c312d262f2a307703242e222a2f6d202c2e" class="contact-link">✉️ E-mail</a>
     <a href="https://www.linkedin.com/in/kobecornelis/" class="contact-link" target="_blank">💼 LinkedIn</a>
     <a href="https://github.com/kobec00" class="contact-link" target="_blank">🖥️ GitHub</a>
   </div>
@@ -1225,7 +1714,7 @@ footer {
 </footer>
 
 <!-- ═══════════ SCRIPTS ═══════════ -->
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 // ─── LOADING SCREEN ───
 (function initLoader() {
   const name = "KOBE";
@@ -1328,12 +1817,19 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   });
 });
 
-// ─── PARALLAX ON HERO BG TEXT ───
+// ─── PARALLAX ON HERO ELEMENTS ───
 window.addEventListener('scroll', () => {
+  const scrolled = window.scrollY;
   const bgText = document.querySelector('.hero-bg-text');
-  if (bgText) {
-    const scrolled = window.scrollY;
-    bgText.style.transform = `translateY(calc(-50% + ${scrolled * 0.3}px))`;
+  const orb1 = document.querySelector('.hero-orb--1');
+  const orb2 = document.querySelector('.hero-orb--2');
+  const orb3 = document.querySelector('.hero-orb--3');
+  
+  if (bgText && scrolled < window.innerHeight) {
+    bgText.style.transform = `translateY(calc(-50% + ${scrolled * 0.5}px))`;
+    if (orb1) orb1.style.transform = `translate(${Math.sin(scrolled * 0.003) * 30}px, ${scrolled * 0.2}px)`;
+    if (orb2) orb2.style.transform = `translate(${Math.cos(scrolled * 0.004) * 20}px, ${scrolled * -0.15}px)`;
+    if (orb3) orb3.style.transform = `translate(${scrolled * -0.1}px, ${scrolled * 0.18}px)`;
   }
 });
 </script>
