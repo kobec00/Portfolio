@@ -978,6 +978,42 @@ section {
 
 .project-card:hover::before { transform: scaleX(1); }
 
+.project-card.project-coming {
+  border-style: dashed;
+  border-color: rgba(255,255,255,0.06);
+  background: transparent;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  cursor: default;
+  display: flex;
+  flex-direction: column;
+  min-height: 200px;
+}
+
+.project-card.project-coming:hover {
+  transform: none;
+  box-shadow: none;
+  border-color: rgba(255,255,255,0.1);
+}
+
+.project-card.project-coming::before { display: none; }
+
+.project-coming-icon {
+  font-size: 1.8rem;
+  opacity: 0.25;
+  margin-bottom: 0.3rem;
+  color: var(--text);
+}
+
+.project-coming-text {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  letter-spacing: 0.1em;
+  opacity: 0.6;
+}
+
 .project-icon {
   width: 48px;
   height: 48px;
@@ -1585,6 +1621,11 @@ footer {
         <span>GitHub Pages</span>
       </div>
     </a>
+    
+    <div class="project-card project-coming reveal reveal-delay-4">
+      <div class="project-coming-icon">+</div>
+      <div class="project-coming-text">Meer onderweg...</div>
+    </div>
   </div>
 </section>
 
