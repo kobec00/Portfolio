@@ -17,7 +17,7 @@
   --bg-elevated: #131318;
   --bg-card: #1a1a22;
   --text: #e8e6e1;
-  --text-muted: #8a8690;
+  --text-muted: #a8a4b0;
   --accent: #c4956a;
   --accent-light: #e2c4a8;
   --accent-glow: rgba(196, 149, 106, 0.15);
@@ -595,6 +595,26 @@ section {
   0% { opacity: 1; height: 40px; }
   50% { opacity: 0.3; height: 25px; }
   100% { opacity: 1; height: 40px; }
+}
+
+/* ═══════════════════════════════════════
+   HERO ILLUSTRATION (desktop only)
+   ═══════════════════════════════════════ */
+canvas.hero-illustration {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 55%;
+  height: 100%;
+  pointer-events: none;
+  opacity: 0;
+  animation: fadeUp 2s ease 3.5s forwards;
+  z-index: 0;
+}
+
+/* Hide on mobile/tablet */
+@media (max-width: 1100px) {
+  canvas.hero-illustration { display: none; }
 }
 
 /* ═══════════════════════════════════════
@@ -1438,6 +1458,74 @@ footer {
 #loader.hidden ~ .grain { z-index: 9998; }
 
 /* ═══════════════════════════════════════
+   KERNCOMPETENTIES
+   ═══════════════════════════════════════ */
+#competenties {
+  max-width: 1200px;
+  margin: 0 auto;
+  min-height: auto;
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+
+.competenties-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.comp-card {
+  padding: 2rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg-card);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.comp-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s ease;
+}
+
+.comp-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(196, 149, 106, 0.2);
+  box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+}
+
+.comp-card:hover::before {
+  transform: scaleX(1);
+}
+
+.comp-icon {
+  font-size: 1.6rem;
+  margin-bottom: 1rem;
+}
+
+.comp-card h3 {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  margin-bottom: 0.5rem;
+}
+
+.comp-card p {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  font-weight: 300;
+  line-height: 1.7;
+}
+
+/* ═══════════════════════════════════════
    HORIZONTAL SCROLL TEXT
    ═══════════════════════════════════════ */
 .marquee-section {
@@ -1479,13 +1567,13 @@ footer {
    ABOUT DETAILS CARD
    ═══════════════════════════════════════ */
 .about-details {
-  margin-top: 2rem;
+  margin-top: 2.5rem;
   display: grid;
   grid-template-columns: auto 1fr;
-  gap: 0.6rem 1.2rem;
-  padding: 1.8rem;
-  background: var(--bg-card);
-  border: 1px solid var(--border);
+  gap: 0.85rem 1.5rem;
+  padding: 2rem;
+  background: rgba(26, 26, 34, 0.35);
+  border: 1px solid rgba(255,255,255,0.04);
   border-radius: 12px;
   position: relative;
   overflow: hidden;
@@ -1496,9 +1584,9 @@ footer {
   position: absolute;
   top: 0;
   left: 0;
-  width: 3px;
+  width: 2px;
   height: 100%;
-  background: linear-gradient(to bottom, var(--accent), var(--accent2), var(--accent3));
+  background: linear-gradient(to bottom, rgba(196,149,106,0.4), rgba(122,158,142,0.3), rgba(155,138,184,0.2));
 }
 
 .about-details-label {
@@ -1507,7 +1595,8 @@ footer {
   color: var(--text-muted);
   text-transform: uppercase;
   letter-spacing: 0.15em;
-  padding-top: 0.15rem;
+  padding-top: 0.25rem;
+  align-self: start;
 }
 
 .about-details-value {
@@ -1538,6 +1627,9 @@ footer {
 .about-details-value .detail-tag:nth-child(3) { border-color: rgba(155, 138, 184, 0.3); color: var(--accent3); }
 .about-details-value .detail-tag:nth-child(4) { border-color: rgba(196, 149, 106, 0.3); color: var(--accent); }
 .about-details-value .detail-tag:nth-child(5) { border-color: rgba(122, 158, 142, 0.3); color: var(--accent2); }
+.about-details-value .detail-tag:nth-child(6) { border-color: rgba(155, 138, 184, 0.3); color: var(--accent3); }
+.about-details-value .detail-tag:nth-child(7) { border-color: rgba(196, 149, 106, 0.3); color: var(--accent); }
+.about-details-value .detail-tag:nth-child(8) { border-color: rgba(122, 158, 142, 0.3); color: var(--accent2); }
 
 /* ═══════════════════════════════════════
    SECTION DIVIDERS
@@ -1560,6 +1652,163 @@ footer {
   border-radius: 50%;
   border: 1px solid var(--accent);
   background: var(--bg);
+}
+
+/* ═══════════════════════════════════════
+   MOBILE FLOATING NAV
+   ═══════════════════════════════════════ */
+.mobile-nav {
+  display: none;
+  position: fixed;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%) translateY(120%);
+  z-index: 200;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.mobile-nav.visible {
+  transform: translateX(-50%) translateY(0);
+}
+
+/* The pill trigger */
+.mobile-nav-pill {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1.6rem;
+  background: rgba(20, 20, 26, 0.85);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(196, 149, 106, 0.2);
+  border-radius: 100px;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.03) inset;
+  position: relative;
+  z-index: 2;
+}
+
+.mobile-nav-pill:hover,
+.mobile-nav-pill:active {
+  border-color: rgba(196, 149, 106, 0.4);
+  box-shadow: 0 4px 30px rgba(196, 149, 106, 0.15), 0 4px 24px rgba(0,0,0,0.5);
+}
+
+.mobile-nav-pill-icon {
+  font-size: 0.75rem;
+  color: var(--accent);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  display: inline-block;
+}
+
+.mobile-nav.open .mobile-nav-pill-icon {
+  transform: rotate(180deg);
+}
+
+.mobile-nav-pill-text {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+/* Expanded panel */
+.mobile-nav-panel {
+  position: absolute;
+  bottom: calc(100% + 0.75rem);
+  left: 50%;
+  transform: translateX(-50%) scale(0.9);
+  opacity: 0;
+  visibility: hidden;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+  background: rgba(16, 16, 22, 0.92);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 20px;
+  padding: 0.6rem;
+  min-width: 280px;
+  box-shadow: 0 12px 48px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.02) inset;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  transform-origin: bottom center;
+}
+
+.mobile-nav.open .mobile-nav-panel {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) scale(1);
+}
+
+/* Nav items */
+.mobile-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.85rem 1rem;
+  text-decoration: none;
+  color: var(--text-muted);
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  font-weight: 400;
+  border-radius: 14px;
+  transition: all 0.25s ease;
+  position: relative;
+}
+
+.mobile-nav-item::before {
+  content: attr(data-icon);
+  font-size: 0.9rem;
+  color: var(--accent);
+  opacity: 0.6;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  width: 1.2rem;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.mobile-nav-item:active,
+.mobile-nav-item.active {
+  background: rgba(196, 149, 106, 0.08);
+  color: var(--text);
+}
+
+.mobile-nav-item:active::before,
+.mobile-nav-item.active::before {
+  opacity: 1;
+  transform: scale(1.15);
+}
+
+/* Backdrop overlay */
+.mobile-nav-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 199;
+  background: rgba(0,0,0,0.3);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.mobile-nav-backdrop.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Only show on mobile */
+@media (min-width: 901px) {
+  .mobile-nav { display: none !important; }
+  .mobile-nav-backdrop { display: none !important; }
+}
+
+@media (max-width: 900px) {
+  .mobile-nav { display: flex; }
 }
 
 /* ═══════════════════════════════════════
@@ -1592,6 +1841,7 @@ footer {
   
   .projects-grid { grid-template-columns: 1fr; }
   .cert-grid { grid-template-columns: 1fr; }
+  .competenties-grid { grid-template-columns: 1fr; }
   
   .hero-cta { flex-direction: column; }
   .btn { justify-content: center; }
@@ -1641,7 +1891,7 @@ footer {
 <div id="loader">
   <div class="loader-glow"></div>
   <div class="loader-name" id="loaderName"></div>
-  <div class="loader-subtitle">Orthopedagogie <span class="loader-sep"></span> Psychiatrie <span class="loader-sep"></span> Groei</div>
+  <div class="loader-subtitle">Orthopedagogie <span class="loader-sep"></span> Begeleiding <span class="loader-sep"></span> Groei</div>
   <div class="loader-bar-track">
     <div class="loader-bar-fill" id="loaderBar"></div>
   </div>
@@ -1655,6 +1905,7 @@ footer {
 <nav id="navbar">
   <a href="#hero" class="nav-logo">K.</a>
   <ul class="nav-links">
+    <li><a href="#competenties">Competenties</a></li>
     <li><a href="#about">Over mij</a></li>
     <li><a href="#stages">Stages</a></li>
     <li><a href="#projecten">Projecten</a></li>
@@ -1664,12 +1915,34 @@ footer {
   </ul>
 </nav>
 
+<!-- ═══════════ MOBILE FLOATING NAV ═══════════ -->
+<div class="mobile-nav" id="mobileNav">
+  <div class="mobile-nav-pill" id="mobileNavPill">
+    <span class="mobile-nav-pill-icon">↑</span>
+    <span class="mobile-nav-pill-text">Menu</span>
+  </div>
+  <div class="mobile-nav-panel" id="mobileNavPanel">
+    <a href="#hero" class="mobile-nav-item" data-icon="✦">Home</a>
+    <a href="#competenties" class="mobile-nav-item" data-icon="◈">Competenties</a>
+    <a href="#about" class="mobile-nav-item" data-icon="○">Over mij</a>
+    <a href="#stages" class="mobile-nav-item" data-icon="◉">Stages</a>
+    <a href="#projecten" class="mobile-nav-item" data-icon="△">Projecten</a>
+    <a href="#certificaten" class="mobile-nav-item" data-icon="□">Certificaten</a>
+    <a href="#visie" class="mobile-nav-item" data-icon="♡">Visie</a>
+    <a href="#contact" class="mobile-nav-item" data-icon="→">Contact</a>
+  </div>
+</div>
+<div class="mobile-nav-backdrop" id="mobileNavBackdrop"></div>
+
 <!-- ═══════════ HERO ═══════════ -->
 <section id="hero">
   <div class="hero-orb hero-orb--1"></div>
   <div class="hero-orb hero-orb--2"></div>
   <div class="hero-orb hero-orb--3"></div>
   <div class="hero-bg-text">K</div>
+  
+  <!-- Animated warm flower illustration (desktop) -->
+  <canvas class="hero-illustration" id="heroFlowers" aria-hidden="true"></canvas>
   <div class="hero-rule reveal"></div>
   <div class="hero-greeting reveal">Hallo, ik ben</div>
   <h1 class="hero-title reveal reveal-delay-1">
@@ -1678,9 +1951,10 @@ footer {
     <span class="hero-subtitle-line">in opleiding.</span>
   </h1>
   <p class="hero-description reveal reveal-delay-2">
-    Student Orthopedagogische Begeleiding aan UCLL. Stagiair in de psychiatrie. 
-    Gedreven door verbinding, gelijkwaardigheid en het geloof dat iedereen 
-    een plek verdient om te herstellen.
+    Student Orthopedagogische Begeleiding aan UCLL met ervaring in 
+    residentiële zorg en begeleiding. Gedreven door verbinding, 
+    gelijkwaardigheid en het geloof dat iedereen recht heeft op 
+    begeleiding op maat.
   </p>
   <div class="hero-cta reveal reveal-delay-3">
     <a href="#stages" class="btn btn-primary">Bekijk mijn traject ↓</a>
@@ -1696,19 +1970,60 @@ footer {
 <div class="marquee-section">
   <div class="marquee">
     <span>Orthopedagogie &bull;</span>
-    <span><em>Psychiatrie</em> &bull;</span>
-    <span>Verbinding &bull;</span>
-    <span><em>Herstel</em> &bull;</span>
+    <span><em>Verbinding</em> &bull;</span>
     <span>Inclusie &bull;</span>
-    <span><em>Groei</em> &bull;</span>
+    <span><em>Begeleiding</em> &bull;</span>
+    <span>Groei &bull;</span>
+    <span><em>Empowerment</em> &bull;</span>
     <span>Orthopedagogie &bull;</span>
-    <span><em>Psychiatrie</em> &bull;</span>
-    <span>Verbinding &bull;</span>
-    <span><em>Herstel</em> &bull;</span>
+    <span><em>Verbinding</em> &bull;</span>
     <span>Inclusie &bull;</span>
-    <span><em>Groei</em> &bull;</span>
+    <span><em>Begeleiding</em> &bull;</span>
+    <span>Groei &bull;</span>
+    <span><em>Empowerment</em> &bull;</span>
   </div>
 </div>
+
+<!-- ═══════════ KERNCOMPETENTIES ═══════════ -->
+<section id="competenties">
+  <div class="section-label reveal" style="justify-content: center;">Wat ik meebreng</div>
+  <h2 class="reveal reveal-delay-1" style="text-align:center; font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3.2rem); margin-bottom: 3rem;">Mijn <em style="font-style:italic; color:var(--accent);">kerncompetenties</em></h2>
+  
+  <div class="competenties-grid">
+    <div class="comp-card reveal">
+      <div class="comp-icon">💬</div>
+      <h3>Communicatie &amp; contact</h3>
+      <p>Helder communiceren, actief luisteren en verbinding maken — ook wanneer het moeilijk wordt.</p>
+    </div>
+    <div class="comp-card reveal reveal-delay-1">
+      <div class="comp-icon">🔍</div>
+      <h3>Observatie &amp; analyse</h3>
+      <p>Achter gedrag kijken, patronen herkennen en onderbouwd rapporteren vanuit een orthopedagogisch kader.</p>
+    </div>
+    <div class="comp-card reveal reveal-delay-2">
+      <div class="comp-icon">🤲</div>
+      <h3>Nabijheid &amp; afstand</h3>
+      <p>De balans vinden tussen warme betrokkenheid en professionele afstand, afgestemd op de noden van de cliënt.</p>
+    </div>
+    <div class="comp-card reveal reveal-delay-3">
+      <div class="comp-icon">⚡</div>
+      <h3>Crisisinterventie</h3>
+      <p>Kalm blijven en adequaat handelen in moeilijke situaties. Ervaring met de-escalatie en veiligheidsplannen.</p>
+    </div>
+    <div class="comp-card reveal reveal-delay-4">
+      <div class="comp-icon">🏳️‍🌈</div>
+      <h3>Inclusieve begeleiding</h3>
+      <p>Gendersensitief en LGBTQ+-vriendelijk werken als basishouding, niet als extra.</p>
+    </div>
+    <div class="comp-card reveal reveal-delay-4">
+      <div class="comp-icon">💻</div>
+      <h3>Digitale vaardigheden</h3>
+      <p>Webontwikkeling, digitale tools bouwen en creatief inzetten van technologie in de zorg.</p>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
 
 <!-- ═══════════ ABOUT ═══════════ -->
 <section id="about">
@@ -1724,12 +2039,12 @@ footer {
     <p class="about-text reveal reveal-delay-2">
       Ik ben Kobe — een warme, reflectieve mens met een bewogen achtergrond en een 
       duidelijke drive om verder te groeien. Wat begon als overleven, is geëvolueerd 
-      tot een bewuste keuze om betekenisvol werk te doen. De psychiatrie voelt als thuis: 
-      een plek waar ik mijn eigen ervaring kan omzetten in écht contact.
+      tot een bewuste keuze om betekenisvol werk te doen. De residentiële zorg voelt 
+      als thuis: een plek waar ik mijn eigen ervaring kan omzetten in écht contact.
     </p>
     <p class="about-text reveal reveal-delay-3">
-      Momenteel zit ik in mijn derde en laatste stage, op weg naar mijn graduaat 
-      Orthopedagogische Begeleiding. In september start ik de bachelor.
+      Momenteel rond ik mijn graduaat Orthopedagogische Begeleiding af aan UCLL. 
+      In september start ik de bachelor.
     </p>
     <div class="about-stats reveal reveal-delay-4">
       <div class="stat">
@@ -1751,6 +2066,8 @@ footer {
       <span class="about-details-value">25 — ° 26 mei 2000</span>
       <span class="about-details-label">Woonplaats</span>
       <span class="about-details-value">Leuven</span>
+      <span class="about-details-label">Talenkennis</span>
+      <span class="about-details-value">Nederlands (moedertaal)<br>Engels (professionele vaardigheid)</span>
       <span class="about-details-label">Interesses</span>
       <span class="about-details-value">
         <span class="detail-tags">
@@ -1759,6 +2076,9 @@ footer {
           <span class="detail-tag">hardlopen</span>
           <span class="detail-tag">culturen ontdekken</span>
           <span class="detail-tag">tech-geek</span>
+          <span class="detail-tag">psychologie</span>
+          <span class="detail-tag">popmuziek</span>
+          <span class="detail-tag">natuur</span>
         </span>
       </span>
     </div>
@@ -1799,36 +2119,19 @@ footer {
       <div class="timeline-title">Sint-Kamillus OPM</div>
       <div class="timeline-org">Psychiatrisch ziekenhuis — observatie- en behandelunit</div>
       <div class="timeline-description">
-        De stage die alles veranderde. Hier ontdekte ik mijn passie voor de psychiatrie: 
-        de complexiteit, het échte contact, de ruimte voor nuance. Ik leerde omgaan met 
-        crisisinterventie en de balans tussen nabijheid en professionele afstand.
+        De stage die alles veranderde. Hier ontdekte ik mijn passie voor complexe 
+        begeleidingsvragen: de nuance, het échte contact, de uitdaging om achter 
+        het gedrag te kijken. Ik leerde omgaan met crisisinterventie en de balans 
+        tussen nabijheid en professionele afstand.
       </div>
       <div class="timeline-tags">
-        <span class="tag">Psychiatrie</span>
+        <span class="tag">Residentiële zorg</span>
         <span class="tag">Crisisinterventie</span>
         <span class="tag">Observatie</span>
       </div>
     </div>
     
-    <!-- Stage 3 -->
-    <div class="timeline-item">
-      <div class="timeline-dot"></div>
-      <div class="timeline-period"><span class="tp-label">Beroepspraktijk 3 (huidig)</span><span class="tp-meta">400 uur · feb 2026 – heden</span></div>
-      <div class="timeline-title">De Zeilen 2 — Zorggroep Myna</div>
-      <div class="timeline-org">Psychiatrisch ziekenhuis — afdeling voor personen met een verstandelijke beperking en psychiatrische problematiek</div>
-      <div class="timeline-description">
-        Mijn eindstage. Hier breng ik alles samen: inhoudelijke kennis, 
-        relationele vaardigheden en een eigen professionele identiteit. 
-        Ik werk aan concrete projecten, waaronder een digitale check-in tool 
-        en mijn graduaatsproef over LGBTQ+-inclusie in de zorg.
-      </div>
-      <div class="timeline-tags">
-        <span class="tag">Psychiatrie</span>
-        <span class="tag">EMFI-tool</span>
-        <span class="tag">Graduaatsproef</span>
-        <span class="tag">LGBTQ+ inclusie</span>
-      </div>
-    </div>
+
   </div>
 </section>
 
@@ -1841,23 +2144,7 @@ footer {
   <h2 class="reveal reveal-delay-1">Wat ik maak</h2>
   
   <div class="projects-grid">
-    <a href="https://kobec00.github.io/EMFI/" target="_blank" class="project-card tilt-card reveal reveal-delay-1" style="text-decoration:none;color:inherit;">
-      <div class="project-icon">🧠</div>
-      <div class="project-title">EMFI Check-in App</div>
-      <div class="project-description">
-        Een digitale check-in tool voor psychiatrische patiënten op De Zeilen 2. 
-        Twee versies: een visueel rijke versie en een toegankelijke variant voor 
-        personen met een verstandelijke beperking of autisme.
-      </div>
-      <div class="project-tech">
-        <span>UX Design</span>
-        <span>Toegankelijkheid</span>
-        <span>Psychiatrie</span>
-        <span>PWA</span>
-      </div>
-    </a>
-    
-    <div class="project-card tilt-card reveal reveal-delay-2">
+    <div class="project-card tilt-card reveal reveal-delay-1">
       <div class="project-icon">🏳️‍🌈</div>
       <div class="project-title">Graduaatsproef</div>
       <div class="project-description">
@@ -1872,6 +2159,22 @@ footer {
         <span>Zorgethiek</span>
       </div>
     </div>
+    
+    <a href="https://kobec00.github.io/EMFI/" target="_blank" class="project-card tilt-card reveal reveal-delay-2" style="text-decoration:none;color:inherit;">
+      <div class="project-icon">🧠</div>
+      <div class="project-title">EMFI Check-in App</div>
+      <div class="project-description">
+        Een digitale check-in tool voor cliënten in een residentiële zorgsetting. 
+        Twee versies: een visueel rijke versie en een toegankelijke variant voor 
+        personen met een verstandelijke beperking of autisme.
+      </div>
+      <div class="project-tech">
+        <span>UX Design</span>
+        <span>Toegankelijkheid</span>
+        <span>Welzijn</span>
+        <span>PWA</span>
+      </div>
+    </a>
     
     <a href="https://kobec00.github.io/kobe-dashboard/" target="_blank" class="project-card tilt-card reveal reveal-delay-3" style="text-decoration:none;color:inherit;">
       <div class="project-icon">📊</div>
@@ -1973,7 +2276,7 @@ footer {
   <div class="section-label reveal" style="justify-content: center;">Mijn visie</div>
   <h2 class="reveal reveal-delay-1">Waar ik voor sta</h2>
   <p class="visie-quote reveal reveal-delay-2">
-    "Iedereen verdient een plek om te herstellen — zonder oordeel, 
+    "Iedereen verdient begeleiding die vertrekt vanuit respect — zonder oordeel, 
     met begrip, en op eigen tempo."
   </p>
   
@@ -1987,7 +2290,7 @@ footer {
     <div class="visie-item reveal reveal-delay-1">
       <div class="visie-item-icon">🌱</div>
       <h3>Herstelgericht werken</h3>
-      <p>Niet de stoornis centraal, maar de mens. Focus op kracht, veerkracht 
+      <p>Niet het probleem centraal, maar de mens. Focus op kracht, veerkracht 
         en het creëren van ruimte voor groei.</p>
     </div>
     <div class="visie-item reveal reveal-delay-2">
@@ -2008,7 +2311,7 @@ footer {
     Je vindt me hier.
   </p>
   <div class="contact-links reveal reveal-delay-3">
-    <a href="/cdn-cgi/l/email-protection#43282c21266d202c312d262f2a307703242e222a2f6d202c2e" class="contact-link">✉️ E-mail</a>
+    <a href="mailto:kobe.cornelis4@gmail.com" class="contact-link">✉️ E-mail</a>
     <a href="https://www.linkedin.com/in/kobecornelis/" class="contact-link" target="_blank">💼 LinkedIn</a>
     <a href="https://github.com/kobec00" class="contact-link" target="_blank">🖥️ GitHub</a>
   </div>
@@ -2115,18 +2418,81 @@ document.querySelectorAll('.reveal').forEach(el => {
 // ─── NAVBAR SCROLL BEHAVIOR ───
 let lastScroll = 0;
 const navbar = document.getElementById('navbar');
+const mobileNav = document.getElementById('mobileNav');
 
 window.addEventListener('scroll', () => {
   const currentScroll = window.scrollY;
   
   if (currentScroll > 100) {
     navbar.classList.add('visible');
+    if (mobileNav) mobileNav.classList.add('visible');
   } else {
     navbar.classList.remove('visible');
+    if (mobileNav) mobileNav.classList.remove('visible');
   }
   
   lastScroll = currentScroll;
 });
+
+// ─── MOBILE NAV TOGGLE ───
+(function initMobileNav() {
+  const pill = document.getElementById('mobileNavPill');
+  const panel = document.getElementById('mobileNavPanel');
+  const nav = document.getElementById('mobileNav');
+  const backdrop = document.getElementById('mobileNavBackdrop');
+  if (!pill || !nav) return;
+  
+  function openNav() {
+    nav.classList.add('open');
+    backdrop.classList.add('visible');
+  }
+  
+  function closeNav() {
+    nav.classList.remove('open');
+    backdrop.classList.remove('visible');
+  }
+  
+  function toggleNav() {
+    if (nav.classList.contains('open')) closeNav();
+    else openNav();
+  }
+  
+  pill.addEventListener('click', toggleNav);
+  backdrop.addEventListener('click', closeNav);
+  
+  // Close on link click + smooth scroll
+  panel.querySelectorAll('.mobile-nav-item').forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      closeNav();
+      const target = document.querySelector(link.getAttribute('href'));
+      if (target) {
+        setTimeout(() => {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 250);
+      }
+    });
+  });
+  
+  // Highlight active section
+  const sections = document.querySelectorAll('section[id]');
+  const items = panel.querySelectorAll('.mobile-nav-item');
+  
+  function updateActive() {
+    let current = '';
+    sections.forEach(s => {
+      const top = s.offsetTop - 200;
+      if (window.scrollY >= top) current = s.id;
+    });
+    items.forEach(item => {
+      const href = item.getAttribute('href').replace('#', '');
+      item.classList.toggle('active', href === current);
+    });
+  }
+  
+  window.addEventListener('scroll', updateActive, { passive: true });
+  updateActive();
+})();
 
 // ─── SMOOTH SCROLL FOR NAV LINKS ───
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -2230,6 +2596,169 @@ window.addEventListener('scroll', () => {
     if (orb3) orb3.style.transform = `translate(${scrolled * -0.1}px, ${scrolled * 0.18}px)`;
   }
 });
+
+// ─── HERO FLOWER CANVAS ANIMATION ───
+(function initFlowers() {
+  const canvas = document.getElementById('heroFlowers');
+  if (!canvas || window.innerWidth < 1100) return;
+  const ctx = canvas.getContext('2d');
+  
+  function resize() {
+    const rect = canvas.parentElement.getBoundingClientRect();
+    const dpr = window.devicePixelRatio || 1;
+    canvas.width = rect.width * 0.55 * dpr;
+    canvas.height = rect.height * dpr;
+    canvas.style.width = (rect.width * 0.55) + 'px';
+    canvas.style.height = rect.height + 'px';
+    ctx.scale(dpr, dpr);
+  }
+  resize();
+  window.addEventListener('resize', resize);
+  
+  const W = () => canvas.width / (window.devicePixelRatio || 1);
+  const H = () => canvas.height / (window.devicePixelRatio || 1);
+  
+  const colors = {
+    gold: [196, 149, 106],
+    green: [122, 158, 142],
+    lavender: [155, 138, 184]
+  };
+  
+  function rgba(c, a) { return `rgba(${c[0]},${c[1]},${c[2]},${a})`; }
+  
+  // Draw a single petal as a bezier curve shape
+  function drawPetal(cx, cy, angle, len, width, color, alpha) {
+    ctx.save();
+    ctx.translate(cx, cy);
+    ctx.rotate(angle);
+    ctx.beginPath();
+    ctx.moveTo(0, 0);
+    ctx.bezierCurveTo(
+      width * 0.9, -len * 0.25,
+      width * 0.55, -len * 0.85,
+      0, -len
+    );
+    ctx.bezierCurveTo(
+      -width * 0.55, -len * 0.85,
+      -width * 0.9, -len * 0.25,
+      0, 0
+    );
+    ctx.fillStyle = rgba(color, alpha);
+    ctx.fill();
+    ctx.restore();
+  }
+  
+  // Draw a full flower
+  function drawFlower(cx, cy, petals, petalLen, petalW, color, baseAlpha, t, speed, rotOff) {
+    // More dynamic breathing — asymmetric inhale/exhale
+    const breatheX = Math.sin(t * speed) * 0.15 + Math.sin(t * speed * 1.7) * 0.05 + 1;
+    const breatheY = Math.sin(t * speed + 0.5) * 0.13 + Math.sin(t * speed * 2.1) * 0.04 + 1;
+    // Continuous slow rotation + wobble
+    const spin = t * speed * 0.12 + Math.sin(t * speed * 0.6) * 0.2 + rotOff;
+    // Gentle position drift
+    const driftX = Math.sin(t * speed * 0.4 + rotOff) * 6;
+    const driftY = Math.cos(t * speed * 0.35 + rotOff) * 5;
+    const alphaWave = Math.sin(t * speed * 0.7) * 0.06;
+    
+    ctx.save();
+    ctx.translate(cx + driftX, cy + driftY);
+    ctx.rotate(spin);
+    ctx.scale(breatheX, breatheY);
+    
+    // Soft glow behind flower
+    const grad = ctx.createRadialGradient(0, 0, 0, 0, 0, petalLen * 1.4);
+    grad.addColorStop(0, rgba(color, baseAlpha * 0.3));
+    grad.addColorStop(0.6, rgba(color, baseAlpha * 0.08));
+    grad.addColorStop(1, rgba(color, 0));
+    ctx.fillStyle = grad;
+    ctx.beginPath();
+    ctx.arc(0, 0, petalLen * 1.4, 0, Math.PI * 2);
+    ctx.fill();
+    
+    // Draw petals — each with individual sway
+    for (let i = 0; i < petals; i++) {
+      const baseAngle = (Math.PI * 2 / petals) * i;
+      // Each petal sways individually
+      const petalSway = Math.sin(t * speed * 1.3 + i * 1.8) * 0.12;
+      const petalStretch = 1 + Math.sin(t * speed * 0.9 + i * 2.2) * 0.08;
+      const angle = baseAngle + petalSway;
+      const pAlpha = baseAlpha + alphaWave + Math.sin(t * speed * 1.1 + i * 1.5) * 0.03;
+      
+      // Outer petal layer
+      drawPetal(0, 0, angle, petalLen * petalStretch, petalW, color, Math.max(0.01, pAlpha * 0.4));
+      // Inner petal layer — offset, slightly rotated
+      drawPetal(0, 0, angle + 0.18, petalLen * 0.6 * petalStretch, petalW * 0.65, color, Math.max(0.01, pAlpha * 0.6));
+    }
+    
+    // Glowing center
+    const cGrad = ctx.createRadialGradient(0, 0, 0, 0, 0, petalW * 0.9);
+    cGrad.addColorStop(0, rgba(color, baseAlpha * 0.9));
+    cGrad.addColorStop(0.5, rgba(color, baseAlpha * 0.3));
+    cGrad.addColorStop(1, rgba(color, 0));
+    ctx.fillStyle = cGrad;
+    ctx.beginPath();
+    ctx.arc(0, 0, petalW * 0.9, 0, Math.PI * 2);
+    ctx.fill();
+    
+    ctx.restore();
+  }
+  
+  // Particle specs
+  const particles = [];
+  for (let i = 0; i < 35; i++) {
+    particles.push({
+      x: Math.random(),
+      y: Math.random(),
+      r: Math.random() * 2 + 0.5,
+      speed: Math.random() * 0.3 + 0.08,
+      drift: Math.random() * 0.5 - 0.25,
+      phase: Math.random() * Math.PI * 2,
+      color: [colors.gold, colors.green, colors.lavender][Math.floor(Math.random() * 3)],
+      alpha: Math.random() * 0.12 + 0.04
+    });
+  }
+  
+  // Flower definitions — alpha reduced across the board
+  const flowers = [
+    { x: 0.48, y: 0.38, petals: 7, len: 55, w: 20, color: colors.gold, alpha: 0.18, speed: 0.4, rot: 0 },
+    { x: 0.78, y: 0.22, petals: 5, len: 35, w: 14, color: colors.green, alpha: 0.15, speed: 0.55, rot: 0.5 },
+    { x: 0.25, y: 0.65, petals: 6, len: 30, w: 12, color: colors.lavender, alpha: 0.14, speed: 0.45, rot: 1 },
+    { x: 0.65, y: 0.72, petals: 5, len: 22, w: 9, color: colors.gold, alpha: 0.11, speed: 0.6, rot: 2 },
+    { x: 0.35, y: 0.2, petals: 8, len: 18, w: 7, color: colors.green, alpha: 0.1, speed: 0.5, rot: 3 },
+    { x: 0.88, y: 0.55, petals: 6, len: 24, w: 10, color: colors.lavender, alpha: 0.12, speed: 0.35, rot: 1.5 },
+    { x: 0.12, y: 0.42, petals: 5, len: 16, w: 6, color: colors.gold, alpha: 0.08, speed: 0.65, rot: 4 },
+  ];
+  
+  let t = 0;
+  function draw() {
+    const w = W(), h = H();
+    ctx.clearRect(0, 0, w, h);
+    t += 0.007;
+    
+    // Draw particles (pollen/sparkle)
+    particles.forEach(p => {
+      const px = p.x * w + Math.sin(t * p.speed * 2 + p.phase) * 12;
+      const py = p.y * h + Math.sin(t * p.speed * 2.5 + p.phase + 1) * 18;
+      // Rising drift over time
+      p.y -= 0.00004 * p.speed;
+      if (p.y < -0.05) p.y = 1.05;
+      const a = p.alpha * (0.3 + Math.sin(t * p.speed * 5 + p.phase) * 0.7);
+      
+      ctx.beginPath();
+      ctx.arc(px, py, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = rgba(p.color, Math.max(0, a));
+      ctx.fill();
+    });
+    
+    // Draw flowers
+    flowers.forEach(f => {
+      drawFlower(f.x * w, f.y * h, f.petals, f.len, f.w, f.color, f.alpha, t, f.speed, f.rot);
+    });
+    
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
 </script>
 
 </body>
