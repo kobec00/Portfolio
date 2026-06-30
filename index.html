@@ -6,7 +6,25 @@
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kobe — Portfolio Orthopedagogie</title>
+<title>Kobe Cornelis — Portfolio Orthopedagogische Begeleiding</title>
+<meta name="description" content="Portfolio van Kobe Cornelis, orthopedagogisch begeleider met ervaring in residentiële zorg, mobiele begeleiding en psychiatrie. Gedreven door verbinding, gelijkwaardigheid en inclusieve zorg.">
+<meta name="author" content="Kobe Cornelis">
+<meta name="theme-color" content="#0a0a0c">
+
+<!-- Open Graph (sociale media previews) -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Kobe Cornelis — Orthopedagogisch begeleider">
+<meta property="og:description" content="Portfolio met ervaring in residentiële zorg, mobiele begeleiding en psychiatrie. Gedreven door verbinding, gelijkwaardigheid en inclusieve zorg.">
+<meta property="og:image" content="og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="nl_BE">
+
+<!-- Twitter/X card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Kobe Cornelis — Orthopedagogisch begeleider">
+<meta name="twitter:description" content="Portfolio met ervaring in residentiële zorg, mobiele begeleiding en psychiatrie.">
+<meta name="twitter:image" content="og-image.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;700&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
 <style>
@@ -348,6 +366,63 @@ section {
   position: relative;
   overflow: hidden;
 }
+
+/* Zacht kleurwaas achter de hero — pulseert traag van tint,
+   GEEN verschuiving (zodat niets met de scroll lijkt mee te bewegen).
+   Animatie E. */
+#hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(38% 44% at 72% 28%, rgba(196, 149, 106, 0.16) 0%, transparent 62%),
+    radial-gradient(42% 50% at 22% 72%, rgba(122, 158, 142, 0.13) 0%, transparent 62%),
+    radial-gradient(34% 42% at 52% 58%, rgba(155, 138, 184, 0.11) 0%, transparent 62%);
+  filter: blur(60px);
+  opacity: 0;
+  animation: heroHazeIn 2s ease 2.6s forwards;
+}
+
+/* Tweede laag die alleen de tint zacht laat ademen via opacity-pulse */
+#hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(40% 46% at 30% 35%, rgba(155, 138, 184, 0.12) 0%, transparent 60%),
+    radial-gradient(44% 52% at 78% 68%, rgba(196, 149, 106, 0.12) 0%, transparent 60%);
+  filter: blur(70px);
+  opacity: 0;
+  animation: heroHazeIn2 2s ease 2.6s forwards, heroHazePulse 14s ease-in-out 4.6s infinite;
+}
+
+@keyframes heroHazeIn {
+  to { opacity: 1; }
+}
+@keyframes heroHazeIn2 {
+  to { opacity: 0.5; }
+}
+/* Alleen opacity verandert — geen transform, dus geen beweging */
+@keyframes heroHazePulse {
+  0%, 100% { opacity: 0.25; }
+  50% { opacity: 0.7; }
+}
+
+/* Sfeerlagen achter de tekst houden; tekst-content naar voren */
+#hero::before, #hero::after { z-index: 0; }
+.hero-orb, .hero-bg-text { z-index: 0; }
+#hero > .hero-rule,
+#hero > .hero-greeting,
+#hero > .hero-title,
+#hero > .hero-description,
+#hero > .hero-cta { position: relative; z-index: 2; }
+
+/* Scroll-indicator blijft absoluut onderaan; alleen z-index verhogen */
+.hero-scroll-indicator { z-index: 2; }
 
 /* Animated gradient orbs */
 .hero-orb {
@@ -713,6 +788,16 @@ canvas.hero-illustration {
   color: var(--accent);
 }
 
+/* Subtiele blur terwijl het cijfer omhoog telt */
+.stat-number.counting {
+  filter: blur(3px);
+  opacity: 0.85;
+}
+
+.stat-number {
+  transition: filter 0.4s ease, opacity 0.4s ease;
+}
+
 .stat-label {
   font-size: 0.8rem;
   color: var(--text-muted);
@@ -750,6 +835,25 @@ canvas.hero-illustration {
   background: linear-gradient(to bottom, var(--accent), var(--accent2), var(--accent3));
   transform-origin: top;
   border-radius: 2px;
+}
+
+/* Gloeiend punt dat met de scroll langs de lijn naar beneden reist */
+.timeline::after {
+  content: '';
+  position: absolute;
+  left: var(--line-x);
+  top: 0;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  /* verticale positie volgt de scroll-voortgang van de lijn */
+  transform: translate(-50%, calc(var(--line-progress, 0) * var(--timeline-h, 0px) - 50%));
+  background: radial-gradient(circle, var(--accent-light) 0%, var(--accent) 45%, transparent 70%);
+  box-shadow: 0 0 14px 4px var(--accent-glow),
+              0 0 28px 8px rgba(196, 149, 106, 0.18);
+  opacity: var(--line-progress, 0);
+  pointer-events: none;
+  will-change: transform;
 }
 
 .timeline-item {
@@ -1873,6 +1977,65 @@ footer {
   
   .hero-scroll-indicator { display: none; }
 }
+
+/* Geen hover-glow op touch-apparaten (voorkomt 'plakkende' spotlight) */
+@media (hover: none), (pointer: coarse) {
+  .project-card::after,
+  .comp-card::after,
+  .has-spotlight::after { opacity: 0 !important; }
+}
+
+/* ═══════════════════════════════════════
+   LETTER-VOOR-LETTER HEADING REVEAL (animatie B)
+   ═══════════════════════════════════════ */
+.char-reveal .char {
+  display: inline-block;
+  opacity: 0;
+  filter: blur(12px);
+  transform: translateY(0.3em);
+  transition: opacity 0.6s ease, filter 0.6s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.char-reveal.chars-in .char {
+  opacity: 1;
+  filter: blur(0);
+  transform: translateY(0);
+}
+
+/* spaties moeten hun breedte behouden */
+.char-reveal .char.space {
+  width: 0.28em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .char-reveal .char {
+    opacity: 1 !important;
+    filter: none !important;
+    transform: none !important;
+  }
+}
+
+/* ═══════════════════════════════════════
+   TOEGANKELIJKHEID: verminder beweging
+   Respecteert de OS-instelling "reduce motion".
+   ═══════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  /* Continu bewegende sfeerelementen volledig stilzetten */
+  .hero-orb,
+  .loader-glow,
+  .loader-dots span,
+  .marquee,
+  .footer-heart { animation: none !important; }
+  /* Zorg dat reveal-content gewoon zichtbaar is zonder in te animeren */
+  .reveal { opacity: 1 !important; transform: none !important; }
+  .hero-illustration { display: none; }
+}
 </style>
 </head>
 <body>
@@ -1989,32 +2152,32 @@ footer {
   
   <div class="competenties-grid">
     <div class="comp-card reveal">
-      <div class="comp-icon">💬</div>
+      <div class="comp-icon" aria-hidden="true">💬</div>
       <h3>Communicatie &amp; contact</h3>
       <p>Helder communiceren, actief luisteren en verbinding maken — ook wanneer het moeilijk wordt.</p>
     </div>
     <div class="comp-card reveal reveal-delay-1">
-      <div class="comp-icon">🔍</div>
+      <div class="comp-icon" aria-hidden="true">🔍</div>
       <h3>Observatie &amp; analyse</h3>
       <p>Achter gedrag kijken, patronen herkennen en onderbouwd rapporteren vanuit een orthopedagogisch kader.</p>
     </div>
     <div class="comp-card reveal reveal-delay-2">
-      <div class="comp-icon">🤲</div>
+      <div class="comp-icon" aria-hidden="true">🤲</div>
       <h3>Nabijheid &amp; afstand</h3>
       <p>De balans vinden tussen warme betrokkenheid en professionele afstand, afgestemd op de noden van de cliënt.</p>
     </div>
     <div class="comp-card reveal reveal-delay-3">
-      <div class="comp-icon">⚡</div>
+      <div class="comp-icon" aria-hidden="true">⚡</div>
       <h3>Crisisinterventie</h3>
       <p>Kalm blijven en adequaat handelen in moeilijke situaties.</p>
     </div>
     <div class="comp-card reveal reveal-delay-4">
-      <div class="comp-icon">🏳️‍🌈</div>
+      <div class="comp-icon" aria-hidden="true">🏳️‍🌈</div>
       <h3>Inclusieve begeleiding</h3>
       <p>Gendersensitief en LGBTQ+-vriendelijk werken als onderdeel van een open, respectvolle begeleidingsstijl.</p>
     </div>
     <div class="comp-card reveal reveal-delay-4">
-      <div class="comp-icon">💻</div>
+      <div class="comp-icon" aria-hidden="true">💻</div>
       <h3>Digitale vaardigheden</h3>
       <p>Webontwikkeling, digitale tools bouwen en creatief inzetten van technologie in de zorg.</p>
     </div>
@@ -2046,7 +2209,7 @@ footer {
     </p>
     <div class="about-stats reveal reveal-delay-4">
       <div class="stat">
-        <div class="stat-number">3</div>
+        <div class="stat-number" data-count="3">3</div>
         <div class="stat-label">Stages voltooid</div>
       </div>
       <div class="stat">
@@ -2054,7 +2217,7 @@ footer {
         <div class="stat-label">Sociale School</div>
       </div>
       <div class="stat">
-        <div class="stat-number">'26</div>
+        <div class="stat-number" data-count="26" data-prefix="'" data-pad="2">'26</div>
         <div class="stat-label">Afstudeerjaar</div>
       </div>
     </div>
@@ -2163,8 +2326,8 @@ footer {
   <h2 class="reveal reveal-delay-1">Wat ik maak</h2>
   
   <div class="projects-grid">
-    <a href="Cornelis_Kobe_Graduaatsproef.pdf" target="_blank" class="project-card tilt-card reveal reveal-delay-1" style="text-decoration:none;color:inherit;">
-      <div class="project-icon">🏳️‍🌈</div>
+    <a href="Cornelis_Kobe_Graduaatsproef.pdf" target="_blank" rel="noopener" class="project-card tilt-card reveal reveal-delay-1" style="text-decoration:none;color:inherit;">
+      <div class="project-icon" aria-hidden="true">🏳️‍🌈</div>
       <div class="project-title">Graduaatsproef</div>
       <div class="project-description">
         Onderzoek naar de acceptatie van LGBTQ+ en genderdiversiteit bij begeleiders 
@@ -2179,8 +2342,8 @@ footer {
       </div>
     </a>
     
-    <a href="https://kobec00.github.io/EMFI/" target="_blank" class="project-card tilt-card reveal reveal-delay-2" style="text-decoration:none;color:inherit;">
-      <div class="project-icon">🧠</div>
+    <a href="https://kobec00.github.io/EMFI/" target="_blank" rel="noopener" class="project-card tilt-card reveal reveal-delay-2" style="text-decoration:none;color:inherit;">
+      <div class="project-icon" aria-hidden="true">🧠</div>
       <div class="project-title">EMFI Check-in App</div>
       <div class="project-description">
         Een digitale check-in tool voor cliënten in een residentiële zorgsetting. 
@@ -2195,8 +2358,8 @@ footer {
       </div>
     </a>
     
-    <a href="https://deregenbooggids.be" target="_blank" class="project-card tilt-card reveal reveal-delay-3" style="text-decoration:none;color:inherit;">
-      <div class="project-icon">🌈</div>
+    <a href="https://deregenbooggids.be" target="_blank" rel="noopener" class="project-card tilt-card reveal reveal-delay-3" style="text-decoration:none;color:inherit;">
+      <div class="project-icon" aria-hidden="true">🌈</div>
       <div class="project-title">De Regenbooggids</div>
       <div class="project-description">
         Een praktische hub voor begeleiders en organisaties in de Vlaamse zorg, 
@@ -2224,8 +2387,8 @@ footer {
   <div class="section-label reveal">Certificaten</div>
   
   <div class="cert-grid">
-    <a href="https://coursera.org/share/2d4270b6cde45d2e7e779ac6a45296f8" target="_blank" class="cert-card reveal reveal-delay-1">
-      <div class="cert-seal">🏥</div>
+    <a href="https://coursera.org/share/2d4270b6cde45d2e7e779ac6a45296f8" target="_blank" rel="noopener" class="cert-card reveal reveal-delay-1">
+      <div class="cert-seal" aria-hidden="true">🏥</div>
       <div class="cert-university">
         <span>Johns Hopkins University</span>
         <span class="cert-link-icon">↗</span>
@@ -2235,8 +2398,8 @@ footer {
       <div class="cert-platform">Coursera · 2025</div>
     </a>
     
-    <a href="https://coursera.org/share/243639fad6c604bc6e9fe5b40a6b2a3c" target="_blank" class="cert-card reveal reveal-delay-2">
-      <div class="cert-seal">🏳️‍🌈</div>
+    <a href="https://coursera.org/share/243639fad6c604bc6e9fe5b40a6b2a3c" target="_blank" rel="noopener" class="cert-card reveal reveal-delay-2">
+      <div class="cert-seal" aria-hidden="true">🏳️‍🌈</div>
       <div class="cert-university">
         <span>University of Colorado</span>
         <span class="cert-link-icon">↗</span>
@@ -2246,8 +2409,8 @@ footer {
       <div class="cert-platform">Coursera · 2026</div>
     </a>
     
-    <a href="https://coursera.org/share/fa6f59888cfb55cd9e94e5ffbdecad36" target="_blank" class="cert-card reveal reveal-delay-3">
-      <div class="cert-seal">🧠</div>
+    <a href="https://coursera.org/share/fa6f59888cfb55cd9e94e5ffbdecad36" target="_blank" rel="noopener" class="cert-card reveal reveal-delay-3">
+      <div class="cert-seal" aria-hidden="true">🧠</div>
       <div class="cert-university">
         <span>The University of Edinburgh</span>
         <span class="cert-link-icon">↗</span>
@@ -2257,8 +2420,8 @@ footer {
       <div class="cert-platform">Coursera · 2026</div>
     </a>
     
-    <a href="vbm-certificaat.pdf" target="_blank" class="cert-card reveal reveal-delay-4">
-      <div class="cert-seal">🏛️</div>
+    <a href="vbm-certificaat.pdf" target="_blank" rel="noopener" class="cert-card reveal reveal-delay-4">
+      <div class="cert-seal" aria-hidden="true">🏛️</div>
       <div class="cert-university">
         <span>Sint-Kamillus Zorggroep</span>
         <span class="cert-link-icon">↗</span>
@@ -2304,19 +2467,19 @@ footer {
   
   <div class="visie-grid">
     <div class="visie-item reveal">
-      <div class="visie-item-icon">🤝</div>
+      <div class="visie-item-icon" aria-hidden="true">🤝</div>
       <h3>Gelijkwaardigheid</h3>
       <p>Echte begeleiding begint bij het erkennen van de ander als evenwaardig mens — 
         ongeacht diagnose, achtergrond of identiteit.</p>
     </div>
     <div class="visie-item reveal reveal-delay-1">
-      <div class="visie-item-icon">🌱</div>
+      <div class="visie-item-icon" aria-hidden="true">🌱</div>
       <h3>Herstelgericht werken</h3>
       <p>Niet het probleem centraal, maar de mens. Focus op kracht, veerkracht 
         en het creëren van ruimte voor groei.</p>
     </div>
     <div class="visie-item reveal reveal-delay-2">
-      <div class="visie-item-icon">🏳️‍🌈</div>
+      <div class="visie-item-icon" aria-hidden="true">🏳️‍🌈</div>
       <h3>Inclusieve zorg</h3>
       <p>LGBTQ+-vriendelijke en gendersensitieve begeleiding is geen extra — het 
         is een basisvoorwaarde voor veilige zorg.</p>
@@ -2333,9 +2496,9 @@ footer {
     Je vindt me hier.
   </p>
   <div class="contact-links reveal reveal-delay-3">
-    <a href="mailto:kobe.cornelis4@gmail.com" class="contact-link">✉️ E-mail</a>
-    <a href="https://www.linkedin.com/in/kobecornelis/" class="contact-link" target="_blank">💼 LinkedIn</a>
-    <a href="https://github.com/kobec00" class="contact-link" target="_blank">🖥️ GitHub</a>
+    <a href="mailto:kobe.cornelis4@gmail.com" class="contact-link"><span aria-hidden="true">✉️</span> E-mail</a>
+    <a href="https://www.linkedin.com/in/kobecornelis/" class="contact-link" target="_blank" rel="noopener"><span aria-hidden="true">💼</span> LinkedIn</a>
+    <a href="https://github.com/kobec00" class="contact-link" target="_blank" rel="noopener"><span aria-hidden="true">🖥️</span> GitHub</a>
   </div>
 </section>
 
@@ -2394,16 +2557,23 @@ function triggerHeroReveal() {
 // Project-cards hebben een ingebouwde ::after spotlight; de tilt-card handler
 // hieronder zet al --mouse-x/y, dus die blijft netjes binnen de randen werken.
 
+// hoverCapable: alleen echte muis-apparaten krijgen de spotlight/tilt-effecten.
+const hoverCapable = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+// prefersReducedMotion: respecteer de OS-instelling "verminder beweging".
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
 // Comp-cards krijgen dezelfde spotlight via hun ::after (mouse-vars updaten).
-document.querySelectorAll('.comp-card').forEach(el => {
-  el.addEventListener('mousemove', (e) => {
-    const rect = el.getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / rect.width) * 100;
-    const y = ((e.clientY - rect.top) / rect.height) * 100;
-    el.style.setProperty('--mouse-x', x + '%');
-    el.style.setProperty('--mouse-y', y + '%');
+if (hoverCapable) {
+  document.querySelectorAll('.comp-card').forEach(el => {
+    el.addEventListener('mousemove', (e) => {
+      const rect = el.getBoundingClientRect();
+      const x = ((e.clientX - rect.left) / rect.width) * 100;
+      const y = ((e.clientY - rect.top) / rect.height) * 100;
+      el.style.setProperty('--mouse-x', x + '%');
+      el.style.setProperty('--mouse-y', y + '%');
+    });
   });
-});
+}
 
 
 // ─── SCROLL REVEAL ───
@@ -2421,6 +2591,106 @@ document.querySelectorAll('.reveal').forEach(el => {
     observer.observe(el);
   }
 });
+
+// ─── COUNT-UP STATS (met subtiele blur tijdens tellen) ───
+function animateCount(el) {
+  const target = parseInt(el.dataset.count, 10);
+  const prefix = el.dataset.prefix || '';
+  const pad = parseInt(el.dataset.pad, 10) || 0;
+  const duration = 1400;
+  const start = performance.now();
+
+  if (prefersReducedMotion) {
+    // direct eindwaarde tonen, geen animatie
+    let v = String(target);
+    if (pad) v = v.padStart(pad, '0');
+    el.textContent = prefix + v;
+    return;
+  }
+
+  el.classList.add('counting');
+  function frame(now) {
+    const t = Math.min((now - start) / duration, 1);
+    // easeOutCubic voor een natuurlijke vertraging
+    const eased = 1 - Math.pow(1 - t, 3);
+    let val = Math.round(eased * target);
+    let s = String(val);
+    if (pad) s = s.padStart(pad, '0');
+    el.textContent = prefix + s;
+    // blur vermindert naarmate het tellen afrondt
+    el.style.filter = `blur(${(1 - eased) * 3}px)`;
+    if (t < 1) {
+      requestAnimationFrame(frame);
+    } else {
+      el.classList.remove('counting');
+      el.style.filter = '';
+    }
+  }
+  requestAnimationFrame(frame);
+}
+
+const countObserver = new IntersectionObserver((entries, obs) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      animateCount(entry.target);
+      obs.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.6 });
+
+document.querySelectorAll('.stat-number[data-count]').forEach(el => {
+  countObserver.observe(el);
+});
+
+// ─── LETTER-VOOR-LETTER HEADING REVEAL (animatie B) ───
+// Splitst de tekst van elke sectie-h2 in losse letters, met behoud van <em>/<br>,
+// en laat ze met een blur-stagger inscrollen.
+function splitToChars(node, charList) {
+  node.childNodes.forEach(child => {
+    if (child.nodeType === Node.TEXT_NODE) {
+      const frag = document.createDocumentFragment();
+      [...child.textContent].forEach(ch => {
+        const span = document.createElement('span');
+        span.className = ch === ' ' ? 'char space' : 'char';
+        span.textContent = ch;
+        frag.appendChild(span);
+        charList.push(span);
+      });
+      child.replaceWith(frag);
+    } else if (child.nodeName === 'BR') {
+      // br behouden zoals hij is
+    } else if (child.nodeType === Node.ELEMENT_NODE) {
+      // bv. <em>: recursief opsplitsen, opmaak blijft behouden
+      splitToChars(child, charList);
+    }
+  });
+}
+
+if (!prefersReducedMotion) {
+  const headings = document.querySelectorAll('#competenties h2, #about h2, #stages h2, #projecten h2, #certificaten h2, #visie h2, #contact h2');
+
+  headings.forEach(h => {
+    // De container-reveal uitschakelen: de letter-animatie neemt het over
+    h.classList.remove('reveal', 'reveal-delay-1');
+    const chars = [];
+    splitToChars(h, chars);
+    h.classList.add('char-reveal');
+    // stagger-delay per letter
+    chars.forEach((c, i) => {
+      c.style.transitionDelay = (i * 0.028) + 's';
+    });
+
+    const hObserver = new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('chars-in');
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.4 });
+    hObserver.observe(h);
+  });
+}
 
 // ─── NAVBAR SCROLL BEHAVIOR ───
 let lastScroll = 0;
@@ -2546,6 +2816,9 @@ if (timeline) {
     const timelineTop = rect.top;
     const timelineH = rect.height;
     
+    // hoogte doorgeven zodat het gloei-punt verticaal kan meeschuiven
+    timeline.style.setProperty('--timeline-h', timelineH + 'px');
+    
     if (timelineTop < windowH && rect.bottom > 0) {
       const scrolledInto = windowH - timelineTop;
       const progress = Math.min(Math.max(scrolledInto / (timelineH + windowH * 0.3), 0), 1);
@@ -2558,35 +2831,38 @@ if (timeline) {
 }
 
 // ─── 3D TILT EFFECT ON CARDS ───
-document.querySelectorAll('.tilt-card').forEach(card => {
-  card.addEventListener('mousemove', (e) => {
-    const rect = card.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-    const rotateX = ((y - centerY) / centerY) * -6;
-    const rotateY = ((x - centerX) / centerX) * 6;
-    
-    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(10px)`;
-    
-    // Update spotlight position
-    const px = ((x / rect.width) * 100);
-    const py = ((y / rect.height) * 100);
-    card.style.setProperty('--mouse-x', px + '%');
-    card.style.setProperty('--mouse-y', py + '%');
+// ─── 3D TILT + SPOTLIGHT (alleen op echte muis-apparaten) ───
+if (hoverCapable) {
+  document.querySelectorAll('.tilt-card').forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      const rotateX = ((y - centerY) / centerY) * -6;
+      const rotateY = ((x - centerX) / centerX) * 6;
+
+      card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(10px)`;
+
+      // Update spotlight position
+      const px = ((x / rect.width) * 100);
+      const py = ((y / rect.height) * 100);
+      card.style.setProperty('--mouse-x', px + '%');
+      card.style.setProperty('--mouse-y', py + '%');
+    });
+
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateZ(0)';
+      card.style.transition = 'transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)';
+      setTimeout(() => card.style.transition = '', 600);
+    });
+
+    card.addEventListener('mouseenter', () => {
+      card.style.transition = 'none';
+    });
   });
-  
-  card.addEventListener('mouseleave', () => {
-    card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateZ(0)';
-    card.style.transition = 'transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)';
-    setTimeout(() => card.style.transition = '', 600);
-  });
-  
-  card.addEventListener('mouseenter', () => {
-    card.style.transition = 'none';
-  });
-});
+}
 
 // ─── PARALLAX ON HERO ELEMENTS ───
 window.addEventListener('scroll', () => {
