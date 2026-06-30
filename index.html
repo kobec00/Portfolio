@@ -1193,6 +1193,86 @@ canvas.hero-illustration {
   opacity: 0.6;
 }
 
+/* ─── Uitklapbare certificaten ─── */
+/* Verborgen certificaten: standaard buiten beeld, soepel uitvouwend */
+.cert-card.cert-hidden {
+  display: none;
+}
+
+.cert-grid.cert-expanded .cert-card.cert-hidden {
+  display: flex;
+}
+
+/* Mooie openklap-animatie: zacht omhoog, opschalen vanuit iets kleiner,
+   met een blur-naar-scherp onthulling. */
+@keyframes certUnfold {
+  0% {
+    opacity: 0;
+    transform: translateY(28px) scale(0.94);
+    filter: blur(8px);
+  }
+  60% {
+    filter: blur(0);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+.cert-grid.cert-expanded .cert-card.cert-hidden {
+  animation: certUnfold 0.65s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cert-grid.cert-expanded .cert-card.cert-hidden { animation: none; }
+}
+
+/* ─── Toon meer / minder knop ─── */
+.cert-toggle-wrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 2.5rem;
+}
+
+.cert-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.85rem 1.8rem;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  transition: border-color 0.3s ease, background 0.3s ease, color 0.3s ease;
+}
+
+.cert-toggle:hover {
+  border-color: rgba(196, 149, 106, 0.4);
+  background: rgba(196, 149, 106, 0.05);
+  color: var(--accent-light);
+}
+
+.cert-toggle-icon {
+  display: inline-block;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  font-size: 0.9rem;
+  line-height: 1;
+}
+
+.cert-toggle.is-open .cert-toggle-icon {
+  transform: rotate(180deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cert-grid.cert-expanded .cert-card.cert-hidden { animation: none; }
+}
+
 /* ═══════════════════════════════════════
    PROJECTS
    ═══════════════════════════════════════ */
@@ -2386,7 +2466,8 @@ footer {
 <section id="certificaten">
   <div class="section-label reveal">Certificaten</div>
   
-  <div class="cert-grid">
+  <div class="cert-grid" id="certGrid">
+    <!-- Zichtbaar: eerste 3 -->
     <a href="https://coursera.org/share/2d4270b6cde45d2e7e779ac6a45296f8" target="_blank" rel="noopener" class="cert-card reveal reveal-delay-1">
       <div class="cert-seal" aria-hidden="true">🏥</div>
       <div class="cert-university">
@@ -2409,18 +2490,7 @@ footer {
       <div class="cert-platform">Coursera · 2026</div>
     </a>
     
-    <a href="https://coursera.org/share/fa6f59888cfb55cd9e94e5ffbdecad36" target="_blank" rel="noopener" class="cert-card reveal reveal-delay-3">
-      <div class="cert-seal" aria-hidden="true">🧠</div>
-      <div class="cert-university">
-        <span>The University of Edinburgh</span>
-        <span class="cert-link-icon">↗</span>
-      </div>
-      <div class="cert-divider"></div>
-      <div class="cert-title">Philosophy and the Sciences: Introduction to the Philosophy of Cognitive Sciences</div>
-      <div class="cert-platform">Coursera · 2026</div>
-    </a>
-    
-    <a href="vbm-certificaat.pdf" target="_blank" rel="noopener" class="cert-card reveal reveal-delay-4">
+    <a href="vbm-certificaat.pdf" target="_blank" rel="noopener" class="cert-card reveal reveal-delay-3">
       <div class="cert-seal" aria-hidden="true">🏛️</div>
       <div class="cert-university">
         <span>Sint-Kamillus Zorggroep</span>
@@ -2431,10 +2501,30 @@ footer {
       <div class="cert-platform">E-Learning · 2025</div>
     </a>
     
-    <div class="cert-card cert-coming reveal reveal-delay-5">
+    <!-- Verborgen: pas zichtbaar na 'toon meer' -->
+    <a href="https://coursera.org/share/fa6f59888cfb55cd9e94e5ffbdecad36" target="_blank" rel="noopener" class="cert-card cert-hidden">
+      <div class="cert-seal" aria-hidden="true">🧠</div>
+      <div class="cert-university">
+        <span>The University of Edinburgh</span>
+        <span class="cert-link-icon">↗</span>
+      </div>
+      <div class="cert-divider"></div>
+      <div class="cert-title">Philosophy and the Sciences: Introduction to the Philosophy of Cognitive Sciences</div>
+      <div class="cert-platform">Coursera · 2026</div>
+    </a>
+    
+    <!-- 'Meer onderweg' verschijnt pas bij uitklappen, altijd als laatste -->
+    <div class="cert-card cert-coming cert-hidden">
       <div class="cert-coming-icon">+</div>
       <div class="cert-coming-text">Meer onderweg...</div>
     </div>
+  </div>
+  
+  <div class="cert-toggle-wrap reveal">
+    <button class="cert-toggle" id="certToggle" aria-expanded="false" aria-controls="certGrid">
+      <span class="cert-toggle-label">Toon alle certificaten</span>
+      <span class="cert-toggle-icon" aria-hidden="true">↓</span>
+    </button>
   </div>
 </section>
 
@@ -2691,6 +2781,46 @@ if (!prefersReducedMotion) {
     hObserver.observe(h);
   });
 }
+
+// ─── CERTIFICATEN: TOON MEER / MINDER ───
+(function initCertToggle() {
+  const grid = document.getElementById('certGrid');
+  const toggle = document.getElementById('certToggle');
+  if (!grid || !toggle) return;
+
+  const hiddenCards = grid.querySelectorAll('.cert-card.cert-hidden');
+  // Geen verborgen kaarten? Dan knop niet tonen.
+  if (hiddenCards.length === 0) {
+    toggle.parentElement.style.display = 'none';
+    return;
+  }
+
+  const label = toggle.querySelector('.cert-toggle-label');
+  const total = grid.querySelectorAll('.cert-card:not(.cert-coming)').length;
+  // Begintekst toont het totaal aantal certificaten
+  label.textContent = `Toon alle certificaten (${total})`;
+
+  toggle.addEventListener('click', () => {
+    const isOpen = grid.classList.toggle('cert-expanded');
+    toggle.classList.toggle('is-open', isOpen);
+    toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    label.textContent = isOpen ? 'Toon minder' : `Toon alle certificaten (${total})`;
+
+    if (isOpen) {
+      // Elke kaart krijgt een oplopende vertraging zodat ze één voor één openvouwen
+      hiddenCards.forEach((card, i) => {
+        card.style.animation = 'none';
+        // force reflow zodat de animatie opnieuw start bij elke open-actie
+        void card.offsetWidth;
+        card.style.animation = '';
+        card.style.animationDelay = (i * 0.09) + 's';
+      });
+    } else {
+      // Bij inklappen: soepel terugscrollen naar de sectie zodat je niet in het niets belandt
+      document.getElementById('certificaten').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+})();
 
 // ─── NAVBAR SCROLL BEHAVIOR ───
 let lastScroll = 0;
