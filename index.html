@@ -308,6 +308,20 @@ nav.visible { transform: translateY(0); }
 .nav-links a:hover { color: var(--text); }
 .nav-links a:hover::after { width: 100%; }
 
+.nav-links a.nav-video-link {
+  color: var(--accent);
+  border: 1px solid var(--border);
+  padding: 0.35rem 0.75rem;
+  border-radius: 3px;
+  transition: color 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+}
+.nav-links a.nav-video-link::after { display: none; }
+.nav-links a.nav-video-link:hover {
+  color: var(--accent-light);
+  border-color: var(--accent);
+  background: var(--accent-glow);
+}
+
 /* ═══════════════════════════════════════
    SECTIONS GENERAL
    ═══════════════════════════════════════ */
@@ -2153,6 +2167,7 @@ footer {
     <li><a href="#certificaten">Certificaten</a></li>
     <li><a href="#visie">Visie</a></li>
     <li><a href="#contact">Contact</a></li>
+    <li><a href="video/" class="nav-video-link">Videografie&nbsp;↗</a></li>
   </ul>
 </nav>
 
@@ -2171,6 +2186,7 @@ footer {
     <a href="#certificaten" class="mobile-nav-item" data-icon="□">Certificaten</a>
     <a href="#visie" class="mobile-nav-item" data-icon="♡">Visie</a>
     <a href="#contact" class="mobile-nav-item" data-icon="→">Contact</a>
+    <a href="video/" class="mobile-nav-item" data-icon="▷">Videografie&nbsp;↗</a>
   </div>
 </div>
 <div class="mobile-nav-backdrop" id="mobileNavBackdrop"></div>
