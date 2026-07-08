@@ -209,6 +209,9 @@
 
   footer { position: relative; z-index: 2; padding: 1.6rem clamp(1.2rem, 4vw, 3rem) calc(var(--bar) + 1.2rem); font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.1em; color: var(--text-dim); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 0.6rem; text-transform: uppercase; }
   footer a:hover { color: var(--accent); }
+  .footer-specs { display: flex; gap: 0.5rem; align-items: center; }
+  .spec-badge { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.16em; color: var(--accent-light); border: 1px solid var(--border-bright); border-radius: 2px; padding: 0.3em 0.65em; transition: color 0.3s ease, border-color 0.3s ease; }
+  .spec-badge:hover { color: var(--accent); border-color: var(--accent); }
 
   /* ───────────── RESPONSIVE ───────────── */
   @media (max-width: 860px) {
@@ -305,7 +308,8 @@
   <h2>Iets moois <em>vastleggen</em>?</h2>
   <p>Op zoek naar een filmer voor een trouw, event of project? Ik denk graag mee over hoe we jouw verhaal in beeld brengen. Vraag gerust <em>vrijblijvend een offerte</em> aan.</p>
   <div class="outro-actions">
-    <a href="mailto:kobe.cornelis@student.ucll.be?subject=Offerteaanvraag%20videografie" class="btn primary">Vraag een offerte →</a>
+    <a href="mailto:kobe.cornelis4@gmail.com?subject=Offerteaanvraag%20videografie" class="btn primary">Vraag een offerte →</a>
+    <a href="mailto:kobe.cornelis4@gmail.com" class="btn">Contact →</a>
   </div>
   <div class="outro-location">
     <span class="loc-pin">⌖</span> Gevestigd in <strong>Leuven</strong> — ik verplaats me over heel België en daarbuiten.
@@ -314,6 +318,7 @@
 
 <footer>
   <span>© 2026 Kobe Cornelis</span>
+  <span class="footer-specs"><span class="spec-badge">4K</span><span class="spec-badge">HDR</span></span>
   <span><a href="../">Orthopedagogie</a> · Videografie</span>
 </footer>
 
@@ -333,7 +338,7 @@
 <script>
 const FILMS = [
   // ── TROUWFILMS ──
-  { id: '1aSgwH5nDEA', cat: 'wedding', title: 'Febe & Seppe', desc: 'De trouw van mijn zus. Mijn meest recente werk — warm, persoonlijk en intiem in beeld gebracht.', year: '2024', format: 'Trouwfilm', runtime: 'Sfeervideo', tags: ['Sfeer','Recentste werk'], size: 'feature' },
+  { id: '1aSgwH5nDEA', cat: 'wedding', title: 'Febe & Seppe', desc: 'De trouw van mijn zus. Mijn meest recente werk — warm en persoonlijk in beeld gebracht.', year: '2024', format: 'Trouwfilm', runtime: 'Sfeervideo', tags: ['Sfeer','Recentste werk'], size: 'feature' },
   { id: '4OBGTtQVUYo', cat: 'wedding', title: 'Ines & Sander', desc: 'Ceremonie en feest samengebracht tot één rustig, filmisch geheel.', year: '2021', format: 'Trouwfilm', runtime: 'Sfeervideo', tags: ['Sfeer','Ceremonie'], size: 'half' },
   { id: 'Q8kLe0-2gnc', cat: 'wedding', title: 'Caroline & Bram', desc: 'Mijn allereerste trouwfilm. Waar het allemaal begon.', year: '2019', format: 'Trouwfilm', runtime: 'Sfeervideo', tags: ['Eerste werk'], size: 'half' },
   // ── REISBEELDEN & PROJECTEN ──
