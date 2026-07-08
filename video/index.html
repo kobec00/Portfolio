@@ -87,7 +87,7 @@
   /* ───────────── NAV ───────────── */
   nav { position: fixed; top: var(--bar); left: 0; right: 0; z-index: 150; display: flex; align-items: center; justify-content: space-between; padding: 1.1rem clamp(1.2rem, 4vw, 3rem); transition: background 0.4s ease, backdrop-filter 0.4s ease, padding 0.4s ease; }
   nav.scrolled { background: rgba(6,6,8,0.7); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); padding-top: 0.8rem; padding-bottom: 0.8rem; }
-  .nav-logo { font-family: var(--font-display); font-size: 1.25rem; font-weight: 500; letter-spacing: 0.02em; }
+  .nav-logo { font-family: var(--font-display); font-size: 1.25rem; font-weight: 500; letter-spacing: 0.02em; white-space: nowrap; }
   .nav-logo .dot { color: var(--accent); }
   .nav-actions { display: flex; align-items: center; gap: 0.9rem; }
   .nav-contact { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; color: #08090b; background: var(--accent); padding: 0.55rem 1.1rem; border: 1px solid var(--accent); border-radius: 2px; transition: background 0.3s ease, border-color 0.3s ease, transform 0.2s ease; }
@@ -222,6 +222,27 @@
     .film-info { flex-direction: column; gap: 0.6rem; }
     .film-meta-right { text-align: left; }
   }
+  @media (max-width: 600px) {
+    /* Keep the fixed nav on a single row: shrink spacing and collapse the
+       back-link to an icon so logo + Contact + back never overflow/wrap. */
+    nav { padding-left: 1.1rem; padding-right: 1.1rem; gap: 0.6rem; }
+    .nav-logo { font-size: 1.05rem; }
+    .nav-actions { gap: 0.55rem; }
+    .nav-contact { padding: 0.5rem 0.85rem; font-size: 0.66rem; letter-spacing: 0.12em; }
+    .nav-back { padding: 0.5rem 0.65rem; }
+    .nav-back .nav-back-label { display: none; }
+    .nav-back .arr { font-size: 0.95rem; }
+    .hero { padding-top: calc(var(--bar) + 4.5rem); }
+    .hero-meta { gap: 1rem 1.6rem; }
+    .hero-meta .v { font-size: 1.35rem; }
+    .section-head { flex-wrap: wrap; gap: 0.4rem 1rem; margin-bottom: 2.6rem; }
+    .section-count { margin-left: 0; flex-basis: 100%; }
+    .segment-intro { margin-top: -1.2rem; }
+    .lightbox-cap { margin-top: 0.9rem; }
+    .outro-actions { flex-direction: column; align-items: stretch; }
+    .outro-actions .btn { justify-content: center; }
+    footer { justify-content: center; text-align: center; }
+  }
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
     .film { opacity: 1; transform: none; }
@@ -246,7 +267,7 @@
   <a href="#top" class="nav-logo">Kobe Cornelis<span class="dot">.</span></a>
   <div class="nav-actions">
     <a href="#contact" class="nav-contact">Contact</a>
-    <a href="../" class="nav-back"><span class="arr">←</span> Orthopedagogie</a>
+    <a href="../" class="nav-back" aria-label="Terug naar Orthopedagogie"><span class="arr">←</span> <span class="nav-back-label">Orthopedagogie</span></a>
   </div>
 </nav>
 
