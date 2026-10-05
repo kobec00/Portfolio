@@ -43,7 +43,8 @@
     // Geen HD-versie? Dan stuurt YouTube een grijs plaatje van 120×90.
     img.addEventListener('load', () => { if (img.naturalWidth <= 120) fallback(); });
     img.addEventListener('error', fallback);
-    if (img.complete && img.naturalWidth && img.naturalWidth <= 120) fallback();
+    // Al geladen (≤120px) of al mislukt (naturalWidth 0) vóór de listeners er waren
+    if (img.complete && img.naturalWidth <= 120) fallback();
   }
   $$('img[data-yt-fallback]').forEach(img => thumb(img, img.dataset.ytFallback));
 
@@ -87,24 +88,31 @@
   function openLB(btn) {
     lastFocus = btn;
     lbFrame.src = `https://www.youtube-nocookie.com/embed/${btn.dataset.id}?autoplay=1&rel=0&modestbranding=1`;
+    lbFrame.title = `Video: ${btn.dataset.title}`;
     $('#lbTitle').textContent = btn.dataset.title;
     $('#lbMeta').textContent = btn.dataset.meta;
     if (typeof lb.showModal === 'function') lb.showModal();
-    else lb.setAttribute('open', '');
+    else { lb.setAttribute('open', ''); lb.classList.add('is-fallback'); }
     if (lenis) lenis.stop();
   }
-  function closeLB() {
-    if (lb.open && typeof lb.close === 'function') lb.close();
-    else lb.removeAttribute('open');
-  }
-  lb.addEventListener('close', () => {
+  function onClosed() {
     lbFrame.src = 'about:blank';
     if (lenis) lenis.start();
     if (lastFocus) lastFocus.focus({ preventScroll: true });
-  });
+  }
+  function closeLB() {
+    if (typeof lb.close === 'function') { if (lb.open) lb.close(); }
+    else if (lb.hasAttribute('open')) { lb.removeAttribute('open'); lb.classList.remove('is-fallback'); onClosed(); }
+  }
+  // Native <dialog>: 'close' vuurt bij de knop, Escape en klik naast de video
+  lb.addEventListener('close', onClosed);
+  // Oude browsers zonder <dialog>: Escape zelf afhandelen
+  if (typeof lb.showModal !== 'function') {
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLB(); });
+  }
   $('#lbClose').addEventListener('click', closeLB);
-  // Klik naast de video sluit
-  lb.addEventListener('click', e => { if (e.target === lb) closeLB(); });
+  // Klik naast de video sluit (niet bij de tweede klik van een dubbelklik op een filmkaart)
+  lb.addEventListener('click', e => { if (e.target === lb && e.detail < 2) closeLB(); });
   document.addEventListener('click', e => {
     const btn = e.target.closest('.film-frame');
     if (btn) openLB(btn);
@@ -164,7 +172,7 @@
     if (!wrap || !frame) return;
     // Bij minder beweging of databesparing blijft de stilstaande Ken Burns-foto staan
     const saveData = navigator.connection && navigator.connection.saveData;
-    const small = window.matchMedia('(max-width: 700px)').matches;
+    const small = window.matchMedia('(max-width: 700px), (pointer: coarse) and (max-height: 500px)').matches;
     // Op gsm's toont YouTube eigen knoppen over de video en kost het data: daar volstaat de foto
     if (reduceMotion || saveData || small) { wrap.remove(); return; }
     frame.src = frame.dataset.src;

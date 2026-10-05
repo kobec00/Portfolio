@@ -41,6 +41,7 @@
   min-height: 100vh;
   min-height: 100svh;
   display: flex;
+  overflow: hidden;
   overflow: clip;
   isolation: isolate;
   background: radial-gradient(ellipse at 30% 40%, #1C1820 0%, #0E0C0B 70%);
@@ -320,10 +321,15 @@
 }
 .lightbox-inner {
   width: 100%;
+  /* Begrensd door de schermhoogte, zodat de volledige speler (incl. YouTube-bediening) en het onderschrift in beeld blijven */
+  width: min(100%, calc((100vh - 2 * clamp(1rem, 5vw, 4rem) - 4.5rem) * 16 / 9));
+  width: min(100%, calc((100dvh - 2 * clamp(1rem, 5vw, 4rem) - 4.5rem) * 16 / 9));
   max-width: 1180px;
   transform: scale(0.97);
   transition: transform 0.5s var(--ease-out);
 }
+/* Fallback voor browsers zonder <dialog> (Safari ≤ 15.3) */
+.lightbox.is-fallback { position: fixed; inset: 0; z-index: 300; background: rgba(8, 7, 6, 0.92); }
 .lightbox[open] .lightbox-inner { transform: none; }
 .lightbox-frame {
   position: relative;
@@ -418,7 +424,13 @@
 .voutro .contact-text em { font-family: var(--font-display); color: #F6BA83; font-size: 1.06em; }
 .voutro-actions { display: flex; flex-wrap: wrap; gap: 0.7rem; }
 .voutro .btn--solid { background: var(--paper); color: var(--ink); }
-.voutro .btn--line { border-color: rgba(243, 237, 228, 0.3); color: var(--paper); }
+.voutro .btn--line {
+  border-color: rgba(243, 237, 228, 0.3);
+  color: var(--paper);
+  background: rgba(14, 12, 11, 0.55);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
 .voutro .btn--line::before { background: var(--paper); }
 .voutro .btn--line:hover { color: var(--ink); }
 .voutro-loc { margin-top: 2.4rem; color: rgba(243, 237, 228, 0.72); font-size: 0.98rem; }
@@ -448,18 +460,36 @@
   .film--wide, .film--feature, .film--feature-r, .film--half, .film--third { grid-column: span 12; }
   .film--wide .film-frame { aspect-ratio: 16 / 9; }
   .film--feature-r .film-frame { aspect-ratio: 16 / 9; }
+
+  /* Geen menu op deze pagina: houd de 'Offerte'-link zichtbaar in de navigatie */
+  .page-video .nav-links { display: flex; margin-left: auto; }
+  .page-video .nav-links a:not([href="#contact"]) { display: none; }
 }
 @media (max-width: 600px) {
   .nav-back { padding: 0.65rem 0.85rem; }
   .nav-back-label { display: none; }
   .vhero-title { font-size: clamp(3.4rem, 17vw, 6rem); }
   .vhero .hero-meta > span:first-child { display: none; }
+  .vhero .hero-meta-mid { display: none; }
+  .voutro-actions { align-self: stretch; }
   .vhero-still img { object-position: 24% 50%; }
   .vhero-stats { gap: 1rem 1.6rem; }
   .film-info { flex-direction: column; gap: 0.5rem; }
   .film-meta { text-align: left; display: flex; gap: 0.8rem; }
   .film-meta b { display: inline; }
   .voutro-actions .btn { flex: 1 1 auto; justify-content: center; }
+}
+@media (max-width: 380px) {
+  .page-video .nav-name { display: none; }
+}
+/* Lage schermen (gsm in landscape): speler zo groot mogelijk, onderschrift weg, vrij van de sluitknop */
+@media (max-height: 500px) {
+  .lightbox { padding: 0.75rem 4.5rem; }
+  .lightbox-inner {
+    width: min(100%, calc((100vh - 1.5rem) * 16 / 9));
+    width: min(100%, calc((100dvh - 1.5rem) * 16 / 9));
+  }
+  .lightbox-cap { display: none; }
 }
 @media (prefers-reduced-motion: reduce) {
   .vhero-still img { animation: none; }

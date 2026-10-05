@@ -52,7 +52,7 @@
     <a href="#projecten">Reisbeelden &amp; projecten</a>
     <a href="#contact">Offerte</a>
   </nav>
-  <a class="nav-back" href="../">
+  <a class="nav-back" href="../" aria-label="Terug naar Orthopedagogie">
     <span class="nav-back-arrow" aria-hidden="true">←</span>
     <span class="nav-back-label">Orthopedagogie</span>
   </a>
@@ -107,7 +107,15 @@
           <span class="films-count" data-count-for="wedding">03 films</span>
         </div>
       </header>
-      <div class="film-grid" id="gridWedding"></div>
+      <div class="film-grid" id="gridWedding">
+        <noscript>
+          <ul class="tags">
+            <li><a href="https://www.youtube.com/watch?v=1aSgwH5nDEA">Febe &amp; Seppe</a></li>
+            <li><a href="https://www.youtube.com/watch?v=4OBGTtQVUYo">Ines &amp; Sander</a></li>
+            <li><a href="https://www.youtube.com/watch?v=Q8kLe0-2gnc">Caroline &amp; Bram</a></li>
+          </ul>
+        </noscript>
+      </div>
     </div>
   </section>
 
@@ -124,7 +132,18 @@
           <span class="films-count" data-count-for="other">06 films</span>
         </div>
       </header>
-      <div class="film-grid" id="gridOther"></div>
+      <div class="film-grid" id="gridOther">
+        <noscript>
+          <ul class="tags">
+            <li><a href="https://www.youtube.com/watch?v=LOpTFsjrGvw">Lannoo — Kinderboek</a></li>
+            <li><a href="https://www.youtube.com/watch?v=s_slyU9heV4">Louis Cornelis · 1936–2023</a></li>
+            <li><a href="https://www.youtube.com/watch?v=PwpixmMHLhE">The Smoky Mountains</a></li>
+            <li><a href="https://www.youtube.com/watch?v=Aky2uWTmonw">Schotland</a></li>
+            <li><a href="https://www.youtube.com/watch?v=WDYyBPZgw1M">New York City</a></li>
+            <li><a href="https://www.youtube.com/watch?v=ZKUQl-iN1tE">Euromillions Volley League</a></li>
+          </ul>
+        </noscript>
+      </div>
     </div>
   </section>
 
@@ -154,13 +173,13 @@
 <footer class="footer" data-theme="dark">
   <div class="container footer-inner">
     <p>© <span data-year>2026</span> Kobe Cornelis</p>
-    <p class="footer-specs" aria-label="Opnamekwaliteit"><span class="spec-badge">4K</span><span class="spec-badge">HDR</span></p>
+    <p class="footer-specs" role="group" aria-label="Opnamekwaliteit"><span class="spec-badge">4K</span><span class="spec-badge">HDR</span></p>
     <p><a href="../" class="footer-top">Orthopedagogie</a> · Videografie</p>
   </div>
 </footer>
 
 <!-- Lightbox (native dialog: focus-trap en Escape gratis) -->
-<dialog class="lightbox" id="lightbox" aria-labelledby="lbTitle">
+<dialog class="lightbox" id="lightbox" aria-labelledby="lbTitle" data-lenis-prevent>
   <button class="lightbox-close" id="lbClose" type="button" aria-label="Sluiten">
     <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg>
   </button>

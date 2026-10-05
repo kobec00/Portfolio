@@ -61,6 +61,7 @@
 html {
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
+  overflow-x: hidden; /* fallback: Safari < 16 kent geen clip */
   overflow-x: clip;
 }
 html:not(.lenis) { scroll-behavior: smooth; }
@@ -210,6 +211,7 @@ section[tabindex="-1"]:focus { outline: none; }
 /* Woord-maskers voor reveal-animaties */
 .w {
   display: inline-block;
+  overflow: hidden;
   overflow: clip;
   vertical-align: top;
   padding: 0.1em 0.08em 0.26em 0.04em;
@@ -365,7 +367,7 @@ section[tabindex="-1"]:focus { outline: none; }
 }
 .nav.is-scrolled::before { opacity: 1; transform: none; }
 .nav.is-hidden { transform: translateY(-115%); }
-.nav:focus-within { transform: none; }
+.nav:has(:focus-visible) { transform: none; }
 .nav.is-scrolled .nav-toggle { border-color: transparent; }
 
 .nav-brand {
@@ -485,7 +487,12 @@ section[tabindex="-1"]:focus { outline: none; }
   visibility: visible;
   transition: clip-path 0.85s var(--ease-io), visibility 0s;
 }
-.menu-open .nav { color: var(--paper); }
+.menu-open .nav {
+  color: var(--paper);
+  /* Zodra het menu volledig open is: effen balk, zodat gescrolde links niet onder logo/knop schuiven */
+  background-color: var(--ink);
+  transition: transform 0.6s var(--ease-out), color 0.4s, background-color 0s 0.85s;
+}
 .menu-open .nav::before { opacity: 0; }
 .menu-inner {
   min-height: 100%;
@@ -506,6 +513,9 @@ section[tabindex="-1"]:focus { outline: none; }
   line-height: 1.05;
   letter-spacing: -0.03em;
   border-bottom: 1px solid rgba(243, 237, 228, 0.1);
+}
+@media (max-height: 500px) {
+  .menu-list a { font-size: clamp(1.8rem, 11vh, 4.4rem); }
 }
 .menu-list a span {
   font-family: var(--font-mono);
@@ -548,6 +558,7 @@ section[tabindex="-1"]:focus { outline: none; }
   min-height: 100svh;
   display: flex;
   isolation: isolate;
+  overflow: hidden;
   overflow: clip;
   background:
     radial-gradient(60% 55% at 72% 46%, rgba(239, 151, 171, 0.22), transparent 70%),
@@ -607,12 +618,15 @@ section[tabindex="-1"]:focus { outline: none; }
   font-family: var(--font-display);
   font-weight: 300;
   font-size: clamp(4.4rem, min(16.5vw, 29vh), 19rem);
+  /* Lage laptopschermen: titel krimpt mee zodat tagline en knoppen boven de vouw blijven */
+  font-size: clamp(4.4rem, min(16.5vw, 29vh, (100svh - 22rem) * 0.47), 19rem);
   line-height: 0.84;
   letter-spacing: -0.045em;
   font-variation-settings: "SOFT" 100, "WONK" 0;
 }
 .hero-line {
   display: block;
+  overflow: hidden;
   overflow: clip;
   padding: 0.04em 0 0.1em;
   margin-bottom: -0.06em;
@@ -664,6 +678,7 @@ section[tabindex="-1"]:focus { outline: none; }
    BAND (marquee)
    ═══════════════════════════════════════════════════════════ */
 .band {
+  overflow: hidden;
   overflow: clip;
   padding: clamp(2.5rem, 6vh, 4rem) 0;
   border-bottom: 1px solid var(--line);
@@ -888,6 +903,15 @@ section[tabindex="-1"]:focus { outline: none; }
   will-change: transform;
 }
 .pillbox.is-physics .pill:active { cursor: grabbing; }
+/* Zonder physics (minder beweging, geen JS of Matter.js laadt niet): box groeit mee zodat alle pillen zichtbaar zijn */
+@media (prefers-reduced-motion: reduce) {
+  .pillbox { height: auto; min-height: clamp(260px, 24vw, 330px); }
+  .pills { min-height: inherit; }
+}
+html:not(.js) .pillbox,
+.pillbox.is-static { height: auto; min-height: clamp(260px, 24vw, 330px); }
+html:not(.js) .pills,
+.pillbox.is-static .pills { min-height: inherit; }
 
 /* ═══════════════════════════════════════════════════════════
    02 · VISIE
@@ -1089,6 +1113,7 @@ html:not(.theme-sync) [data-theme="light"] .card:not(.card--link),
   display: flex;
   flex-direction: column;
   justify-content: center;
+  overflow: hidden;
   overflow: clip;
   padding: calc(var(--nav-h) + 2rem) 0 4rem;
 }
@@ -1277,13 +1302,21 @@ html:not(.theme-sync) [data-theme="light"] .card:not(.card--link),
   transform: scaleX(0);
 }
 .is-horizontal .journey-progress { display: block; }
+/* Lagere laptop-/tabletschermen: compacter zodat de kaarten en de voortgangsbalk volledig in beeld passen */
+@media (min-width: 901px) and (max-height: 899px) {
+  .is-horizontal .journey-pin { padding: calc(var(--nav-h) + 0.5rem) 0 2.75rem; }
+  .is-horizontal .stop { padding: 1.3rem 1.5rem 1.4rem; }
+  .is-horizontal .stop-num { margin: 0.9rem 0 0.8rem; font-size: clamp(3.2rem, 8.5vh, 6rem); }
+  .is-horizontal .stop-num--icon svg { width: clamp(3rem, 7vh, 5rem); }
+  .is-horizontal .journey-progress { bottom: 1.25rem; }
+}
 
 /* ═══════════════════════════════════════════════════════════
    05 · PROJECTEN (gestapelde kaarten)
    ═══════════════════════════════════════════════════════════ */
 .work { padding: var(--section-pad) 0; }
 
-.stack { display: grid; gap: 6vh; }
+.stack { display: grid; grid-template-columns: minmax(0, 1fr); gap: 6vh; }
 .stack-item {
   position: sticky;
   top: calc(var(--nav-h) + 1rem + var(--i) * 20px);
@@ -1621,7 +1654,7 @@ html:not(.theme-sync) [data-theme="light"] .card:not(.card--link),
 /* ═══════════════════════════════════════════════════════════
    07 · VIDEOGRAFIE (filmstrip)
    ═══════════════════════════════════════════════════════════ */
-.reel-sec { padding: var(--section-pad) 0; overflow: clip; }
+.reel-sec { padding: var(--section-pad) 0; overflow: hidden; overflow: clip; }
 .reel-head {
   display: flex;
   justify-content: space-between;
@@ -1707,6 +1740,7 @@ html:not(.theme-sync) [data-theme="light"] .card:not(.card--link),
   display: flex;
   align-items: center;
   isolation: isolate;
+  overflow: hidden;
   overflow: clip;
   background:
     radial-gradient(55% 55% at 30% 70%, rgba(178, 165, 242, 0.2), transparent 70%),
@@ -1720,9 +1754,16 @@ html:not(.theme-sync) [data-theme="light"] .card:not(.card--link),
   inset: 0;
   z-index: -1;
   pointer-events: none;
+  /* Extra verduistering links, waar de tekst staat: leesbaar boven de lichte linten */
   background:
     linear-gradient(180deg, var(--ink) 0%, rgba(14, 12, 11, 0) 30%, rgba(14, 12, 11, 0) 70%, rgba(14, 12, 11, 0.7) 100%),
+    linear-gradient(90deg, rgba(14, 12, 11, 0.62) 0%, rgba(14, 12, 11, 0.5) 40%, rgba(14, 12, 11, 0) 70%),
     radial-gradient(70% 70% at 100% 50%, rgba(14, 12, 11, 0.6), transparent 70%);
+}
+@media (max-width: 700px) {
+  .contact-shade {
+    background: linear-gradient(180deg, var(--ink) 0%, rgba(14, 12, 11, 0.62) 25%, rgba(14, 12, 11, 0.62) 80%, rgba(14, 12, 11, 0.85) 100%);
+  }
 }
 .contact .eyebrow { color: rgba(243, 237, 228, 0.7); }
 .contact .eyebrow span { border-color: rgba(243, 237, 228, 0.25); color: var(--paper); }
@@ -1790,6 +1831,9 @@ html:not(.theme-sync) [data-theme="light"] .card:not(.card--link),
   padding: 0.9rem 1.2rem;
   border-radius: 999px;
   border: 1px solid rgba(243, 237, 228, 0.25);
+  background: rgba(14, 12, 11, 0.55);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
   font-size: 0.92rem;
   font-weight: 500;
   transition: background-color 0.3s, border-color 0.3s;
@@ -1851,9 +1895,17 @@ html:not(.theme-sync) [data-theme="light"] .card:not(.card--link),
   opacity: 0;
   transform: translateY(16px) scale(0.9);
   pointer-events: none;
-  transition: opacity 0.5s var(--ease-out), transform 0.5s var(--ease-out);
+  /* Onzichtbaar = ook niet focusbaar met Tab */
+  visibility: hidden;
+  transition: opacity 0.5s var(--ease-out), transform 0.5s var(--ease-out), visibility 0s linear 0.5s;
 }
-.to-top.is-visible { opacity: 1; transform: none; pointer-events: auto; }
+.to-top.is-visible {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+  visibility: visible;
+  transition: opacity 0.5s var(--ease-out), transform 0.5s var(--ease-out), visibility 0s;
+}
 .to-top svg { width: 100%; height: 100%; transform: rotate(-90deg); }
 .to-top circle { fill: none; stroke-width: 1.5; }
 .to-top-track { stroke: var(--line); }
@@ -1875,6 +1927,8 @@ html:not(.theme-sync) [data-theme="light"] .card:not(.card--link),
   left: 50%;
   bottom: 1.6rem;
   z-index: 130;
+  width: max-content;
+  max-width: calc(100vw - 2rem);
   padding: 0.8rem 1.2rem;
   border-radius: 999px;
   background: var(--paper);
@@ -1937,11 +1991,21 @@ html:not(.theme-sync) [data-theme="light"] .card:not(.card--link),
   .browser { width: 92%; margin: 2rem auto; transform: none; }
   .project--gids .project-visual { place-items: center; }
   .phone { transform: rotate(3deg) translateY(18%); width: 200px; }
+
+  /* Zonder JavaScript: geen dode menuknop, maar een horizontaal scrollbare linkstrook */
+  html:not(.js) .nav-toggle { display: none; }
+  html:not(.js) .nav-name { display: none; }
+  html:not(.js) .nav-links { display: flex; min-width: 0; overflow-x: auto; scrollbar-width: none; }
+  html:not(.js) .nav-links a { white-space: nowrap; }
 }
 
 @media (max-width: 700px) {
   .stack-item { position: relative; top: 0; }
   .stack { gap: 1.2rem; }
+}
+/* Gestapelde projectkaarten alleen sticky als een kaart volledig in beeld past (niet op gsm's in landscape / lage vensters) */
+@media (max-width: 900px) and (max-height: 959px), (max-height: 649px) {
+  .stack-item { position: relative; top: 0; }
 }
 
 @media (max-width: 600px) {
@@ -1975,6 +2039,21 @@ html:not(.theme-sync) [data-theme="light"] .card:not(.card--link),
   .copy { width: 100%; justify-content: center; }
   .work-more a { margin-left: 0; }
   .to-top { bottom: 1rem; width: 46px; height: 46px; }
+}
+
+@media (max-width: 359px) {
+  .project-title { font-size: clamp(1.75rem, 10vw, 2.4rem); }
+}
+@media (max-width: 339px) {
+  .nav-name { display: none; }
+}
+
+/* Browsers zonder color-mix(): outline-cijfers en iconen in het traject blijven zichtbaar */
+@supports not (color: color-mix(in srgb, red 50%, blue)) {
+  .stop-num { -webkit-text-stroke: 1px rgba(243, 237, 228, 0.45); }
+  .stop-num--icon svg { stroke: rgba(243, 237, 228, 0.7); }
+  .stop-dot { box-shadow: 0 0 0 4px rgba(242, 163, 107, 0.22); }
+  .stop--key { border-color: rgba(242, 163, 107, 0.55); }
 }
 
 /* ═══════════════════════════════════════════════════════════

@@ -237,15 +237,18 @@
   const heroChars = [];
   $$('.hero-word').forEach(w => heroChars.push(...splitChars(w)));
 
+  // Kwamen de scripts pas na het vangnet (3,5 s) binnen, dan staat de hero al in beeld: niet opnieuw verbergen
+  const heroShown = root.classList.contains('is-ready');
+  const playIntro = hasGSAP && !reduceMotion && !heroShown;
   function heroIntro() {
     root.classList.add('is-ready');
-    if (!hasGSAP || reduceMotion) return;
+    if (!playIntro) return;
     const tl = gsap.timeline({ defaults: { ease: 'expo.out' }, delay: 0.1 });
     tl.fromTo(heroChars, { y: 0, yPercent: 115, rotate: 7 }, { y: 0, yPercent: 0, rotate: 0, duration: 1.6, stagger: 0.045 }, 0)
       .fromTo('.hero [data-intro]', { y: 26, opacity: 0 }, { y: 0, opacity: 1, duration: 1.3, stagger: 0.09 }, 0.45)
       .fromTo(nav, { opacity: 0 }, { opacity: 1, duration: 1.4, ease: 'power2.out', clearProps: 'opacity' }, 0.6);
   }
-  if (hasGSAP && !reduceMotion) {
+  if (playIntro) {
     root.classList.add('has-gsap');
     gsap.set(heroChars, { y: 0, yPercent: 115 });
     gsap.set('.hero [data-intro]', { opacity: 0 });
@@ -381,19 +384,24 @@
   })();
 
   /* ───────── Filmstrip-thumbnails (YouTube) ───────── */
+  // Bestaat er geen HD-versie, dan stuurt YouTube een grijs plaatje van 120×90: val terug op hqdefault.
+  // Als helper, zodat ook de gekloonde tegels van de marquee de fallback krijgen.
+  const ytThumb = (img, id) => {
+    const fallback = () => {
+      if (img.dataset.fb) return;
+      img.dataset.fb = '1';
+      img.src = `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
+    };
+    img.addEventListener('load', () => { if (img.naturalWidth <= 120) fallback(); });
+    img.addEventListener('error', fallback);
+    if (img.complete && img.naturalWidth && img.naturalWidth <= 120) fallback();
+  };
   $$('.tile[data-yt]').forEach(tile => {
     const img = new Image();
     img.alt = '';
     img.loading = 'lazy';
     img.decoding = 'async';
-    const fallback = () => {
-      if (img.dataset.fb) return;
-      img.dataset.fb = '1';
-      img.src = `https://i.ytimg.com/vi/${tile.dataset.yt}/hqdefault.jpg`;
-    };
-    // Bestaat er geen HD-versie, dan stuurt YouTube een grijs plaatje van 120×90
-    img.onload = () => { if (img.naturalWidth <= 120) fallback(); };
-    img.onerror = fallback;
+    ytThumb(img, tile.dataset.yt);
     img.src = `https://i.ytimg.com/vi/${tile.dataset.yt}/maxresdefault.jpg`;
     tile.prepend(img);
   });
@@ -412,6 +420,7 @@
       while (track.children.length < needed + 1) {
         const clone = group.cloneNode(true);
         clone.setAttribute('aria-hidden', 'true');
+        clone.querySelectorAll('.tile[data-yt] > img').forEach(img => ytThumb(img, img.parentElement.dataset.yt));
         track.appendChild(clone);
       }
     };
@@ -473,7 +482,7 @@
       try {
         if (!window.Matter) await loadScript('https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.20.0/matter.min.js', 'sha384-ZRKYEXtLBVeqs9z1WxyeKutCqnkqolS/r1EUWuoUpG4ZKbnRAIXnHhHdnNuiB6CL');
         start();
-      } catch (err) { if (hint) hint.textContent = ''; }
+      } catch (err) { box.classList.add('is-static'); if (hint) hint.textContent = ''; }
     }, { rootMargin: '0px 0px -20% 0px' });
     io.observe(box);
 
@@ -543,7 +552,9 @@
       function tick(now) {
         const dt = Math.min(now - last, 32);
         last = now;
-        Engine.update(engine, dt);
+        // Matter.js wil stappen van max. ~16,7 ms: trage frames in kleinere stapjes opdelen
+        const steps = Math.max(1, Math.ceil(dt / 16.667));
+        for (let s = 0; s < steps; s++) Engine.update(engine, dt / steps);
         bodies.forEach(b => {
           const { el, w, h } = b.plugin;
           el.style.transform = `translate3d(${(b.position.x - w / 2).toFixed(1)}px, ${(b.position.y - h / 2).toFixed(1)}px, 0) rotate(${b.angle.toFixed(3)}rad)`;
@@ -700,7 +711,8 @@
   }
 
   // Traject: horizontaal scrollen (desktop)
-  mm.add('(min-width: 901px) and (prefers-reduced-motion: no-preference)', () => {
+  // Niet op lage schermen (gsm in landscape): daar blijft de verticale lijst staan
+  mm.add('(min-width: 901px) and (min-height: 650px) and (prefers-reduced-motion: no-preference)', () => {
     const section = $('.journey');
     const track = $('.journey-track');
     const bar = $('.journey-progress span');
@@ -725,7 +737,7 @@
     $$('.stop').forEach(stop => {
       gsap.fromTo(stop, { y: 60, rotate: 2.5, opacity: 0.35 }, {
         y: 0, rotate: 0, opacity: 1, ease: 'none',
-        scrollTrigger: { trigger: stop, containerAnimation: tween, start: 'left 100%', end: 'left 60%', scrub: true }
+        scrollTrigger: { trigger: stop, containerAnimation: tween, start: 'left 100%', end: 'right 100%', scrub: true }
       });
       const num = $('.stop-num', stop);
       gsap.fromTo(num, { xPercent: 30 }, {
@@ -734,11 +746,27 @@
       });
     });
 
-    return () => section.classList.remove('is-horizontal');
+    // Toetsenbordfocus in een kaart: scroll zodat die kaart in beeld schuift
+    const onFocus = e => {
+      const stop = e.target.closest('.stop');
+      const st = tween.scrollTrigger;
+      const d = distance();
+      if (!stop || !st || !d) return;
+      const vw = document.documentElement.clientWidth;
+      const p = Math.min(1, Math.max(0, (stop.offsetLeft + stop.offsetWidth - vw * 0.9) / d));
+      window.scrollTo(0, st.start + p * (st.end - st.start));
+    };
+    section.addEventListener('focusin', onFocus);
+
+    return () => {
+      section.removeEventListener('focusin', onFocus);
+      section.classList.remove('is-horizontal');
+    };
   });
 
   // Projecten: kaarten stapelen en zakken weg
-  mm.add('(min-width: 701px) and (prefers-reduced-motion: no-preference)', () => {
+  // Zelfde voorwaarden als de sticky-CSS: alleen stapelen als een kaart volledig in beeld past
+  mm.add('(min-width: 901px) and (min-height: 650px) and (prefers-reduced-motion: no-preference), (min-width: 701px) and (min-height: 960px) and (prefers-reduced-motion: no-preference)', () => {
     const items = $$('.stack-item');
     items.forEach((item, i) => {
       const next = items[i + 1];
