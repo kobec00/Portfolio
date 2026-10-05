@@ -92,10 +92,13 @@
     $('#lbTitle').textContent = btn.dataset.title;
     $('#lbMeta').textContent = btn.dataset.meta;
     if (typeof lb.showModal === 'function') lb.showModal();
-    else { lb.setAttribute('open', ''); lb.classList.add('is-fallback'); }
+    else { lb.setAttribute('open', ''); lb.classList.add('is-fallback'); $('#lbClose').focus(); }
+    // Pagina erachter vastzetten (ook zonder Lenis of in browsers zonder overflow:clip)
+    root.style.overflow = 'hidden';
     if (lenis) lenis.stop();
   }
   function onClosed() {
+    root.style.overflow = '';
     lbFrame.src = 'about:blank';
     if (lenis) lenis.start();
     if (lastFocus) lastFocus.focus({ preventScroll: true });
