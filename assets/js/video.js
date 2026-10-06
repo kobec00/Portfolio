@@ -148,7 +148,8 @@
     const target = hash === '#top' ? 0 : (hash.length > 1 ? document.querySelector(hash) : null);
     if (target === null) return;
     e.preventDefault();
-    if (lenis) lenis.scrollTo(target, { duration: 1.4, easing: t => 1 - Math.pow(1 - t, 4) });
+    // Absolute doelpositie op basis van de echte scrollpositie (robuust na native scrollen)
+    if (lenis) lenis.scrollTo(target === 0 ? 0 : target.getBoundingClientRect().top + window.scrollY - (parseFloat(getComputedStyle(target).scrollMarginTop) || 0), { duration: 1.4, easing: t => 1 - Math.pow(1 - t, 4) });
     else if (target === 0) window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
     else target.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth' });
     // Toetsenbordfocus mee verplaatsen

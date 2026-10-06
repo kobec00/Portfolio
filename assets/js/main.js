@@ -106,7 +106,10 @@
     // Een gepinde sectie wordt na de pin verschoven: scroll naar de spacer
     const dest = target === 0 ? 0 : (target.closest('.pin-spacer') || target);
     if (lenis) {
-      lenis.scrollTo(dest, { duration: 1.5, easing: t => 1 - Math.pow(1 - t, 4) });
+      // Doel als absolute positie op basis van de echte scrollpositie: blijft kloppen als er net
+      // native gescrold werd (schermlezer, zoeken op de pagina) en Lenis dat nog niet verwerkt heeft
+      const y = dest === 0 ? 0 : dest.getBoundingClientRect().top + window.scrollY - (parseFloat(getComputedStyle(dest).scrollMarginTop) || 0);
+      lenis.scrollTo(y, { duration: 1.5, easing: t => 1 - Math.pow(1 - t, 4) });
     } else if (dest === 0) {
       window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
     } else {
