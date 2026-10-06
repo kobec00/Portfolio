@@ -85,6 +85,7 @@
   const lb = $('#lightbox');
   const lbFrame = $('#lbFrame');
   let lastFocus = null;
+  let closedAt = 0;
   function openLB(btn) {
     lastFocus = btn;
     lbFrame.src = `https://www.youtube-nocookie.com/embed/${btn.dataset.id}?autoplay=1&rel=0&modestbranding=1`;
@@ -98,12 +99,14 @@
     if (lenis) lenis.stop();
   }
   function onClosed() {
+    closedAt = performance.now();
     root.style.overflow = '';
     lbFrame.src = 'about:blank';
     if (lenis) lenis.start();
     if (lastFocus) lastFocus.focus({ preventScroll: true });
   }
   function closeLB() {
+    closedAt = performance.now();
     if (typeof lb.close === 'function') { if (lb.open) lb.close(); }
     else if (lb.hasAttribute('open')) { lb.removeAttribute('open'); lb.classList.remove('is-fallback'); onClosed(); }
   }
@@ -114,6 +117,10 @@
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLB(); });
   }
   $('#lbClose').addEventListener('click', closeLB);
+  // De tweede klik van een dubbelklik op de sluitknop of naast de video mag niet doorvallen naar de pagina
+  document.addEventListener('click', e => {
+    if (e.detail > 1 && performance.now() - closedAt < 600) { e.preventDefault(); e.stopPropagation(); }
+  }, true);
   // Klik naast de video sluit (niet bij de tweede klik van een dubbelklik op een filmkaart)
   lb.addEventListener('click', e => { if (e.target === lb && e.detail < 2) closeLB(); });
   document.addEventListener('click', e => {

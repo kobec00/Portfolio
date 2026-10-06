@@ -748,6 +748,10 @@
 
     // Toetsenbordfocus in een kaart: scroll zodat die kaart in beeld schuift
     const onFocus = e => {
+      // Alleen bij toetsenbordfocus: een muisklik mag de pagina niet onder de cursor wegschuiven
+      let keyboard = false;
+      try { keyboard = e.target.matches(':focus-visible'); } catch (err) { keyboard = false; }
+      if (!keyboard) return;
       const stop = e.target.closest('.stop');
       const st = tween.scrollTrigger;
       const d = distance();
