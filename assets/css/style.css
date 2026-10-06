@@ -1348,7 +1348,7 @@ html:not(.theme-sync) [data-theme="light"] .card:not(.card--link),
 }
 .project--thesis { --pc-bg: #1D1828; --pc-fg: #F3EDE4; --pc-muted: #B3A9C2; --pc-line: rgba(243, 237, 228, 0.16); }
 .project--emfi   { --pc-bg: #E5D7C1; --pc-fg: #231D18; --pc-muted: #62554A; --pc-line: rgba(35, 29, 24, 0.16); }
-.project--gids   { --pc-bg: #0D4840; --pc-fg: #ECF5F2; --pc-muted: #A5C9C0; --pc-line: rgba(236, 245, 242, 0.18); }
+.project--gids   { --pc-bg: #FBF8F4; --pc-fg: #17162A; --pc-muted: #46435A; --pc-line: #DAD1C3; }
 
 .project-copy {
   display: flex;
@@ -1524,15 +1524,77 @@ html:not(.theme-sync) [data-theme="light"] .card:not(.card--link),
 .project:hover .float-chip--a { transform: rotate(-2deg) translate(-8px, -10px); }
 .project:hover .float-chip--b { transform: rotate(2deg) translate(8px, 10px); }
 
-/* Regenbooggids — browservenster */
-.project--gids .project-visual { place-items: center start; }
+/* Regenbooggids — in de stijl van de site zelf: warm papier, de zesbandige boog, teal */
+.project--gids {
+  background:
+    radial-gradient(40% 55% at 0% 6%, rgba(238, 111, 156, 0.2), transparent 70%),
+    radial-gradient(45% 60% at 100% 0%, rgba(70, 179, 214, 0.2), transparent 70%),
+    radial-gradient(40% 50% at 46% 108%, rgba(245, 210, 63, 0.2), transparent 70%),
+    var(--pc-bg);
+}
+.project--gids .project-top { color: #6E6A82; }
+.project--gids .project-num {
+  border: 1.5px solid transparent;
+  background:
+    linear-gradient(var(--pc-bg), var(--pc-bg)) padding-box,
+    conic-gradient(#EE6F9C, #F4A44A, #F5D23F, #5BBF7A, #46B3D6, #7B6FD4, #EE6F9C) border-box;
+}
+.project--gids .project-title { font-weight: 560; font-variation-settings: "SOFT" 50; }
+.project--gids .tags li { border-color: transparent; background: var(--tone-bg); color: var(--tone); }
+.project--gids .tags li:nth-child(1) { --tone: #5B3FC4; --tone-bg: #ECE8FB; }
+.project--gids .tags li:nth-child(2) { --tone: #B4234F; --tone-bg: #FCE6EC; }
+.project--gids .tags li:nth-child(3) { --tone: #0B6B5D; --tone-bg: #DFF2EC; }
+.project--gids .tags li:nth-child(4) { --tone: #A4510B; --tone-bg: #FBEEDA; }
+.project--gids .project-cta {
+  background: #0B6B5D;
+  color: #FFFFFF;
+  font-weight: 600;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.18) inset, 0 10px 24px -10px rgba(11, 107, 93, 0.75);
+  transition: transform 0.5s var(--ease-out), background-color 0.3s;
+}
+.project--gids:hover .project-cta { background: #075247; }
+
+/* De kaart zelf knipt af; zo krijgt de gloed geen harde naad op de kolomrand */
+.project--gids .project-visual { place-items: center start; overflow: visible; }
+/* Stippenraster, zoals achter de boog op de site */
+.project--gids .project-visual::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle at 1px 1px, rgba(23, 22, 42, 0.16) 1px, transparent 0);
+  background-size: 26px 26px;
+  -webkit-mask-image: radial-gradient(ellipse 60% 60% at 55% 45%, #000 10%, transparent 72%);
+          mask-image: radial-gradient(ellipse 60% 60% at 55% 45%, #000 10%, transparent 72%);
+  opacity: 0.55;
+}
+/* Zachte regenbooggloed achter het venster */
+.gids-glow {
+  position: absolute;
+  left: 4%;
+  top: -6%;
+  width: 104%;
+  height: auto;
+  overflow: visible;
+  filter: blur(28px);
+  opacity: 0.5;
+  pointer-events: none;
+}
+.gids-glow path { fill: none; stroke-width: 30; stroke-linecap: round; }
+.gids-glow path:nth-child(1) { stroke: #EE6F9C; }
+.gids-glow path:nth-child(2) { stroke: #F4A44A; }
+.gids-glow path:nth-child(3) { stroke: #F5D23F; }
+.gids-glow path:nth-child(4) { stroke: #5BBF7A; }
+.gids-glow path:nth-child(5) { stroke: #46B3D6; }
+.gids-glow path:nth-child(6) { stroke: #7B6FD4; }
 .browser {
+  position: relative;
   width: 118%;
   margin-left: 4%;
-  border-radius: 14px;
+  border-radius: 16px;
   overflow: hidden;
-  background: #F2EFF5;
-  box-shadow: 0 50px 90px -40px rgba(0, 0, 0, 0.65);
+  background: #FFFFFF;
+  border: 1px solid #E9E2D7;
+  box-shadow: 0 2px 6px rgba(23, 22, 42, 0.05), 0 50px 90px -40px rgba(23, 22, 42, 0.45);
   transform: perspective(1400px) rotateY(-10deg) rotateX(4deg);
   transform-origin: 0 50%;
   transition: transform 1s var(--ease-out);
@@ -1543,21 +1605,30 @@ html:not(.theme-sync) [data-theme="light"] .card:not(.card--link),
   align-items: center;
   gap: 6px;
   padding: 10px 14px;
-  background: #E4DFEA;
+  background: #F5F0E8;
+  border-bottom: 1px solid #E9E2D7;
 }
-.browser-bar i { width: 10px; height: 10px; border-radius: 50%; background: #CFC6D8; }
+.browser-bar i { width: 10px; height: 10px; border-radius: 50%; background: #DAD1C3; }
 .browser-bar i:nth-child(1) { background: #EE8C7E; }
 .browser-bar i:nth-child(2) { background: #F0C46B; }
 .browser-bar i:nth-child(3) { background: #8BCB8F; }
 .browser-bar span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   margin-left: 12px;
-  padding: 3px 14px;
-  border-radius: 6px;
-  background: #F6F3F8;
+  padding: 3px 14px 3px 10px;
+  border-radius: 999px;
+  background: #FFFFFF;
+  border: 1px solid #E9E2D7;
   font-family: var(--font-mono);
   font-size: 0.66rem;
-  color: #6D6578;
+  color: #6E6A82;
 }
+.browser-fav { width: 13px; height: 13px; fill: none; stroke-width: 6; stroke-linecap: round; }
+.browser-fav path:nth-child(1) { stroke: #EE6F9C; }
+.browser-fav path:nth-child(2) { stroke: #F5D23F; }
+.browser-fav path:nth-child(3) { stroke: #46B3D6; }
 .browser img { width: 100%; height: auto; }
 
 .work-more {
