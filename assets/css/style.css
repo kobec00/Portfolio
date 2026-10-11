@@ -840,7 +840,7 @@ html:not(.js) .nav::before { opacity: 1; transform: none; }
   color: var(--muted);
 }
 
-/* Interesses: physics-pillen */
+/* Interesses: Sterrenjacht-minigame */
 .interests { margin-top: clamp(4rem, 10vh, 7rem); }
 .interests-head {
   display: flex;
@@ -860,7 +860,7 @@ html:not(.js) .nav::before { opacity: 1; transform: none; }
 
 .pillbox {
   position: relative;
-  height: clamp(320px, 29vw, 420px);
+  height: clamp(340px, 30vw, 440px);
   border: 1px solid var(--line);
   border-radius: calc(var(--radius) + 8px);
   background: color-mix(in srgb, var(--fg) 3%, transparent);
@@ -897,165 +897,252 @@ html:not(.js) .interests-hint { display: none; }
 .pill--ink { background: var(--ink); color: var(--paper); }
 .pill--line { background: var(--paper); box-shadow: inset 0 0 0 1.5px var(--ink); }
 .pill--spectrum { background: var(--spectrum); }
-.pillbox.is-physics .pills { display: block; padding: 0; }
-.pillbox.is-physics .pill {
+/* Sterrenjacht: een donker arcadescherm in de lichte sectie (via JS) */
+.pillbox.is-game {
+  --sx: 0px;
+  --sy: 0px;
+  border-color: rgba(22, 18, 15, 0.55);
+  background:
+    radial-gradient(55% 75% at 12% 0%, rgba(178, 165, 242, 0.2), transparent 70%),
+    radial-gradient(45% 65% at 92% 6%, rgba(239, 151, 171, 0.15), transparent 70%),
+    radial-gradient(70% 55% at 50% 118%, rgba(244, 180, 116, 0.2), transparent 70%),
+    #110E0D;
+  box-shadow: 0 40px 80px -50px rgba(22, 18, 15, 0.75), inset 0 0 0 1px rgba(243, 237, 228, 0.05);
+  color: var(--paper);
+  cursor: pointer;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.pillbox.is-game:focus-visible { border-radius: calc(var(--radius) + 8px); }
+/* Tijdens het spelen is het schip de cursor, en stuur je op een gsm zonder dat de pagina meescrolt */
+.pillbox.is-playing { cursor: none; touch-action: none; }
+.pillbox.is-game .pills { display: block; height: 100%; padding: 0; translate: var(--sx) var(--sy); }
+.pillbox.is-game .pill {
   position: absolute;
   left: 0;
   top: 0;
   z-index: 2;
-  cursor: grab;
+  pointer-events: none;
   will-change: transform;
-  -webkit-touch-callout: none;
+  box-shadow: 0 12px 34px -14px var(--c);
+  transition: filter 0.2s;
 }
-.pillbox.is-physics .pill:active,
-.pillbox.is-physics .pill.is-held { cursor: grabbing; }
+.pillbox.is-game .pill--ink { box-shadow: inset 0 0 0 1.5px rgba(243, 237, 228, 0.42), 0 12px 30px -14px rgba(243, 237, 228, 0.35); }
+.pillbox.is-game .pill--line { box-shadow: inset 0 0 0 1.5px var(--ink), 0 12px 30px -14px rgba(243, 237, 228, 0.55); }
+.pillbox.is-game .pill--spectrum { box-shadow: 0 12px 34px -14px #B2A5F2; }
+.pillbox.is-game .pill.is-hit { filter: brightness(1.5) saturate(1.15); transition: none; }
+.pillbox.is-game .pill.is-out { visibility: hidden; }
 
-/* Basket-minigame: ring rechtsboven, gestippelde driepuntslijn, scorebord linksboven */
-.court {
+.game-bg, .game-fx {
   position: absolute;
   inset: 0;
-  z-index: 0;
   width: 100%;
   height: 100%;
   pointer-events: none;
+  translate: var(--sx) var(--sy);
 }
-.court-zone { fill: color-mix(in srgb, var(--fg) 2.5%, transparent); }
-.court-line {
-  fill: none;
-  stroke: color-mix(in srgb, var(--fg) 34%, transparent);
-  stroke-width: 1.6;
-  stroke-dasharray: 0.1 8;
-  stroke-linecap: round;
-  transition: stroke 0.5s;
-}
-.court.is-hot .court-line { stroke: var(--accent); stroke-width: 2.2; transition: stroke 0.1s; }
+.game-bg { z-index: 0; }
+.game-fx { z-index: 3; }
 
-.hoop-board, .hoop-net, .hoop-rim { position: absolute; pointer-events: none; }
-.hoop-board {
-  z-index: 1;
-  right: 0;
-  top: calc(var(--rim-y) - 128px);
-  width: var(--board);
-  height: 148px;
-  border-radius: 8px 0 0 8px;
-  background: var(--fg);
-  opacity: 0.88;
-}
-.hoop-rim {
-  z-index: 4;
-  right: var(--board);
-  top: calc(var(--rim-y) - 3px);
-  width: calc(var(--rim-w) + 5px);
-  height: 6px;
-  border-radius: 6px;
-  background: var(--spectrum);
-  box-shadow: 0 2px 6px -2px rgba(22, 18, 15, 0.35);
-}
-.hoop-net {
-  z-index: 3;
-  right: calc(var(--board) + 3px);
-  top: var(--rim-y);
-  width: calc(var(--rim-w) - 2px);
-  height: calc(var(--rim-w) * 0.42);
-  clip-path: polygon(0 0, 100% 0, 84% 100%, 16% 100%);
-  background:
-    repeating-linear-gradient(62deg, transparent 0 10px, color-mix(in srgb, var(--fg) 42%, transparent) 10px 11.5px),
-    repeating-linear-gradient(-62deg, transparent 0 10px, color-mix(in srgb, var(--fg) 42%, transparent) 10px 11.5px);
-  transform-origin: 50% 0;
-}
-.hoop-net.is-swish { animation: swish 0.6s var(--ease-out); }
-@keyframes swish { 30% { transform: scale(0.9, 1.22); } 65% { transform: scale(1.03, 0.94); } }
-
-.hud {
+.hud, .hud-clock, .hud-power {
   position: absolute;
-  left: 1.2rem;
-  top: 1.05rem;
+  top: 1.1rem;
   z-index: 5;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  pointer-events: none;
+}
+.hud {
+  left: 1.25rem;
   display: flex;
   align-items: center;
-  flex-wrap: wrap;
-  gap: 0.5rem 0.8rem;
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  font-weight: 500;
+  gap: 0.8rem;
+  font-size: 0.68rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--muted);
-  pointer-events: none;
+  color: rgba(243, 237, 228, 0.6);
 }
 .hud-dots { display: flex; gap: 5px; }
 .hud-dots i {
-  width: 10px;
-  height: 10px;
+  width: 9px;
+  height: 9px;
   border-radius: 50%;
-  box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--fg) 26%, transparent);
+  box-shadow: inset 0 0 0 1.5px rgba(243, 237, 228, 0.26);
   transition: background 0.3s, box-shadow 0.3s;
 }
-.hud-dots i.is-on { background: var(--dot); box-shadow: inset 0 0 0 1px rgba(22, 18, 15, 0.22); }
+.hud-dots i.is-on { background: var(--dot); box-shadow: inset 0 0 0 1px rgba(243, 237, 228, 0.5); }
 .hud-dots i.is-pop { animation: dot-pop 0.6s var(--ease-out); }
-@keyframes dot-pop { 40% { transform: scale(1.8); } }
-.hud-count b { color: var(--fg); font-weight: 500; }
-
-/* Al gescoord: klein vinkje op de pil */
-.pillbox.is-game .pill.is-scored::after {
+@keyframes dot-pop { 40% { transform: scale(1.9); } }
+.hud-count b { color: var(--paper); font-weight: 500; }
+.hud-clock {
+  right: 1.25rem;
+  font-size: 0.74rem;
+  letter-spacing: 0.06em;
+  color: var(--paper);
+  font-variant-numeric: tabular-nums;
+  transition: opacity 0.4s;
+}
+.pillbox[data-state="idle"] .hud-clock { opacity: 0; }
+.hud-power {
+  top: 2.5rem;
+  right: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.64rem;
+  letter-spacing: 0.08em;
+  color: #F4B474;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.hud-power.is-on { opacity: 1; }
+.hud-power i { position: relative; width: 56px; height: 3px; border-radius: 3px; overflow: hidden; background: rgba(243, 237, 228, 0.15); }
+.hud-power i::after {
   content: '';
   position: absolute;
-  top: -5px;
-  right: -2px;
-  width: 19px;
-  height: 19px;
-  border-radius: 50%;
-  background: var(--ink) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2.6 6.3 5 8.6l4.4-5' fill='none' stroke='%23F3EDE4' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 11px no-repeat;
-  box-shadow: 0 0 0 2px var(--paper);
+  inset: 0;
+  background: var(--spectrum);
+  transform-origin: 0 50%;
+  transform: scaleX(var(--pw, 0));
 }
-.pillbox .pill-ghost { z-index: 6; pointer-events: none; }
 
-.spark {
+.game-prompt {
   position: absolute;
-  z-index: 6;
-  width: 7px;
-  height: 7px;
-  margin: -3.5px 0 0 -3.5px;
-  border-radius: 2px;
+  left: 1rem;
+  right: 1rem;
+  bottom: 104px;
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  text-align: center;
   pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s;
 }
+.pillbox[data-state="idle"] .game-prompt { opacity: 1; }
+.game-prompt b {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--paper);
+  animation: blink 1.8s ease-in-out infinite;
+}
+.game-prompt span { font-size: 0.84rem; color: rgba(243, 237, 228, 0.58); }
+@keyframes blink { 50% { opacity: 0.35; } }
+
+.game-banner {
+  position: absolute;
+  left: 50%;
+  top: 48%;
+  z-index: 6;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  max-width: calc(100% - 2rem);
+  text-align: center;
+  pointer-events: none;
+  opacity: 0;
+  transform: translate(-50%, -50%);
+}
+.game-banner span {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #F4B474;
+}
+.game-banner b {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4.4vw, 3.6rem);
+  font-style: italic;
+  font-weight: 320;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  font-variation-settings: "SOFT" 100, "WONK" 1;
+  background: linear-gradient(100deg, #F6BA83 0%, #F197B2 48%, #B4A6FF 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  padding: 0 0.1em 0.12em;
+  white-space: nowrap;
+}
+
 .pop-text {
   position: absolute;
   z-index: 6;
   padding: 0.5em 0.85em;
   border-radius: 999px;
-  background: var(--fg);
-  color: var(--bg);
+  background: var(--paper);
+  color: var(--ink);
   font-family: var(--font-mono);
-  font-size: 0.7rem;
+  font-size: 0.68rem;
   font-weight: 500;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   white-space: nowrap;
   pointer-events: none;
+  box-shadow: 0 10px 24px -12px rgba(0, 0, 0, 0.6);
 }
 
-.game-done {
+.game-card {
   position: absolute;
   left: 50%;
   top: 50%;
   z-index: 7;
   width: max-content;
   max-width: calc(100% - 2rem);
-  padding: 1.4rem 1.8rem 1.5rem;
+  padding: 1.5rem 2rem 1.6rem;
   border-radius: 22px;
   text-align: center;
-  background: color-mix(in srgb, var(--bg) 84%, transparent);
-  -webkit-backdrop-filter: blur(12px);
-  backdrop-filter: blur(12px);
-  border: 1px solid var(--line);
-  box-shadow: 0 30px 60px -30px rgba(22, 18, 15, 0.45);
+  color: var(--paper);
+  background: rgba(17, 14, 13, 0.68);
+  -webkit-backdrop-filter: blur(12px) saturate(1.3);
+  backdrop-filter: blur(12px) saturate(1.3);
+  border: 1px solid rgba(243, 237, 228, 0.14);
+  box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.7);
+  cursor: default;
   opacity: 0;
-  transform: translate(-50%, -44%) scale(0.96);
-  transition: opacity 0.4s var(--ease-out), transform 0.6s var(--ease-out);
+  visibility: hidden;
+  transform: translate(-50%, -44%) scale(0.97);
+  transition: opacity 0.4s var(--ease-out), transform 0.6s var(--ease-out), visibility 0s linear 0.4s;
 }
-.game-done.is-on { opacity: 1; transform: translate(-50%, -50%); }
-.game-done-title {
+.game-card.is-on {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.4s var(--ease-out), transform 0.6s var(--ease-out), visibility 0s;
+}
+/* Na het winnen onderaan: zo blijven de interesses in formatie erboven zichtbaar */
+.pillbox[data-state="won"] .game-card { top: auto; bottom: 1rem; transform: translate(-50%, 8%) scale(0.97); }
+.pillbox[data-state="won"] .game-card.is-on { transform: translate(-50%, 0); }
+@media (min-width: 601px) {
+  .pillbox[data-state="won"] .game-card {
+    display: flex;
+    align-items: center;
+    gap: 2.2rem;
+    padding: 1.2rem 1.3rem 1.2rem 1.8rem;
+    text-align: left;
+  }
+  .pillbox[data-state="won"] .game-sub { margin-bottom: 0; }
+}
+.game-eyebrow {
+  margin-bottom: 0.55rem;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #F4B474;
+}
+.game-title {
   font-family: var(--font-display);
   font-size: clamp(1.6rem, 2.6vw, 2.3rem);
   font-weight: 340;
@@ -1063,40 +1150,41 @@ html:not(.js) .interests-hint { display: none; }
   letter-spacing: -0.025em;
   font-variation-settings: "SOFT" 100;
 }
-.game-done-title em {
+.game-title em {
   font-variation-settings: "SOFT" 100, "WONK" 1;
-  background: var(--em-grad);
+  background: linear-gradient(100deg, #F6BA83 0%, #F197B2 48%, #B4A6FF 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
   padding-right: 0.06em;
 }
-.game-done-sub { margin: 0.5rem 0 1.1rem; color: var(--muted); font-size: 0.92rem; line-height: 1.5; }
-.game-again {
+.game-sub { margin: 0.55rem 0 1.15rem; color: rgba(243, 237, 228, 0.7); font-size: 0.92rem; line-height: 1.5; }
+.game-btn {
+  flex-shrink: 0;
   display: inline-flex;
   align-items: center;
+  white-space: nowrap;
   gap: 0.5em;
-  padding: 0.75em 1.25em;
+  padding: 0.75em 1.3em;
   border-radius: 999px;
-  background: var(--fg);
-  color: var(--bg);
+  background: var(--paper);
+  color: var(--ink);
   font-size: 0.9rem;
   font-weight: 500;
-  transition: background-color 0.3s, color 0.3s;
+  transition: background-color 0.3s;
 }
-.game-again:hover { background: var(--accent); color: var(--paper); }
+.game-btn:hover { background: #F4B474; }
+
 @media (max-width: 600px) and (prefers-reduced-motion: no-preference) {
-  .pillbox { height: 400px; }
+  .pillbox { height: 440px; }
 }
-/* Zonder physics (minder beweging, geen JS of Matter.js laadt niet): box groeit mee zodat alle pillen zichtbaar zijn */
+/* Zonder spel (minder beweging of geen JS): box groeit mee zodat alle pillen zichtbaar zijn */
 @media (prefers-reduced-motion: reduce) {
   .pillbox { height: auto; min-height: clamp(260px, 24vw, 330px); }
   .pills { min-height: inherit; }
 }
-html:not(.js) .pillbox,
-.pillbox.is-static { height: auto; min-height: clamp(260px, 24vw, 330px); }
-html:not(.js) .pills,
-.pillbox.is-static .pills { min-height: inherit; }
+html:not(.js) .pillbox { height: auto; min-height: clamp(260px, 24vw, 330px); }
+html:not(.js) .pills { min-height: inherit; }
 
 /* ═══════════════════════════════════════════════════════════
    02 · VISIE
@@ -2489,11 +2577,20 @@ html.has-rail::-webkit-scrollbar { display: none; }
 
   .stat-num--text { padding-top: 0.2em; font-size: 1.5rem; hyphens: manual; }
 
-  /* Kleinere pillen en een hoger speelveld: genoeg ruimte om te gooien op een gsm */
-  .pill { font-size: 0.88rem; padding: 0.8em 1.15em; }
-  .pill--big { font-size: 1rem; }
-  .hud { left: 1rem; top: 0.9rem; font-size: 0.64rem; }
-  .hud-dots i { width: 8px; height: 8px; }
+  /* Sterrenjacht op een gsm: kleinere pillen zodat de formatie in vier rijen past */
+  .pill { font-size: 0.84rem; padding: 0.78em 1.1em; }
+  .pill--big { font-size: 0.96rem; }
+  .hud { left: 1rem; top: 0.95rem; gap: 0.55rem; font-size: 0.6rem; }
+  .hud-dots { gap: 4px; }
+  .hud-dots i { width: 7px; height: 7px; }
+  .hud-clock { right: 1rem; top: 0.95rem; font-size: 0.66rem; }
+  .hud-power { right: 1rem; top: 2.2rem; }
+  .game-prompt { bottom: 86px; }
+  .game-prompt span { font-size: 0.76rem; }
+  .game-card { padding: 1.1rem 1.3rem 1.2rem; }
+  .game-title { font-size: 1.5rem; }
+  .game-sub { margin: 0.4rem 0 0.9rem; font-size: 0.84rem; }
+  .game-btn { padding: 0.65em 1.15em; font-size: 0.86rem; }
 
   .card--code { display: flex; }
   .certs-head .sec-intro { margin-top: 1rem; }
