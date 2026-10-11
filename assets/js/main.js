@@ -220,6 +220,169 @@
     sections.forEach(s => io.observe(s));
   })();
 
+  /* ───────── Scroll-meetlat (desktop): vervangt de scrollbalk ───────── */
+  // Ingezoomd schuift een lat met streepjes mee terwijl je scrolt; ga je erover met de muis,
+  // dan schuift alles samen tot 0–100 % en zie je alle secties om naar te springen.
+  (function initRail() {
+    const mq = window.matchMedia('(hover: hover) and (pointer: fine) and (min-width: 901px)');
+    const secs = $$('[data-rail]');
+    if (!secs.length) return;
+
+    const ZOOM = 34; // px per procent, ingezoomd
+    const rail = document.createElement('div');
+    rail.className = 'rail';
+    rail.setAttribute('aria-hidden', 'true');
+    let html = '<div class="rail-panel"></div><div class="rail-clip"><div class="rail-track"><div class="rail-tape">';
+    for (let v = 0; v <= 100; v++) {
+      html += v % 5 ? `<i class="rail-tick" style="--v:${v}"></i>` : `<i class="rail-tick is-major" style="--v:${v}"><b>${v}</b></i>`;
+    }
+    html += '<span class="rail-band"></span><span class="rail-now"><b>000%</b></span>';
+    let n = 0;
+    secs.forEach(s => {
+      const num = s.id === 'top' ? '' : `<span>${String(++n).padStart(2, '0')}</span>`;
+      html += `<a class="rail-label" href="#${s.id}" tabindex="-1">${num}${s.dataset.rail}</a>`;
+    });
+    html += '</div><span class="rail-hover"><b>000%</b></span></div></div>';
+    rail.innerHTML = html;
+    body.appendChild(rail);
+
+    const track = $('.rail-track', rail);
+    const tape = $('.rail-tape', rail);
+    const nowLabel = $('.rail-now b', rail);
+    const hoverLine = $('.rail-hover', rail);
+    const hoverLabel = $('b', hoverLine);
+    const marks = $$('.rail-label', rail).map((el, i) => ({ el, sec: secs[i], v: 0 }));
+
+    let on = false, open = false, z = 0, zT = 0, p = 0, Hr = 1, max = 1, raf = 0, last = 0;
+    let openT = 0, closeT = 0, drag = null;
+    const fmt = v => String(Math.round(v * 100)).padStart(3, '0') + '%';
+
+    function measure() {
+      if (!on) return;
+      Hr = Math.max(1, track.clientHeight);
+      max = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+      marks.forEach(m => {
+        const top = m.sec.id === 'top' ? 0 : (m.sec.closest('.pin-spacer') || m.sec).getBoundingClientRect().top + window.scrollY;
+        m.v = clamp(top / max, 0, 1) * 100;
+      });
+      // Labels die te dicht op elkaar vallen een beetje uit elkaar duwen (alleen hun plek op de lat)
+      const gap = 20 / (Hr / 100);
+      let prev = -Infinity;
+      marks.forEach(m => { m.y = Math.max(m.v, prev + gap); prev = m.y; });
+      for (let i = marks.length - 1; i >= 0; i--) {
+        const lim = i === marks.length - 1 ? 100 : marks[i + 1].y - gap;
+        if (marks[i].y > lim) marks[i].y = lim;
+        marks[i].el.style.setProperty('--v', marks[i].y.toFixed(3));
+      }
+      rail.style.setProperty('--bh', (window.innerHeight / max * 100).toFixed(3));
+      update();
+    }
+
+    function render() {
+      const e = z * z * (3 - 2 * z);
+      const s = ZOOM + (Hr / 100 - ZOOM) * e;
+      rail.style.setProperty('--s', s.toFixed(3));
+      rail.style.setProperty('--p', p.toFixed(5));
+      tape.style.transform = `translate3d(0, ${(p * (Hr - 100 * s)).toFixed(2)}px, 0)`;
+      nowLabel.textContent = fmt(p);
+      rail.classList.toggle('is-end', p > 0.97);
+    }
+    function update() {
+      p = clamp(window.scrollY / max, 0, 1);
+      // Actieve sectie: die het midden van het scherm vult
+      const mid = (window.scrollY + window.innerHeight / 2) / max * 100;
+      let active = marks[0];
+      marks.forEach(m => { if (m.v <= mid) active = m; });
+      marks.forEach(m => m.el.classList.toggle('is-active', m === active));
+      if (!raf) render();
+    }
+    function loop(now) {
+      const dt = Math.min(now - last, 50);
+      last = now;
+      z += (zT - z) * (1 - Math.exp(-dt / 110));
+      if (Math.abs(zT - z) < 0.002) z = zT;
+      render();
+      raf = z !== zT ? requestAnimationFrame(loop) : 0;
+    }
+    function setOpen(v) {
+      if (open === v) return;
+      open = v;
+      rail.classList.toggle('is-open', v);
+      zT = v ? 1 : 0;
+      if (reduceMotion) { z = zT; render(); return; }
+      if (!raf) { last = performance.now(); raf = requestAnimationFrame(loop); }
+    }
+
+    // Klik of sleep op de lat: naar dat punt scrollen
+    const pAt = y => clamp((y - track.getBoundingClientRect().top) / Hr, 0, 1);
+    function go(target, instant) {
+      const y = target * max;
+      if (lenis) lenis.scrollTo(y, instant ? { immediate: true, force: true } : { duration: 1.2, easing: t => 1 - Math.pow(1 - t, 4), force: true });
+      else window.scrollTo({ top: y, behavior: instant || reduceMotion ? 'instant' : 'smooth' });
+    }
+    rail.addEventListener('pointerenter', () => {
+      clearTimeout(closeT);
+      openT = setTimeout(() => setOpen(true), 80);
+    });
+    rail.addEventListener('pointerleave', () => {
+      clearTimeout(openT);
+      rail.classList.remove('is-hovering');
+      if (!drag) closeT = setTimeout(() => setOpen(false), 280);
+    });
+    rail.addEventListener('pointermove', e => {
+      const y = pAt(e.clientY);
+      rail.classList.add('is-hovering');
+      hoverLine.style.transform = `translate3d(0, ${(y * Hr).toFixed(1)}px, 0)`;
+      hoverLabel.textContent = fmt(y);
+      if (drag) {
+        if (Math.abs(e.clientY - drag.y0) > 4) drag.moved = true;
+        if (drag.moved) go(y, true);
+      }
+    });
+    rail.addEventListener('pointerdown', e => {
+      if (e.button !== 0 || e.target.closest('.rail-label')) return;
+      e.preventDefault();
+      clearTimeout(openT);
+      setOpen(true);
+      drag = { y0: e.clientY, moved: false };
+      try { rail.setPointerCapture(e.pointerId); } catch (err) { /* oude browser */ }
+    });
+    const endDrag = e => {
+      if (!drag) return;
+      if (!drag.moved && e.type === 'pointerup') go(pAt(e.clientY), false);
+      drag = null;
+      if (!rail.matches(':hover')) closeT = setTimeout(() => setOpen(false), 280);
+    };
+    rail.addEventListener('pointerup', endDrag);
+    rail.addEventListener('pointercancel', endDrag);
+    // Na een sprong via een label: dichtklappen
+    rail.addEventListener('click', e => { if (e.target.closest('.rail-label')) { clearTimeout(openT); setOpen(false); } });
+
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+      if (!on || ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => { ticking = false; update(); });
+    }, { passive: true });
+
+    // Posities opnieuw meten als de pagina van hoogte verandert (pins, lettertypes, beelden)
+    let mt = 0;
+    const remeasure = () => { cancelAnimationFrame(mt); mt = requestAnimationFrame(measure); };
+    if (window.ResizeObserver) new ResizeObserver(remeasure).observe(document.body);
+    window.addEventListener('resize', remeasure);
+    window.addEventListener('load', remeasure);
+    if (hasGSAP) ScrollTrigger.addEventListener('refresh', remeasure);
+
+    function apply() {
+      on = mq.matches;
+      root.classList.toggle('has-rail', on);
+      if (!on) { setOpen(false); return; }
+      remeasure();
+    }
+    apply();
+    mq.addEventListener('change', () => { apply(); if (hasGSAP) ScrollTrigger.refresh(); });
+  })();
+
   /* ───────── WebGL-linten ───────── */
   const ribbons = {};
   (function initRibbons() {
@@ -362,6 +525,27 @@
         card.style.setProperty('--my', `${e.clientY - r.top}px`);
       });
     });
+
+    // Iconen: kopie van elke vorm bovenop het origineel, met een streep zo lang als de vorm zelf.
+    // Het gat is iets langer dan de streep, zodat ook een ronde lijnkap pas verschijnt als de lijn vertrekt.
+    if (!reduceMotion) {
+      $$('.card .icon').forEach(svg => {
+        const trace = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        trace.setAttribute('class', 'icon-trace');
+        $$('path, circle, rect', svg).forEach((shape, i) => {
+          let len = 0;
+          try { len = shape.getTotalLength(); } catch (err) { len = 0; }
+          if (!len) return;
+          const copy = shape.cloneNode(false);
+          copy.style.strokeDasharray = `${len.toFixed(2)} ${(len + 4).toFixed(2)}`;
+          copy.style.setProperty('--off', (len + 2).toFixed(2));
+          copy.style.setProperty('--i', i);
+          trace.appendChild(copy);
+        });
+        svg.appendChild(trace);
+        svg.classList.add('has-trace');
+      });
+    }
   }
 
   /* ───────── Tellers ───────── */
@@ -471,13 +655,15 @@
     requestAnimationFrame(frame);
   })();
 
-  /* ───────── Interesses als physics-pillen (Matter.js, lazy) ───────── */
+  /* ───────── Interesses: basket-minigame met physics-pillen (Matter.js, lazy) ───────── */
+  // Gooi de pillen in de ring rechtsboven. Een pil die je over de stippellijn sleept glipt uit je hand:
+  // scoren kan alleen met een echte worp van achter de lijn.
   (function initPills() {
     const box = $('#pillbox');
     if (!box) return;
     const hint = $('.interests-hint');
     if (!finePointer && hint && hint.dataset.hintTouch) hint.textContent = hint.dataset.hintTouch;
-    if (reduceMotion) { if (hint) hint.textContent = ''; box.removeAttribute('data-cursor'); return; }
+    if (reduceMotion) { if (hint) hint.textContent = ''; return; }
 
     const io = new IntersectionObserver(async entries => {
       if (!entries[0].isIntersecting) return;
@@ -489,79 +675,398 @@
     }, { rootMargin: '0px 0px -20% 0px' });
     io.observe(box);
 
+    const PALETTE = ['#F4B474', '#EF97AB', '#B2A5F2', '#8EC2E8', '#9CCDAB'];
+    const RECORD_KEY = 'kc-basket-record';
+    const readRecord = () => { try { return parseInt(localStorage.getItem(RECORD_KEY), 10) || 0; } catch (err) { return 0; } };
+    const saveRecord = n => { try { localStorage.setItem(RECORD_KEY, String(n)); } catch (err) { /* privévenster: geen record */ } };
+    const el = (tag, cls, parent) => { const n = document.createElement(tag); if (cls) n.className = cls; if (parent) parent.appendChild(n); return n; };
+
     function start() {
-      const { Engine, Bodies, Body, Composite, Mouse, MouseConstraint } = Matter;
+      const { Engine, Bodies, Body, Composite, Constraint } = Matter;
       const pills = $$('.pill', box);
-      const sizes = pills.map(el => ({ w: el.offsetWidth, h: el.offsetHeight }));
+      const sizes = pills.map(p => ({ w: p.offsetWidth, h: p.offsetHeight }));
+      // Kleur per pil, voor het scorebord en de confetti (verloop-pil → spectrum)
+      const colors = pills.map(p => {
+        const cs = getComputedStyle(p);
+        return { fill: cs.backgroundImage !== 'none' ? cs.backgroundImage : cs.backgroundColor, solid: cs.backgroundImage !== 'none' ? null : cs.backgroundColor };
+      });
       // Eerst buiten beeld zetten, pas dan absoluut positioneren (geen flits linksboven)
-      pills.forEach(el => { el.style.transform = 'translate3d(0, -200px, 0)'; });
-      box.classList.add('is-physics');
+      pills.forEach(p => { p.style.transform = 'translate3d(0, -200px, 0)'; });
+      box.classList.add('is-physics', 'is-game');
+
+      /* Speelveld: driepuntslijn, ring, scorebord */
+      const SVGNS = 'http://www.w3.org/2000/svg';
+      const court = document.createElementNS(SVGNS, 'svg');
+      court.setAttribute('class', 'court');
+      court.setAttribute('aria-hidden', 'true');
+      const zone = document.createElementNS(SVGNS, 'circle');
+      zone.setAttribute('class', 'court-zone');
+      const line = document.createElementNS(SVGNS, 'circle');
+      line.setAttribute('class', 'court-line');
+      court.append(zone, line);
+      box.prepend(court);
+      const board = el('span', 'hoop-board', box);
+      const net = el('span', 'hoop-net', box);
+      const rim = el('span', 'hoop-rim', box);
+      [board, net, rim].forEach(n => n.setAttribute('aria-hidden', 'true'));
+
+      const hud = el('div', 'hud', box);
+      hud.setAttribute('aria-hidden', 'true');
+      const dotsWrap = el('span', 'hud-dots', hud);
+      const dots = pills.map((p, i) => { const d = el('i', '', dotsWrap); d.style.setProperty('--dot', colors[i].fill); return d; });
+      const countEl = el('span', 'hud-count', hud);
 
       const engine = Engine.create();
       engine.gravity.y = 1.1;
-      let W = box.clientWidth, H = box.clientHeight;
+      let W = 0, H = 0, G = null;
 
-      const bodies = pills.map((el, i) => {
+      function geometry() {
+        W = box.clientWidth; H = box.clientHeight;
+        const narrow = W < 600;
+        const boardW = narrow ? 10 : 12;
+        const rimW = narrow ? 136 : clamp(W * 0.17, 150, 250);
+        const rimY = narrow ? 116 : clamp(H * 0.38, 105, 165);
+        const back = W - boardW;
+        const front = back - rimW;
+        const cx = (front + back) / 2;
+        // Lijn tot boven de rand van het vak laten doorlopen: zo kan je een pil niet over de lijn heen 'dragen'.
+        // Op een gsm blijft de zone klein, zodat je ook vanaf de grond kan gooien.
+        const R = narrow ? rimY + 36 : Math.max(clamp(W * 0.42, 150, 520), rimY + 40);
+        G = { boardW, rimW, rimY, back, front, cx, R };
+        box.style.setProperty('--rim-y', rimY + 'px');
+        box.style.setProperty('--rim-w', rimW + 'px');
+        box.style.setProperty('--board', boardW + 'px');
+        court.setAttribute('viewBox', `0 0 ${W} ${H}`);
+        [zone, line].forEach(c => { c.setAttribute('cx', cx); c.setAttribute('cy', rimY); c.setAttribute('r', R); });
+      }
+      const inZone = p => Math.hypot(p.x - G.cx, p.y - G.rimY) < G.R;
+
+      // Waar een (nieuwe) pil invalt: links van de ring, liefst buiten de driepuntslijn
+      function spawnX(w) {
+        const reach = H - G.rimY;
+        const edge = G.R > reach ? G.cx - Math.sqrt(G.R * G.R - reach * reach) : G.front;
+        const min = w / 2 + 8;
+        let max = Math.min(G.front - 12, edge) - w / 2;
+        if (max <= min) max = G.front - 12 - w / 2;
+        return max > min ? min + Math.random() * (max - min) : min + Math.random() * 24;
+      }
+
+      const bodies = pills.map((p, i) => {
         const { w, h } = sizes[i];
-        const b = Bodies.rectangle(
-          w / 2 + Math.random() * Math.max(1, W - w),
-          -h - i * 70 - Math.random() * 60,
-          w, h,
-          { chamfer: { radius: h / 2 - 1 }, restitution: 0.45, friction: 0.25, frictionAir: 0.012, density: 0.0018, angle: (Math.random() - 0.5) * 0.8 }
-        );
-        // Meer traagheid: pillen tollen minder en landen meestal leesbaar
-        Body.setInertia(b, b.inertia * 3.5);
-        b.plugin = { el, w, h };
+        const b = Bodies.rectangle(0, -400, w, h, {
+          chamfer: { radius: h / 2 - 1 }, restitution: 0.45, friction: 0.25, frictionAir: 0.012, density: 0.0018
+        });
+        // Wat meer traagheid: pillen tollen minder en landen meestal leesbaar
+        Body.setInertia(b, b.inertia * 2.5);
+        b.plugin = { el: p, w, h, i, live: false, armed: false, scored: false, px: 0, py: 0, rest: 0 };
         return b;
       });
 
-      let walls = [];
+      /* Statische delen: vloer, wanden, onzichtbaar plafond, bord en voorkant van de ring */
+      let statics = [];
       const T = 400;
-      function buildWalls() {
-        if (walls.length) Composite.remove(engine.world, walls);
-        walls = [
-          Bodies.rectangle(W / 2, H + T / 2, W + T * 2, T, { isStatic: true }),
-          Bodies.rectangle(-T / 2, H / 2 - 600, T, H * 2 + 1200, { isStatic: true }),
-          Bodies.rectangle(W + T / 2, H / 2 - 600, T, H * 2 + 1200, { isStatic: true })
+      function buildStatics() {
+        if (statics.length) Composite.remove(engine.world, statics);
+        const ceil = -Math.max(160, H * 0.5);
+        const s = { isStatic: true, friction: 0.3 };
+        statics = [
+          Bodies.rectangle(W / 2, H + T / 2, W + T * 2, T, s),
+          Bodies.rectangle(-T / 2, H / 2, T, H * 4 + T, s),
+          Bodies.rectangle(W + T / 2, H / 2, T, H * 4 + T, s),
+          Bodies.rectangle(W / 2, ceil - T / 2, W + T * 2, T, s),
+          Bodies.rectangle(W - G.boardW / 2, G.rimY - 54, G.boardW, 148, Object.assign({ chamfer: { radius: 3 } }, s)),
+          Bodies.circle(G.front, G.rimY, 5, Object.assign({ restitution: 0.6 }, s))
         ];
-        Composite.add(engine.world, walls);
+        Composite.add(engine.world, statics);
       }
-      buildWalls();
-      Composite.add(engine.world, bodies);
 
-      if (finePointer) {
-        const mouse = Mouse.create(box);
-        mouse.element.removeEventListener('wheel', mouse.mousewheel);
-        mouse.element.removeEventListener('mousewheel', mouse.mousewheel);
-        mouse.element.removeEventListener('DOMMouseScroll', mouse.mousewheel);
-        // Touch op hybride laptops: laat de pagina gewoon scrollen
-        mouse.element.removeEventListener('touchmove', mouse.mousemove);
-        mouse.element.removeEventListener('touchstart', mouse.mousedown);
-        mouse.element.removeEventListener('touchend', mouse.mouseup);
-        const mc = MouseConstraint.create(engine, { mouse, constraint: { stiffness: 0.18, damping: 0.08, render: { visible: false } } });
-        Composite.add(engine.world, mc);
-        window.addEventListener('mouseup', () => { mouse.button = -1; });
-      } else {
-        pills.forEach((el, i) => {
-          el.addEventListener('click', () => {
-            const b = bodies[i];
-            Body.setVelocity(b, { x: (Math.random() - 0.5) * 10, y: -14 - Math.random() * 6 });
-            Body.setAngularVelocity(b, (Math.random() - 0.5) * 0.35);
-          });
+      geometry();
+      buildStatics();
+
+      /* Pillen laten invallen, één voor één */
+      let queue = bodies.slice();
+      let lastDrop = 0;
+      function drop(b) {
+        const { w, h } = b.plugin;
+        Body.setPosition(b, { x: spawnX(w), y: -h - 20 });
+        Body.setVelocity(b, { x: 0, y: 0 });
+        Body.setAngularVelocity(b, 0);
+        Body.setAngle(b, (Math.random() - 0.5) * 0.6);
+        Object.assign(b.plugin, { armed: false, px: b.position.x, py: b.position.y, rest: 0 });
+        if (!b.plugin.live) { b.plugin.live = true; Composite.add(engine.world, b); }
+      }
+
+      /* Score */
+      let count = 0, throws = 0, lastSay = 0, finished = false;
+      const updateHud = () => {
+        countEl.innerHTML = `<b>${count}</b>/${bodies.length} in de mand`;
+        dots.forEach((d, i) => d.classList.toggle('is-on', bodies[i].plugin.scored));
+      };
+      updateHud();
+
+      function sparks(x, y, list, n, power) {
+        for (let k = 0; k < n; k++) {
+          const s = el('i', 'spark', box);
+          s.style.left = x + 'px';
+          s.style.top = y + 'px';
+          s.style.background = list[k % list.length];
+          if (k % 3 === 0) s.style.borderRadius = '50%';
+          const ang = -Math.PI / 2 + (Math.random() - 0.5) * 2.4;
+          const v = (50 + Math.random() * 90) * power;
+          const dx = Math.cos(ang) * v, dy = Math.sin(ang) * v, r = (Math.random() - 0.5) * 540;
+          const a = s.animate([
+            { transform: 'translate(0, 0) rotate(0deg) scale(1)', opacity: 1 },
+            { transform: `translate(${dx.toFixed(1)}px, ${dy.toFixed(1)}px) rotate(${(r / 2).toFixed(0)}deg) scale(1)`, opacity: 1, offset: 0.45 },
+            { transform: `translate(${(dx * 1.3).toFixed(1)}px, ${(dy + 110 * power).toFixed(1)}px) rotate(${r.toFixed(0)}deg) scale(0.5)`, opacity: 0 }
+          ], { duration: 900 + Math.random() * 500, easing: 'cubic-bezier(.2,.7,.3,1)' });
+          a.onfinish = () => s.remove();
+        }
+      }
+      function say(text, x, y) {
+        const s = el('span', 'pop-text', box);
+        s.textContent = text;
+        const half = s.offsetWidth / 2;
+        s.style.left = clamp(x, half + 8, W - half - 8) + 'px';
+        s.style.top = y + 'px';
+        const a = s.animate([
+          { transform: 'translate(-50%, 6px)', opacity: 0 },
+          { transform: 'translate(-50%, -10px)', opacity: 1, offset: 0.18 },
+          { transform: 'translate(-50%, -16px)', opacity: 1, offset: 0.7 },
+          { transform: 'translate(-50%, -34px)', opacity: 0 }
+        ], { duration: 1500, easing: 'ease-out' });
+        a.onfinish = () => s.remove();
+      }
+      function flash(n, cls, ms) {
+        n.classList.remove(cls);
+        void n.offsetWidth;
+        n.classList.add(cls);
+        clearTimeout(n._t);
+        n._t = setTimeout(() => n.classList.remove(cls), ms);
+      }
+      // Een kopie van de pil spat open op de plek waar ze scoorde; de echte valt opnieuw in
+      function ghost(b) {
+        const g = b.plugin.el.cloneNode(true);
+        g.classList.add('pill-ghost');
+        g.classList.remove('is-held');
+        g.setAttribute('aria-hidden', 'true');
+        box.appendChild(g);
+        const a = g.animate([{ opacity: 1, scale: '1' }, { opacity: 0, scale: '1.35' }], { duration: 380, easing: 'ease-out' });
+        a.onfinish = () => g.remove();
+      }
+
+      function score(b) {
+        const pl = b.plugin;
+        const first = !pl.scored;
+        const list = colors[pl.i].solid ? [colors[pl.i].solid, colors[pl.i].solid].concat(PALETTE) : PALETTE;
+        ghost(b);
+        sparks(G.cx, G.rimY + 6, list, first ? 18 : 10, first ? 1 : 0.7);
+        flash(net, 'is-swish', 600);
+        say(first ? `Raak! ${pl.el.textContent.trim()}` : 'Raak!', G.cx, G.rimY - 58);
+        if (first) {
+          pl.scored = true;
+          pl.el.classList.add('is-scored');
+          count++;
+          updateHud();
+          flash(dots[pl.i], 'is-pop', 600);
+          if (count === bodies.length && !finished) setTimeout(win, 450);
+        }
+        pl.live = false;
+        Composite.remove(engine.world, b);
+        pl.el.style.transform = 'translate3d(0, -200px, 0)';
+        queue.push(b);
+      }
+      function spit(b) {
+        Body.setVelocity(b, { x: -(5 + Math.random() * 3), y: -(9 + Math.random() * 3) });
+        Body.setAngularVelocity(b, -0.06);
+        flash(court, 'is-hot', 700);
+        const now = performance.now();
+        if (now - lastSay > 1400) { lastSay = now; say('Van achter de lijn 😉', G.cx, G.rimY - 58); }
+      }
+
+      let done = null;
+      function win() {
+        finished = true;
+        const best = readRecord();
+        const record = !best || throws < best;
+        if (record) saveRecord(throws);
+        sparks(W * 0.3, H * 0.55, PALETTE, 34, 1.6);
+        sparks(W * 0.7, H * 0.55, PALETTE, 34, 1.6);
+        done = el('div', 'game-done', box);
+        done.setAttribute('role', 'status');
+        const worpen = n => `${n} ${n === 1 ? 'worp' : 'worpen'}`;
+        done.innerHTML = `<p class="game-done-title">Alle ${bodies.length} <em>erin!</em></p>` +
+          `<p class="game-done-sub">In ${worpen(throws)}${record && best ? ' — nieuw record!' : (best ? ` · record: ${worpen(best)}` : '')}<br>Nu ken je me al een beetje.</p>` +
+          '<button class="game-again" type="button">Nog eens <span aria-hidden="true">↻</span></button>';
+        requestAnimationFrame(() => done.classList.add('is-on'));
+        $('.game-again', done).addEventListener('click', reset);
+      }
+      function reset() {
+        if (done) { const d = done; done = null; d.classList.remove('is-on'); setTimeout(() => d.remove(), 400); }
+        release();
+        count = 0; throws = 0; finished = false;
+        bodies.forEach(b => {
+          b.plugin.scored = false;
+          b.plugin.el.classList.remove('is-scored');
+          if (b.plugin.live) { b.plugin.live = false; Composite.remove(engine.world, b); }
+          b.plugin.el.style.transform = 'translate3d(0, -200px, 0)';
         });
+        queue = bodies.slice().sort(() => Math.random() - 0.5);
+        updateHud();
       }
 
+      /* Vastpakken, slepen en gooien */
+      let drag = null;
+      const bodyOf = n => bodies[pills.indexOf(n)];
+      const local = (x, y) => {
+        const r = box.getBoundingClientRect();
+        return { x: clamp(x - r.left, 0, W), y: clamp(y - r.top, 0, H) };
+      };
+      function grab(b, p) {
+        release();
+        if (!b || !b.plugin.live) return;
+        const c = Constraint.create({
+          pointA: { x: p.x, y: p.y }, bodyB: b,
+          pointB: { x: p.x - b.position.x, y: p.y - b.position.y },
+          stiffness: 0.2, damping: 0.08, length: 0
+        });
+        Composite.add(engine.world, c);
+        drag = { b, c, inside: inZone(b.position), slipped: false };
+        b.plugin.armed = false;
+        b.plugin.el.classList.add('is-held');
+      }
+      function moveTo(p) {
+        if (!drag) return;
+        drag.c.pointA.x = p.x;
+        drag.c.pointA.y = p.y;
+      }
+      function release(tap) {
+        if (!drag) return;
+        const { b, c, slipped } = drag;
+        drag = null;
+        Composite.remove(engine.world, c);
+        b.plugin.el.classList.remove('is-held');
+        if (tap) {
+          // Een tik: de pil maakt een sprongetje (telt niet als worp)
+          Body.setVelocity(b, { x: (Math.random() - 0.5) * 6, y: -9 - Math.random() * 4 });
+          Body.setAngularVelocity(b, (Math.random() - 0.5) * 0.25);
+          return;
+        }
+        // Snelheid begrenzen: niets vliegt door de wanden
+        const v = Body.getVelocity(b);
+        const sp = Math.hypot(v.x, v.y);
+        if (sp > 30) Body.setVelocity(b, { x: v.x / sp * 30, y: v.y / sp * 30 });
+        const outside = slipped || !inZone(b.position);
+        b.plugin.armed = outside;
+        if (outside && (slipped || sp > 2)) throws++;
+      }
+
+      // Muis en pen: direct vastpakken
+      let mouse = null;
+      box.addEventListener('pointerdown', e => {
+        if (e.pointerType === 'touch' || e.button !== 0) return;
+        const p = e.target.closest('.pill');
+        if (!p || p.classList.contains('pill-ghost')) return;
+        e.preventDefault();
+        try { box.setPointerCapture(e.pointerId); } catch (err) { /* oude browser */ }
+        mouse = { id: e.pointerId, x0: e.clientX, y0: e.clientY, t0: performance.now(), moved: 0 };
+        grab(bodyOf(p), local(e.clientX, e.clientY));
+      });
+      box.addEventListener('pointermove', e => {
+        if (!mouse || e.pointerId !== mouse.id) return;
+        mouse.moved = Math.max(mouse.moved, Math.hypot(e.clientX - mouse.x0, e.clientY - mouse.y0));
+        moveTo(local(e.clientX, e.clientY));
+      });
+      const mouseEnd = e => {
+        if (!mouse || e.pointerId !== mouse.id) return;
+        const tap = mouse.moved < 6 && performance.now() - mouse.t0 < 280;
+        mouse = null;
+        release(tap);
+      };
+      box.addEventListener('pointerup', mouseEnd);
+      box.addEventListener('pointercancel', mouseEnd);
+      box.addEventListener('lostpointercapture', mouseEnd);
+      window.addEventListener('blur', () => { mouse = null; release(); });
+
+      // Touch: even vasthouden (of zijwaarts vegen) = gooien, snel verticaal vegen = gewoon scrollen
+      let touch = null;
+      const findTouch = list => Array.from(list).find(t => t.identifier === touch.id);
+      box.addEventListener('touchstart', e => {
+        if (touch) return;
+        const p = e.target.closest('.pill');
+        if (!p || p.classList.contains('pill-ghost')) return;
+        const t = e.changedTouches[0];
+        touch = { id: t.identifier, b: bodyOf(p), x0: t.clientX, y0: t.clientY, t0: performance.now(), mode: 'wait', moved: 0 };
+      }, { passive: true });
+      box.addEventListener('touchmove', e => {
+        if (!touch) return;
+        const t = findTouch(e.changedTouches);
+        if (!t) return;
+        const dx = t.clientX - touch.x0, dy = t.clientY - touch.y0;
+        touch.moved = Math.max(touch.moved, Math.hypot(dx, dy));
+        if (touch.mode === 'wait') {
+          if (performance.now() - touch.t0 >= 120 || Math.abs(dx) > Math.abs(dy)) {
+            touch.mode = 'drag';
+            grab(touch.b, local(touch.x0, touch.y0));
+          } else {
+            touch.mode = 'scroll';
+          }
+        }
+        if (touch.mode === 'drag' && e.cancelable) {
+          e.preventDefault();
+          moveTo(local(t.clientX, t.clientY));
+        }
+      }, { passive: false });
+      const touchEnd = e => {
+        if (!touch || !findTouch(e.changedTouches)) return;
+        const tap = touch.moved < 8 && performance.now() - touch.t0 < 300;
+        if (touch.mode === 'drag') release(tap);
+        else if (tap) { grab(touch.b, { x: touch.b.position.x, y: touch.b.position.y }); release(true); }
+        touch = null;
+      };
+      box.addEventListener('touchend', touchEnd);
+      box.addEventListener('touchcancel', touchEnd);
+
+      /* Simulatie */
       let visible = true, raf = 0, last = performance.now();
       function tick(now) {
         const dt = Math.min(now - last, 32);
         last = now;
-        // Matter.js wil stappen van max. ~16,7 ms: trage frames in kleinere stapjes opdelen
-        const steps = Math.max(1, Math.ceil(dt / 16.667));
+        if (queue.length && now - lastDrop > 110) { lastDrop = now; drop(queue.shift()); }
+        // Kleine stapjes (max. ~8 ms): stabielere botsingen bij harde worpen
+        const steps = Math.max(1, Math.ceil(dt / 8.34));
         for (let s = 0; s < steps; s++) Engine.update(engine, dt / steps);
-        bodies.forEach(b => {
-          const { el, w, h } = b.plugin;
-          el.style.transform = `translate3d(${(b.position.x - w / 2).toFixed(1)}px, ${(b.position.y - h / 2).toFixed(1)}px, 0) rotate(${b.angle.toFixed(3)}rad)`;
-        });
+
+        // Over de stippellijn gesleept? Dan glipt de pil uit je hand
+        if (drag) {
+          const inside = inZone(drag.b.position);
+          if (inside && !drag.inside) { drag.slipped = true; flash(court, 'is-hot', 600); release(); }
+          else drag.inside = inside;
+        }
+
+        for (let i = 0; i < bodies.length; i++) {
+          const b = bodies[i];
+          const pl = b.plugin;
+          if (!pl.live) continue;
+          const { x, y } = b.position;
+          const held = drag && drag.b === b;
+          // Door de ring naar beneden? Middelpunt kruist de ringlijn tussen voorkant en bord
+          if (!held && pl.py < G.rimY && y >= G.rimY) {
+            const t = (G.rimY - pl.py) / (y - pl.py);
+            const xc = pl.px + (x - pl.px) * t;
+            if (xc > G.front + 2 && xc < G.back - 2) {
+              if (pl.armed) { score(b); continue; }
+              spit(b);
+            }
+          }
+          // Blijft een pil op de ring liggen? Even wiebelen
+          const onRim = !held && Math.abs(y - G.rimY + pl.h * 0.3) < pl.h * 0.6 && x > G.front - pl.w / 2 && x < G.back && Body.getSpeed(b) < 0.4;
+          pl.rest = onRim ? pl.rest + 1 : 0;
+          if (pl.rest > 50) { pl.rest = 0; Body.setVelocity(b, { x: (Math.random() - 0.5) * 3, y: -3 }); Body.setAngularVelocity(b, (Math.random() - 0.5) * 0.1); }
+          // Vangnet: uit het veld geraakt → opnieuw invallen
+          if (y > H + 300 || x < -300 || x > W + 300) { drop(b); continue; }
+          pl.px = x; pl.py = y;
+          pl.el.style.transform = `translate3d(${(x - pl.w / 2).toFixed(1)}px, ${(y - pl.h / 2).toFixed(1)}px, 0) rotate(${b.angle.toFixed(3)}rad)`;
+        }
         if (visible) raf = requestAnimationFrame(tick);
       }
       raf = requestAnimationFrame(tick);
@@ -569,25 +1074,27 @@
       new IntersectionObserver(entries => {
         const v = entries[0].isIntersecting;
         if (v && !visible) { visible = true; last = performance.now(); raf = requestAnimationFrame(tick); }
-        else if (!v) { visible = false; cancelAnimationFrame(raf); }
+        else if (!v) { visible = false; cancelAnimationFrame(raf); release(); }
       }).observe(box);
 
       let rt;
       window.addEventListener('resize', () => {
         clearTimeout(rt);
         rt = setTimeout(() => {
-          W = box.clientWidth; H = box.clientHeight;
-          buildWalls();
+          geometry();
+          buildStatics();
           bodies.forEach(b => {
             // Lettergrootte schaalt met de viewport: lichaam mee laten groeien/krimpen
-            const el = b.plugin.el;
-            const nw = el.offsetWidth, nh = el.offsetHeight;
+            const p = b.plugin.el;
+            const nw = p.offsetWidth, nh = p.offsetHeight;
             if (nw && nh && (Math.abs(nw - b.plugin.w) > 1 || Math.abs(nh - b.plugin.h) > 1)) {
               Body.scale(b, nw / b.plugin.w, nh / b.plugin.h);
               b.plugin.w = nw; b.plugin.h = nh;
             }
+            if (!b.plugin.live) return;
             const { w, h } = b.plugin;
             Body.setPosition(b, { x: clamp(b.position.x, w / 2, W - w / 2), y: Math.min(b.position.y, H - h / 2) });
+            b.plugin.px = b.position.x; b.plugin.py = b.position.y;
           });
         }, 150);
       });

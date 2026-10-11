@@ -108,7 +108,7 @@
 <main id="main">
 
   <!-- ═══════════ HERO ═══════════ -->
-  <section class="hero is-fixed-theme" id="top" data-theme="dark" aria-label="Introductie">
+  <section class="hero is-fixed-theme" id="top" data-theme="dark" data-rail="Intro" aria-label="Introductie">
     <canvas class="ribbons hero-ribbons" id="heroRibbons" aria-hidden="true"></canvas>
     <div class="hero-shade" aria-hidden="true"></div>
 
@@ -144,7 +144,7 @@
   </section>
 
   <!-- ═══════════ 01 · OVER MIJ ═══════════ -->
-  <section class="about" id="over" data-theme="light">
+  <section class="about" id="over" data-theme="light" data-rail="Over mij">
     <div class="band" aria-hidden="true">
       <div class="band-track" data-marquee="1">
         <div class="band-group">
@@ -219,9 +219,9 @@
       <div class="interests">
         <div class="interests-head">
           <h3>Buiten het werk</h3>
-          <p class="interests-hint" data-hint-touch="Tik er eens op.">Pak er gerust eentje vast en gooi wat rond.</p>
+          <p class="interests-hint" data-hint-touch="Hou een pil even vast en gooi ze in de mand.">Gooi ze in de mand — wel van achter de stippellijn.</p>
         </div>
-        <div class="pillbox" id="pillbox" data-cursor="Sleep">
+        <div class="pillbox" id="pillbox">
           <ul class="pills" aria-label="Interesses">
             <li class="pill" style="--c: var(--amber)">videografie</li>
             <li class="pill pill--big" style="--c: var(--rose)">hond Bink 🐕</li>
@@ -240,7 +240,7 @@
   </section>
 
   <!-- ═══════════ 02 · VISIE ═══════════ -->
-  <section class="vision" id="visie" data-theme="light">
+  <section class="vision" id="visie" data-theme="light" data-rail="Visie">
     <div class="container">
       <h2 class="eyebrow"><span>02</span>Mijn visie</h2>
       <blockquote class="quote">
@@ -277,7 +277,7 @@
   </section>
 
   <!-- ═══════════ 03 · COMPETENTIES ═══════════ -->
-  <section class="skills" id="competenties" data-theme="light">
+  <section class="skills" id="competenties" data-theme="light" data-rail="Competenties">
     <div class="container">
       <header class="sec-head sec-head--split">
         <div>
@@ -344,14 +344,14 @@
   </section>
 
   <!-- ═══════════ 04 · TRAJECT ═══════════ -->
-  <section class="journey" id="traject" data-theme="dark">
+  <section class="journey" id="traject" data-theme="dark" data-rail="Traject">
     <div class="journey-pin">
       <div class="journey-track">
         <header class="journey-intro">
           <p class="eyebrow"><span>04</span>Stagetraject</p>
           <h2 class="display" data-split>Waar ik <em>gegroeid</em> ben</h2>
           <p>Van leefgroep over psychiatrie tot mobiele begeleiding: elke stage bracht me een stap dichter bij de begeleider die ik wil zijn.</p>
-          <span class="journey-hint" aria-hidden="true">Blijf scrollen <svg viewBox="0 0 16 16"><path d="M3 8h10M8.5 3.5 13 8l-4.5 4.5"/></svg></span>
+          <span class="journey-hint" aria-hidden="true">Blijf scrollen <svg viewBox="0 0 16 16"><path d="M8 2.5v10.5M3.5 8.5 8 13l4.5-4.5"/></svg></span>
         </header>
 
         <ol class="stops">
@@ -399,7 +399,10 @@
             <p class="stop-kicker">Volgend hoofdstuk</p>
             <h3 class="stop-title">De bachelor</h3>
             <p class="stop-desc">Verder verdiepen, verder groeien — en blijven bouwen aan begeleiding die écht verbindt.</p>
-            <a class="stop-link" href="#contact">Laten we kennismaken <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M8.5 3.5 13 8l-4.5 4.5"/></svg></a>
+            <div class="stop-links">
+              <a class="stop-link stop-link--down" href="#projecten">Bekijk mijn projecten <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 2.5v10.5M3.5 8.5 8 13l4.5-4.5"/></svg></a>
+              <a class="stop-link" href="#contact">Laten we kennismaken <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M8.5 3.5 13 8l-4.5 4.5"/></svg></a>
+            </div>
           </li>
         </ol>
       </div>
@@ -408,7 +411,7 @@
   </section>
 
   <!-- ═══════════ 05 · PROJECTEN ═══════════ -->
-  <section class="work" id="projecten" data-theme="light">
+  <section class="work" id="projecten" data-theme="light" data-rail="Projecten">
     <div class="container">
       <header class="sec-head sec-head--split">
         <div>
@@ -490,13 +493,11 @@
   </section>
 
   <!-- ═══════════ 06 · CERTIFICATEN ═══════════ -->
-  <section class="certs" id="certificaten" data-theme="light">
-    <div class="container">
-      <header class="sec-head sec-head--split">
-        <div>
-          <p class="eyebrow"><span>06</span>Certificaten</p>
-          <h2 class="display" data-split>Blijven <em>leren</em></h2>
-        </div>
+  <section class="certs" id="certificaten" data-theme="light" data-rail="Certificaten">
+    <div class="container certs-inner">
+      <header class="sec-head certs-head">
+        <p class="eyebrow"><span>06</span>Certificaten</p>
+        <h2 class="display" data-split>Blijven <em>leren</em></h2>
         <p class="sec-intro" data-reveal>Bijscholingen en cursussen die mijn praktijk verdiepen.</p>
       </header>
 
@@ -504,8 +505,7 @@
         <li data-reveal>
           <a class="cert" href="https://coursera.org/share/2d4270b6cde45d2e7e779ac6a45296f8" target="_blank" rel="noopener">
             <span class="cert-year">2025</span>
-            <span class="cert-title">Psychological First Aid</span>
-            <span class="cert-org">Johns Hopkins University</span>
+            <span class="cert-main"><span class="cert-title">Psychological First Aid</span><span class="cert-org">Johns Hopkins University</span></span>
             <span class="cert-platform">Coursera</span>
             <span class="cert-arrow" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M4.5 11.5l7-7M5.5 4.5h6v6"/></svg></span>
           </a>
@@ -513,8 +513,7 @@
         <li data-reveal>
           <a class="cert" href="https://coursera.org/share/243639fad6c604bc6e9fe5b40a6b2a3c" target="_blank" rel="noopener">
             <span class="cert-year">2026</span>
-            <span class="cert-title">Queering Identities: LGBTQ+ Sexuality and Gender Identity</span>
-            <span class="cert-org">University of Colorado</span>
+            <span class="cert-main"><span class="cert-title">Queering Identities: LGBTQ+ Sexuality and Gender Identity</span><span class="cert-org">University of Colorado</span></span>
             <span class="cert-platform">Coursera</span>
             <span class="cert-arrow" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M4.5 11.5l7-7M5.5 4.5h6v6"/></svg></span>
           </a>
@@ -522,8 +521,7 @@
         <li data-reveal>
           <a class="cert" href="vbm-certificaat.pdf" target="_blank" rel="noopener">
             <span class="cert-year">2025</span>
-            <span class="cert-title">Vrijheidsbeperkende Maatregelen (VBM)</span>
-            <span class="cert-org">Sint-Kamillus Zorggroep</span>
+            <span class="cert-main"><span class="cert-title">Vrijheidsbeperkende Maatregelen (VBM)</span><span class="cert-org">Sint-Kamillus Zorggroep</span></span>
             <span class="cert-platform">E-learning</span>
             <span class="cert-arrow" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M4.5 11.5l7-7M5.5 4.5h6v6"/></svg></span>
           </a>
@@ -531,8 +529,7 @@
         <li data-reveal>
           <a class="cert" href="https://coursera.org/share/fa6f59888cfb55cd9e94e5ffbdecad36" target="_blank" rel="noopener">
             <span class="cert-year">2026</span>
-            <span class="cert-title">Philosophy and the Sciences: Introduction to the Philosophy of Cognitive Sciences</span>
-            <span class="cert-org">The University of Edinburgh</span>
+            <span class="cert-main"><span class="cert-title">Philosophy and the Sciences: Introduction to the Philosophy of Cognitive Sciences</span><span class="cert-org">The University of Edinburgh</span></span>
             <span class="cert-platform">Coursera</span>
             <span class="cert-arrow" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M4.5 11.5l7-7M5.5 4.5h6v6"/></svg></span>
           </a>
@@ -542,7 +539,7 @@
   </section>
 
   <!-- ═══════════ 07 · VIDEOGRAFIE ═══════════ -->
-  <section class="reel-sec" id="videografie" data-theme="dark">
+  <section class="reel-sec" id="videografie" data-theme="dark" data-rail="Videografie">
     <div class="container reel-head">
       <div>
         <p class="eyebrow"><span>07</span>Naast de zorg</p>
@@ -583,7 +580,7 @@
   </section>
 
   <!-- ═══════════ 08 · CONTACT ═══════════ -->
-  <section class="contact is-fixed-theme" id="contact" data-theme="dark">
+  <section class="contact is-fixed-theme" id="contact" data-theme="dark" data-rail="Contact">
     <canvas class="ribbons contact-ribbons" id="contactRibbons" aria-hidden="true"></canvas>
     <div class="contact-shade" aria-hidden="true"></div>
     <div class="container contact-inner">
