@@ -175,6 +175,48 @@
   text-transform: uppercase;
   color: var(--accent);
 }
+.films-side-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.8rem 1.2rem;
+}
+/* Regenboogpil bij de trouwfilms: rand en stip in het spectrum van de site */
+.pride-pill {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+  padding: 0.5em 0.95em;
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--fg);
+  white-space: nowrap;
+}
+.pride-pill::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: var(--spectrum);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  opacity: 0.75;
+  pointer-events: none;
+}
+.pride-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: conic-gradient(#F4B474, #EF97AB, #B2A5F2, #8EC2E8, #9CCDAB, #F4B474);
+  animation: spin 8s linear infinite;
+}
 
 .film-grid {
   display: grid;
@@ -508,4 +550,5 @@
   .vhero-still img { animation: none; }
   .js .vhero [data-intro] { opacity: 1; }
   .voutro-avatar::before { animation: none; }
+  .pride-dot { animation: none; }
 }
