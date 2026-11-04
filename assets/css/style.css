@@ -1638,7 +1638,7 @@ html:not(.theme-sync) [data-theme="light"] .card:not(.card--link),
   pointer-events: none;
 }
 .project--thesis { --pc-bg: #1D1828; --pc-fg: #F3EDE4; --pc-muted: #B3A9C2; --pc-line: rgba(243, 237, 228, 0.16); }
-.project--emfi   { --pc-bg: #E5D7C1; --pc-fg: #231D18; --pc-muted: #62554A; --pc-line: rgba(35, 29, 24, 0.16); }
+.project--emfi   { --pc-bg: #EBEEE7; --pc-fg: #17201C; --pc-muted: #47524C; --pc-line: #CBCAC0; }
 .project--gids   { --pc-bg: #FBF8F4; --pc-fg: #17162A; --pc-muted: #46435A; --pc-line: #DAD1C3; }
 
 .project-copy {
@@ -1775,45 +1775,189 @@ html:not(.theme-sync) [data-theme="light"] .card:not(.card--link),
   color: #F6F1E9;
 }
 
-/* EMFI — telefoon */
-.project--emfi .project-visual {
-  background: radial-gradient(70% 60% at 60% 50%, rgba(255, 255, 255, 0.55), transparent 70%);
+/* EMFI — in de stijl van de app zelf: licht salie, diep groen, de vier EMFI-kleuren en de gloed van Linde AI */
+.project--emfi {
+  background:
+    radial-gradient(48% 62% at 0% 0%, rgba(36, 89, 75, 0.16), transparent 70%),
+    radial-gradient(42% 56% at 100% 0%, rgba(232, 123, 164, 0.14), transparent 70%),
+    radial-gradient(40% 50% at 62% 112%, rgba(98, 80, 214, 0.1), transparent 70%),
+    var(--pc-bg);
 }
+.project--emfi .project-top { color: #636D68; }
+/* Een ring in vier kwarten: emoties, mentaal, fysiek, interactie */
+.project--emfi .project-num {
+  border: 1.5px solid transparent;
+  background:
+    linear-gradient(var(--pc-bg), var(--pc-bg)) padding-box,
+    conic-gradient(#E87BA4 0 25%, #6250D6 0 50%, #1BAF7A 0 75%, #EDA100 0) border-box;
+}
+.project--emfi .project-title { font-weight: 360; font-variation-settings: "SOFT" 0, "WONK" 0; letter-spacing: -0.035em; }
+.project--emfi .project-title em { color: #24594B; font-variation-settings: "SOFT" 30, "WONK" 1; }
+.project--emfi .tags li { border-color: transparent; background: var(--tone-bg); color: var(--tone); }
+.project--emfi .tags li:nth-child(1) { --tone: #A8346A; --tone-bg: #FCE8EF; }
+.project--emfi .tags li:nth-child(2) { --tone: #4B3BC0; --tone-bg: #EBE8FB; }
+.project--emfi .tags li:nth-child(3) { --tone: #0B7650; --tone-bg: #DCF3E9; }
+.project--emfi .tags li:nth-child(4) { --tone: #8A5A00; --tone-bg: #FCF0D2; }
+.project--emfi .project-cta {
+  background: #24594B;
+  color: #FFFFFF;
+  font-weight: 600;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.16) inset, 0 10px 24px -10px rgba(36, 89, 75, 0.8);
+  transition: transform 0.5s var(--ease-out), background-color 0.3s;
+}
+.project--emfi:hover .project-cta { background: #1B4A3E; }
+
+.project--emfi .project-visual { overflow: visible; }
+/* De ring van de check-in-kaart in de app, groot achter het toestel */
+.project--emfi .project-visual::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 46%;
+  width: min(88%, 520px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: clamp(28px, 4.5vw, 56px) solid rgba(36, 89, 75, 0.07);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+/* Zachte gloed in de kleuren van Linde AI */
+.emfi-glow {
+  position: absolute;
+  left: 50%;
+  top: 52%;
+  width: min(60%, 360px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: conic-gradient(from 200deg, #6FD3B5, #8EA0FF, #D7A6FF, #F7A8C8, #F7CF7A, #6FD3B5);
+  filter: blur(46px);
+  opacity: 0.5;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+/* Toestel zoals de app het zelf simuleert: bijna zwart, dubbele binnenrand, knoppen opzij */
 .phone {
+  --pw: min(46%, 270px);
   position: relative;
-  width: min(46%, 270px);
-  aspect-ratio: 860 / 1800;
-  border-radius: 38px;
-  padding: 9px;
-  background: #1C1714;
-  box-shadow: 0 50px 80px -40px rgba(60, 40, 20, 0.6), inset 0 0 0 1.5px #3B332D;
+  width: var(--pw);
+  aspect-ratio: 417 / 876;
+  border-radius: 42px;
+  padding: 8px;
+  background: #0B0F0D;
+  box-shadow:
+    inset 0 0 0 1.5px #3A403D,
+    inset 0 0 0 4px #161A18,
+    0 50px 80px -40px rgba(16, 24, 20, 0.55),
+    0 24px 44px -26px rgba(16, 24, 20, 0.4);
   transform: rotate(4deg) translateY(10%);
   transition: transform 0.9s var(--ease-out);
 }
+.phone::before,
+.phone::after {
+  content: '';
+  position: absolute;
+  width: 3px;
+  border-radius: 2px;
+  background: #242A27;
+}
+/* Links twee volumeknoppen in één strookje, rechts de zijknop */
+.phone::before { left: -2px; top: 19.5%; height: 15%; background: linear-gradient(#242A27 0 46%, transparent 46% 54%, #242A27 54%); }
+.phone::after { right: -2px; top: 23%; height: 10.5%; }
 .phone img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: top;
-  border-radius: 30px;
+  border-radius: 34px;
+}
+@supports (width: 1cqw) {
+  .project--emfi .project-visual { container-type: inline-size; }
+  .phone {
+    --pw: min(46cqw, 270px);
+    border-radius: calc(var(--pw) * 0.155);
+    padding: calc(var(--pw) * 0.029);
+  }
+  .phone img { border-radius: calc(var(--pw) * 0.125); }
 }
 .project:hover .phone { transform: rotate(0deg) translateY(4%); }
-.float-chip {
+
+/* Zwevende onderdelen uit de app */
+.emfi-chip {
   position: absolute;
-  padding: 0.75em 1.1em;
-  border-radius: 999px;
-  background: #FFFDF9;
-  color: #231D18;
-  font-size: clamp(0.72rem, 1vw, 0.88rem);
-  font-weight: 500;
+  z-index: 2;
+  display: flex;
+  align-items: center;
   white-space: nowrap;
-  box-shadow: 0 18px 40px -18px rgba(60, 40, 20, 0.45);
+  color: #17201C;
   transition: transform 0.9s var(--ease-out);
 }
-.float-chip--a { left: 8%; top: 24%; transform: rotate(-6deg); }
-.float-chip--b { right: 7%; bottom: 22%; background: #2D5A4E; color: #EAF4F1; transform: rotate(5deg); }
-.project:hover .float-chip--a { transform: rotate(-2deg) translate(-8px, -10px); }
-.project:hover .float-chip--b { transform: rotate(2deg) translate(8px, 10px); }
+.emfi-chip--ai {
+  left: 5%;
+  top: 22%;
+  gap: 11px;
+  padding: 9px 18px 9px 9px;
+  border-radius: 20px;
+  border: 1.5px solid transparent;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.94), rgba(255, 255, 255, 0.94)) padding-box,
+    conic-gradient(from 160deg, #6FD3B5, #8EA0FF, #D7A6FF, #F7CF7A, #6FD3B5) border-box;
+  box-shadow: 0 18px 40px -20px rgba(98, 80, 214, 0.55);
+  transform: rotate(-5deg);
+}
+.emfi-orb {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  color: #FFFFFF;
+  background: radial-gradient(circle at 30% 28%, #C9D1FF, #6250D6 58%, #2E7D68);
+  box-shadow: 0 0 0 3px rgba(142, 160, 255, 0.2), 0 6px 16px -6px rgba(98, 80, 214, 0.65);
+}
+.emfi-orb svg { width: 19px; height: 19px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linejoin: round; }
+.emfi-chip-txt b { display: block; font-size: clamp(0.88rem, 1.1vw, 1rem); font-weight: 600; line-height: 1.2; }
+.emfi-chip-txt b span {
+  background: linear-gradient(100deg, #5B48CF, #2E7D68);
+  -webkit-background-clip: text;
+          background-clip: text;
+  color: transparent;
+  font-weight: 700;
+}
+.emfi-chip-txt small { display: block; font-size: 0.74rem; color: #47524C; line-height: 1.3; }
+.emfi-chip--switch {
+  right: 4%;
+  bottom: 21%;
+  gap: 9px;
+  padding: 8px 8px 8px 14px;
+  border-radius: 999px;
+  background: #FFFFFF;
+  border: 1px solid #CBCAC0;
+  font-size: clamp(0.78rem, 1vw, 0.9rem);
+  font-weight: 600;
+  box-shadow: 0 18px 40px -18px rgba(16, 24, 20, 0.4);
+  transform: rotate(4deg);
+}
+.emfi-chip--switch > svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 2; }
+/* Schakelaar in de aan-stand, zoals in de app */
+.emfi-track {
+  position: relative;
+  width: 36px;
+  height: 22px;
+  border-radius: 999px;
+  background: #24594B;
+}
+.emfi-track::after {
+  content: '';
+  position: absolute;
+  top: 4px;
+  left: 18px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #FFFFFF;
+}
+.project:hover .emfi-chip--ai { transform: rotate(-2deg) translate(-8px, -10px); }
+.project:hover .emfi-chip--switch { transform: rotate(1deg) translate(8px, 10px); }
 
 /* Regenbooggids — in de stijl van de site zelf: warm papier, de zesbandige boog, teal */
 .project--gids {
@@ -2543,7 +2687,20 @@ html.has-rail::-webkit-scrollbar { display: none; }
   .project-top { margin-bottom: 0; }
   .browser { width: 92%; margin: 2rem auto; transform: none; }
   .project--gids .project-visual { place-items: center; }
-  .phone { transform: rotate(3deg) translateY(18%); width: 200px; }
+  /* Boven de tekst: het toestel mag niet over de titel lopen */
+  .project--emfi .project-visual { overflow: hidden; }
+  .phone { --pw: 200px; transform: rotate(3deg) translateY(18%); width: var(--pw); border-radius: 31px; padding: 6px; }
+  .phone img { border-radius: 25px; }
+  /* Dicht bij het toestel houden, ook op een brede tablet */
+  .emfi-chip--ai { left: max(3%, calc(50% - 210px)); top: 21%; gap: 8px; padding: 6px 12px 6px 6px; border-radius: 16px; }
+  .emfi-orb { width: 30px; height: 30px; }
+  .emfi-orb svg { width: 15px; height: 15px; }
+  .emfi-chip-txt b { font-size: 0.86rem; }
+  .emfi-chip-txt small { font-size: 0.66rem; }
+  .emfi-chip--switch { right: max(3%, calc(50% - 230px)); bottom: 14%; gap: 7px; padding: 6px 6px 6px 11px; font-size: 0.76rem; }
+  .emfi-chip--switch > svg { width: 14px; height: 14px; }
+  .emfi-track { width: 30px; height: 18px; }
+  .emfi-track::after { top: 3px; left: 15px; width: 12px; height: 12px; }
 
   /* Zonder JavaScript: geen dode menuknop, maar een horizontaal scrollbare linkstrook */
   html:not(.js) .nav-toggle { display: none; }
