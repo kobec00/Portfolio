@@ -8,11 +8,11 @@
 
   const FILMS = [
     // ── TROUWFILMS ──
-    { id: '1aSgwH5nDEA', cat: 'wedding', title: 'Febe & Seppe', desc: 'De trouw van mijn zus. Mijn meest recente werk — warm en persoonlijk in beeld gebracht.', year: '2024', format: 'Trouwfilm', runtime: 'Sfeervideo', tags: ['Sfeer', 'Recentste werk'], size: 'wide' },
+    { id: '1aSgwH5nDEA', cat: 'wedding', title: 'Febe & Seppe', desc: 'De trouw van mijn zus en meteen ook mijn meest recente werk. Warm en persoonlijk in beeld gebracht.', year: '2024', format: 'Trouwfilm', runtime: 'Sfeervideo', tags: ['Sfeer', 'Recentste werk'], size: 'wide' },
     { id: '4OBGTtQVUYo', cat: 'wedding', title: 'Ines & Sander', desc: 'Ceremonie en feest samengebracht tot één rustig, filmisch geheel.', year: '2021', format: 'Trouwfilm', runtime: 'Sfeervideo', tags: ['Sfeer', 'Ceremonie'], size: 'half' },
     { id: 'Q8kLe0-2gnc', cat: 'wedding', title: 'Caroline & Bram', desc: 'Mijn allereerste trouwfilm. Waar het allemaal begon.', year: '2019', format: 'Trouwfilm', runtime: 'Sfeervideo', tags: ['Eerste werk'], size: 'half' },
     // ── REISBEELDEN & PROJECTEN ──
-    { id: 'LOpTFsjrGvw', cat: 'other', title: 'Lannoo — Kinderboek', desc: 'Stop-motion advertentie voor uitgeverij Lannoo. Frame voor frame opgebouwd.', year: '2021', format: 'Commercieel', runtime: 'Stop-motion', tags: ['Stop-motion', 'Commercieel'], size: 'feature' },
+    { id: 'LOpTFsjrGvw', cat: 'other', title: 'Kinderboek voor Lannoo', desc: 'Stop-motion advertentie voor uitgeverij Lannoo. Frame voor frame opgebouwd.', year: '2021', format: 'Commercieel', runtime: 'Stop-motion', tags: ['Stop-motion', 'Commercieel'], size: 'feature' },
     { id: 's_slyU9heV4', cat: 'other', title: 'Louis Cornelis · 1936–2023', desc: 'Een mini-reportage over mijn grootvader. Een persoonlijk portret en het verhaal van een leven.', year: '2020', format: 'Reportage', runtime: 'Portret', tags: ['Reportage', 'Persoonlijk'], size: 'feature-r' },
     { id: 'PwpixmMHLhE', cat: 'other', title: 'The Smoky Mountains', desc: 'Sfeerbeelden uit Tennessee, gefilmd tijdens mijn uitwisseling. Natuur in 4K.', year: '2019', format: 'Reisfilm', runtime: '4K', tags: ['Reis', '4K', 'Natuur'], size: 'half' },
     { id: 'Aky2uWTmonw', cat: 'other', title: 'Schotland', desc: 'Een van mijn eerste reisvideo’s. Ruige landschappen en sfeerbeelden uit de Schotse Highlands.', year: '2018', format: 'Reisfilm', runtime: 'Sfeervideo', tags: ['Reis', 'Natuur', 'Vroeg werk'], size: 'half' },
