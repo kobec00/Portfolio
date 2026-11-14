@@ -1,19 +1,19 @@
 <!DOCTYPE html>
-<html lang="nl">
+<html lang="nl-BE">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Kobe Cornelis | Orthopedagogisch begeleider</title>
 <meta name="description" content="Portfolio van Kobe Cornelis, orthopedagogisch begeleider met ervaring in residentiële zorg, mobiele begeleiding en psychiatrie. Gedreven door verbinding, gelijkwaardigheid en inclusieve zorg.">
 <meta name="author" content="Kobe Cornelis">
-<meta name="theme-color" content="#0E0C0B">
+<meta name="theme-color" content="#f5f5f5">
 <link rel="canonical" href="https://kobecornelis.com/">
 
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="icon" type="image/x-icon" href="favicon.ico">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
 
-<!-- Open Graph / social previews (absolute URL's: scrapers negeren relatieve paden) -->
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://kobecornelis.com/">
 <meta property="og:title" content="Kobe Cornelis | Orthopedagogisch begeleider">
@@ -21,23 +21,19 @@
 <meta property="og:image" content="https://kobecornelis.com/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Kobe Cornelis, orthopedagogisch begeleider. Zorg die vertrekt vanuit verbinding.">
 <meta property="og:locale" content="nl_BE">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Kobe Cornelis | Orthopedagogisch begeleider">
 <meta name="twitter:description" content="Portfolio met ervaring in residentiële zorg, mobiele begeleiding en psychiatrie.">
 <meta name="twitter:image" content="https://kobecornelis.com/og-image.png">
 
-<script>
-  document.documentElement.classList.add('js');
-  // Vangnet: als scripts niet laden, toon de hero toch na enkele seconden.
-  setTimeout(function () { document.documentElement.classList.add('is-ready'); }, 3500);
-</script>
+<script>document.documentElement.classList.add('js');</script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
-<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,100..900,0..100,0..1;1,9..144,100..900,0..100,0..1&family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://i.ytimg.com">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500&family=Geist+Mono:wght@400;500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/style.css">
 
 <script type="application/ld+json">
@@ -54,586 +50,669 @@
 }
 </script>
 </head>
-<body data-theme="dark">
+<body>
 
 <a class="skip-link" href="#over">Naar de inhoud</a>
-<div class="grain" aria-hidden="true"></div>
-<div class="cursor" aria-hidden="true"><span class="cursor-label"></span></div>
+
+<!-- iconen die meermaals gebruikt worden -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="fo-a" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8fd0ff"/><stop offset="1" stop-color="#4ea7f2"/></linearGradient>
+    <linearGradient id="fo-b" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#a9dcff"/><stop offset="1" stop-color="#6cbcf8"/></linearGradient>
+  </defs>
+  <symbol id="i-folder" viewBox="0 0 46 40">
+    <path d="M2 6a4 4 0 0 1 4-4h10.5a4 4 0 0 1 3 1.3L22 6h18a4 4 0 0 1 4 4v24a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4z" fill="url(#fo-a)"/>
+    <path d="M2 14a3 3 0 0 1 3-3h36a3 3 0 0 1 3 3v20a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4z" fill="url(#fo-b)"/>
+    <path d="M2.5 14.2a2.7 2.7 0 0 1 2.7-2.7h35.6a2.7 2.7 0 0 1 2.7 2.7" fill="none" stroke="rgba(255,255,255,.7)"/>
+  </symbol>
+  <symbol id="i-pdf" viewBox="0 0 40 50">
+    <path d="M4 2h22l10 10v34a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z" fill="#fff" stroke="rgba(0,0,0,.25)"/>
+    <path d="M26 2v8a2 2 0 0 0 2 2h8" fill="#e9e9ec" stroke="rgba(0,0,0,.25)"/>
+    <rect x="2" y="27" width="34" height="13" fill="#e5484d"/>
+    <text x="19" y="37" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" font-weight="700" fill="#fff">PDF</text>
+  </symbol>
+  <symbol id="i-seal" viewBox="0 0 58 66">
+    <path d="M19 40l-6 23 9.500-5 5 8 4-20zM39 40l6 23-9.500-5-5 8-4-20z" fill="var(--c)" opacity=".7"/>
+    <g class="rosette"><circle cx="29" cy="27" r="21" fill="none" stroke="var(--c)" stroke-width="8" stroke-dasharray="5.500 2.746"/><circle cx="29" cy="27" r="21" fill="var(--c)"/><circle cx="29" cy="27" r="17" fill="none" stroke="rgba(255,255,255,.55)" stroke-width="1"/></g>
+  </symbol>
+  <symbol id="i-arrow" viewBox="0 0 18 18"><path d="M5 13l8-8M6.5 5H13v6.5"/></symbol>
+  <symbol id="i-right" viewBox="0 0 18 18"><path d="M3.5 9h11M10 4.5 14.5 9 10 13.5"/></symbol>
+  <symbol id="i-down" viewBox="0 0 18 18"><path d="M9 3.5v11M4.5 10 9 14.5 13.5 10"/></symbol>
+</svg>
 
 <!-- ═══════════ NAVIGATIE ═══════════ -->
-<header class="nav" id="nav">
+<header class="nav">
   <a class="nav-brand" href="#top" aria-label="Kobe Cornelis, naar boven">
-    <span class="nav-mark" aria-hidden="true">K</span>
-    <span class="nav-name">Kobe Cornelis</span>
+    <svg viewBox="0 0 64 64" aria-hidden="true"><path d="M22 15v34M22 35 40 15M28.5 28.5 42 49"/><circle cx="51" cy="46" r="5"/></svg>
+    <span>kobe cornelis</span>
   </a>
   <nav class="nav-links" aria-label="Hoofdnavigatie">
-    <a href="#over">Over mij</a>
-    <a href="#visie">Visie</a>
-    <a href="#competenties">Competenties</a>
-    <a href="#traject">Traject</a>
-    <a href="#projecten">Projecten</a>
-    <a href="#certificaten">Certificaten</a>
-    <a href="video/">Videografie <span aria-hidden="true">↗</span></a>
+    <i class="nav-ind" aria-hidden="true"></i>
+    <a href="#over">over mij</a>
+    <a href="#visie">visie</a>
+    <a href="#competenties">competenties</a>
+    <a href="#traject">traject</a>
+    <a href="#projecten">projecten</a>
+    <a href="#certificaten">certificaten</a>
+    <a href="#videografie">videografie</a>
   </nav>
-  <a class="nav-cta" href="#contact"><span class="nav-cta-dot" aria-hidden="true"></span>Contact</a>
-  <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="menu">
-    <span class="nav-toggle-label">Menu</span>
-    <span class="nav-toggle-icon" aria-hidden="true"><i></i><i></i></span>
-  </button>
+  <div class="nav-right">
+    <button class="cc-btn" type="button" aria-expanded="false" aria-controls="cc" aria-label="Bedieningspaneel">
+      <svg class="bat" viewBox="0 0 25 14" aria-hidden="true"><rect x="1" y="2" width="20" height="10" rx="3"/><path d="M23.300 5.400v3.200"/><rect class="bat-fill" x="3" y="4" width="16" height="6" rx="1.300"/></svg>
+      <span data-clock aria-hidden="true"></span>
+      <svg viewBox="0 0 17 14" aria-hidden="true"><rect x="1" y="1.500" width="15" height="4.500" rx="2.250"/><circle cx="12.500" cy="3.750" r="1" fill="currentColor"/><rect x="1" y="8" width="15" height="4.500" rx="2.250"/><circle cx="4.500" cy="10.250" r="1" fill="currentColor"/></svg>
+    </button>
+    <a class="btn btn--sm btn--blue nav-cta" href="#contact">contact</a>
+    <button class="mb-toggle" type="button" aria-expanded="false" aria-controls="dropmenu">menu</button>
+  </div>
 </header>
 
-<!-- Volledig scherm menu (mobiel) -->
-<div class="menu" id="menu" inert data-lenis-prevent>
-  <nav class="menu-inner" aria-label="Secties">
-    <ol class="menu-list">
-      <li><a href="#over"><span>01</span>Over mij</a></li>
-      <li><a href="#visie"><span>02</span>Visie</a></li>
-      <li><a href="#competenties"><span>03</span>Competenties</a></li>
-      <li><a href="#traject"><span>04</span>Traject</a></li>
-      <li><a href="#projecten"><span>05</span>Projecten</a></li>
-      <li><a href="#certificaten"><span>06</span>Certificaten</a></li>
-      <li><a href="video/"><span>07</span>Videografie ↗</a></li>
-      <li><a href="#contact"><span>08</span>Contact</a></li>
-    </ol>
-    <div class="menu-foot">
-      <a href="mailto:kobe.cornelis4@gmail.com">kobe.cornelis4@gmail.com</a>
-      <div>
-        <a href="https://www.linkedin.com/in/kobecornelis/" target="_blank" rel="noopener">LinkedIn</a>
-        <a href="https://github.com/kobec00" target="_blank" rel="noopener">GitHub</a>
-      </div>
+<!-- bedieningspaneel -->
+<div class="cc" id="cc" role="group" aria-label="Bedieningspaneel">
+  <button class="cc-tile" type="button" data-calm aria-pressed="false">
+    <i class="cc-ico"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M13.500 9.800A5.800 5.800 0 0 1 6.200 2.500a5.800 5.800 0 1 0 7.300 7.300z"/></svg></i>
+    <span><b>rustige modus</b><small data-calm-label>uit</small></span>
+  </button>
+  <div class="cc-tile">
+    <svg class="cc-ring" viewBox="0 0 36 36" aria-hidden="true"><circle class="trk" cx="18" cy="18" r="15"/><circle class="val" cx="18" cy="18" r="15" pathLength="100"/></svg>
+    <span><b data-read>0%</b><small>gelezen</small></span>
+  </div>
+  <div class="cc-tile cc-wide cc-col">
+    <b>accentkleur</b>
+    <div class="cc-colors">
+      <button type="button" data-accent="blue" style="--c:#0f7fff" aria-label="Blauw" aria-pressed="true"></button>
+      <button type="button" data-accent="purple" style="--c:#8a5cf6" aria-label="Paars" aria-pressed="false"></button>
+      <button type="button" data-accent="pink" style="--c:#f0468a" aria-label="Roze" aria-pressed="false"></button>
+      <button type="button" data-accent="orange" style="--c:#f58a1f" aria-label="Oranje" aria-pressed="false"></button>
+      <button type="button" data-accent="green" style="--c:#28a745" aria-label="Groen" aria-pressed="false"></button>
+      <button type="button" data-accent="graphite" style="--c:#6e6e73" aria-label="Grafiet" aria-pressed="false"></button>
     </div>
-  </nav>
+  </div>
+  <div class="cc-tile cc-wide">
+    <span><b data-date></b><small>Leuven · <span data-clock></span></small></span>
+  </div>
 </div>
 
-<main id="main">
+<nav class="dropmenu" id="dropmenu" aria-label="Menu">
+  <a href="#over">over mij <span>01</span></a>
+  <a href="#visie">visie <span>02</span></a>
+  <a href="#competenties">competenties <span>03</span></a>
+  <a href="#traject">traject <span>04</span></a>
+  <a href="#projecten">projecten <span>05</span></a>
+  <a href="#certificaten">certificaten <span>06</span></a>
+  <hr>
+  <a href="video/">videografie <span>↗</span></a>
+  <a href="#contact">contact <span>@</span></a>
+</nav>
+
+<main id="top">
 
   <!-- ═══════════ HERO ═══════════ -->
-  <section class="hero is-fixed-theme" id="top" data-theme="dark" data-rail="Intro" aria-label="Introductie">
-    <canvas class="ribbons hero-ribbons" id="heroRibbons" aria-hidden="true"></canvas>
-    <div class="hero-shade" aria-hidden="true"></div>
-
-    <div class="hero-inner container">
-      <div class="hero-meta" data-intro>
-        <span>Orthopedagogisch begeleider</span>
-        <span class="hero-meta-end">Portfolio ©<span data-year>2026</span></span>
-      </div>
-
-      <h1 class="hero-title" aria-label="Kobe Cornelis">
-        <span class="hero-line" aria-hidden="true"><span class="hero-word">Kobe</span></span>
-        <span class="hero-line hero-line--2" aria-hidden="true"><span class="hero-word">Cornelis</span></span>
-      </h1>
-
-      <div class="hero-foot">
-        <p class="hero-tagline" data-intro>Zorg die vertrekt<br>vanuit <em>verbinding.</em></p>
-        <div class="hero-side" data-intro>
-          <p class="hero-intro">Orthopedagogisch begeleider met ervaring in residentiële zorg, mobiele begeleiding en psychiatrie. Gedreven door gelijkwaardigheid en het geloof dat iedereen recht heeft op begeleiding op maat.</p>
-          <div class="hero-actions">
-            <a class="btn btn--solid" href="#traject" data-magnetic>
-              <span>Bekijk mijn traject</span>
-              <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 2v11M3.5 8.5 8 13l4.5-4.5"/></svg>
-            </a>
-            <a class="btn btn--line" href="#contact" data-magnetic><span>Contact</span></a>
-          </div>
+  <section class="hero" aria-label="Introductie">
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <span class="status"><i></i>leuven, belgië</span>
+        <h1 class="hero-title">kobe cornelis</h1>
+        <p class="hero-role">orthopedagogisch begeleider</p>
+        <p class="hero-sub"><span class="hero-line">Zorg die vertrekt vanuit <span class="rotator" data-rotate="verbinding|gelijkwaardigheid|respect|vertrouwen">verbinding</span>.</span> Met ervaring in residentiële zorg, mobiele begeleiding en psychiatrie.</p>
+        <div class="hero-btns">
+          <a class="btn btn--blue" href="#traject">bekijk mijn traject <svg aria-hidden="true"><use href="#i-down"/></svg></a>
+          <a class="btn" href="#contact">contact</a>
         </div>
       </div>
 
-      <div class="hero-scroll" data-intro aria-hidden="true">
-        <span class="hero-scroll-line"></span><span>Scroll</span>
+      <!-- het bureaublad: alles is versleepbaar -->
+      <div class="desk" data-desk>
+        <a class="desk-item keep" href="#over" style="--x:3%;--y:0%;--w:252px;--ar:4/5;--rot:-3deg;--i:0">
+          <div class="win"><div class="win-bar"><span class="dots"><i></i><i></i><i></i></span><span class="win-title">portret.jpg</span></div>
+            <div class="win-body"><img src="assets/img/kobe.jpg" alt="Portret van Kobe Cornelis" width="1024" height="1536" fetchpriority="high" style="object-position:50% 24%"></div></div>
+        </a>
+        <div class="desk-item keep" style="--x:63%;--y:2%;--rot:4deg;--i:1">
+          <div class="sticky">
+            <b>vandaag</b>
+            <ul data-todo><li class="is-done"><span aria-hidden="true">✓</span>luisteren</li><li class="is-done"><span aria-hidden="true">✓</span>verbinden</li><li><span aria-hidden="true">☐</span>blijven groeien</li></ul>
+          </div>
+        </div>
+        <div class="desk-item gif" data-woof style="--x:67%;--y:38%;--w:146px;--ar:16/10;--rot:-2deg;--i:2">
+          <div class="win win--green"><div class="win-bar"><span class="dots"><i></i><i></i><i></i></span><span class="win-title">bink.gif</span></div>
+            <div class="win-body" role="img" aria-label="Animatie van hond Bink die wandelt">
+              <i class="gif-sun"></i><i class="gif-cloud"></i><i class="gif-cloud"></i><i class="gif-ground"></i>
+              <span class="gif-dog" style="font-size:32px" aria-hidden="true">🐕</span><span class="gif-woof" aria-hidden="true">woef!</span>
+            </div></div>
+        </div>
+        <a class="desk-item" href="#projecten" data-open="t-gids" style="--x:25%;--y:61%;--w:262px;--ar:16/10;--rot:2deg;--i:3">
+          <div class="win"><div class="win-bar"><span class="dots"><i></i><i></i><i></i></span><span class="win-title">deregenbooggids.be</span></div>
+            <div class="win-body"><img src="assets/img/regenbooggids.jpg" alt="De Regenbooggids" width="1800" height="1125" style="object-position:left top"></div></div>
+        </a>
+        <a class="desk-item folder" href="#projecten" style="--x:0%;--y:70%;--i:4">
+          <svg aria-hidden="true"><use href="#i-folder"/></svg><span>projecten</span>
+        </a>
+        <a class="desk-item folder" href="#certificaten" style="--x:5%;--y:86%;--i:5">
+          <svg aria-hidden="true"><use href="#i-folder"/></svg><span>certificaten</span>
+        </a>
+        <a class="desk-item file" href="Cornelis_Kobe_Graduaatsproef.pdf" target="_blank" rel="noopener" style="--x:80%;--y:70%;--i:6">
+          <svg aria-hidden="true"><use href="#i-pdf"/></svg><span>graduaatsproef.pdf</span>
+        </a>
+        <div class="desk-item rainbow" style="--x:84%;--y:89%;--i:7" aria-hidden="true">
+          <svg viewBox="0 0 66 38"><path pathLength="100" d="M4 36a29 29 0 0 1 58 0" stroke="#f0668a" style="--n:0"/><path pathLength="100" d="M9.500 36a23.500 23.500 0 0 1 47 0" stroke="#f5a04a" style="--n:1"/><path pathLength="100" d="M15 36a18 18 0 0 1 36 0" stroke="#f2d544" style="--n:2"/><path pathLength="100" d="M20.500 36a12.500 12.500 0 0 1 25 0" stroke="#5cc27a" style="--n:3"/><path pathLength="100" d="M26 36a7 7 0 0 1 14 0" stroke="#4ea4e8" style="--n:4"/></svg>
+          <span>regenboog.gif</span>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- ═══════════ 01 · OVER MIJ ═══════════ -->
-  <section class="about" id="over" data-theme="light" data-rail="Over mij">
-    <div class="band" aria-hidden="true">
-      <div class="band-track" data-marquee="1">
-        <div class="band-group">
-          <span>Orthopedagogie</span><i></i><em>Verbinding</em><i></i>
-          <span>Inclusie</span><i></i><em>Begeleiding</em><i></i>
-          <span>Groei</span><i></i><em>Empowerment</em><i></i>
-          <span>Gelijkwaardigheid</span><i></i><em>Authenticiteit</em><i></i>
-          <span>Herstelgericht</span><i></i><em>Menswaardig</em><i></i>
+  <section class="sec" id="over">
+    <div class="wrap">
+      <div class="about">
+        <div class="about-text" data-watch>
+          <span class="plabel">over mij</span>
+          <h2 class="h-display">warm hart, scherpe blik</h2>
+          <p class="big">Ik ben Kobe. Een warme, reflectieve mens met een bewogen achtergrond en een duidelijke drive om verder te groeien.</p>
+          <p>Wat begon als overleven, is geëvolueerd tot <mark>een bewuste keuze om betekenisvol werk te doen</mark>. De residentiële zorg voelt als thuis: een plek waar ik mijn eigen ervaring kan omzetten in <mark>écht contact</mark>.</p>
+          <p>Ik rondde mijn graduaat Orthopedagogische Begeleiding af aan UCLL, met grote onderscheiding. In september 2026 startte ik de bachelor.</p>
+          <span class="signature" aria-hidden="true">Kobe</span>
         </div>
-      </div>
-    </div>
 
-    <div class="container">
-      <header class="sec-head">
-        <p class="eyebrow"><span>01</span>Over mij</p>
-        <h2 class="display" data-split>Warm hart,<br><em>scherpe blik.</em></h2>
-      </header>
+        <div class="about-side">
+          <!-- "Over deze Mac": overzicht, ervaring en talen in één venster -->
+          <div class="win aboutmac" data-reveal data-tabs>
+            <div class="am-bar">
+              <span class="dots"><i></i><i></i><i></i></span>
+              <div class="seg" role="tablist" aria-label="Over mij">
+                <button type="button" role="tab" id="am-t1" aria-controls="am-1" aria-selected="true">overzicht</button>
+                <button type="button" role="tab" id="am-t2" aria-controls="am-2" aria-selected="false" tabindex="-1">ervaring</button>
+                <button type="button" role="tab" id="am-t3" aria-controls="am-3" aria-selected="false" tabindex="-1">talen</button>
+              </div>
+            </div>
+            <div class="am-body">
+              <section class="am-pane am-overview" id="am-1" role="tabpanel" aria-labelledby="am-t1">
+                <img class="am-pic" src="assets/img/kobe-avatar.jpg" width="400" height="400" alt="Portret van Kobe Cornelis" loading="lazy">
+                <div>
+                  <h3>orthopedagogisch begeleider</h3>
+                  <p class="am-sub">versie <span data-age>26</span> · bouwjaar 2000</p>
+                  <dl class="am-specs">
+                    <div><dt>woonplaats</dt><dd>Leuven</dd></div>
+                    <div><dt>opleiding</dt><dd>Graduaat Orthopedagogische Begeleiding</dd></div>
+                    <div><dt>school</dt><dd>UCLL Sociale School Heverlee</dd></div>
+                    <div><dt>resultaat</dt><dd>grote onderscheiding · ’26</dd></div>
+                    <div><dt>nu bezig</dt><dd>de bachelor, sinds september 2026</dd></div>
+                  </dl>
+                  <div class="am-btns">
+                    <a class="btn btn--sm" href="#traject">bekijk traject…</a>
+                    <a class="btn btn--sm" href="#contact">contact…</a>
+                  </div>
+                </div>
+              </section>
 
-      <div class="about-grid">
-        <figure class="about-photo" data-cursor="Hallo!">
-          <div class="about-photo-frame">
-            <img src="assets/img/kobe.jpg" width="1024" height="1536" alt="Portret van Kobe Cornelis" loading="lazy" decoding="async">
+              <section class="am-pane" id="am-2" role="tabpanel" aria-labelledby="am-t2">
+                <div class="am-disk">
+                  <span class="app-ico ig-blue"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.500"/><path d="M12 7.500V12l3 2"/></svg></span>
+                  <div>
+                    <h3><span data-count="700">700</span> uur praktijkervaring</h3>
+                    <p class="am-sub">3 stages voltooid · 2024 – 2026</p>
+                    <div class="am-storage" aria-hidden="true"><i style="--f:200;--c:#ff9f0a"></i><i style="--f:200;--c:#0a84ff;--d:.25s"></i><i style="--f:300;--c:#30d158;--d:.5s"></i></div>
+                    <ul class="am-legend">
+                      <li><i style="--c:#ff9f0a"></i>Rozemarijn <b>200 uur</b></li>
+                      <li><i style="--c:#0a84ff"></i>Sint-Kamillus <b>200 uur</b></li>
+                      <li><i style="--c:#30d158"></i>Alvinnenberg <b>300 uur</b></li>
+                    </ul>
+                  </div>
+                </div>
+              </section>
+
+              <section class="am-pane" id="am-3" role="tabpanel" aria-labelledby="am-t3">
+                <ul class="am-langs">
+                  <li><span><b>Nederlands</b><small>moedertaal</small></span><span class="lvl" aria-hidden="true"><i class="on" style="--n:0"></i><i class="on" style="--n:1"></i><i class="on" style="--n:2"></i><i class="on" style="--n:3"></i><i class="on" style="--n:4"></i></span></li>
+                  <li><span><b>Engels</b><small>professioneel</small></span><span class="lvl" aria-hidden="true"><i class="on" style="--n:0"></i><i class="on" style="--n:1"></i><i class="on" style="--n:2"></i><i class="on" style="--n:3"></i><i></i></span></li>
+                  <li><span><b>Frans</b><small>basis</small></span><span class="lvl" aria-hidden="true"><i class="on" style="--n:0"></i><i class="on" style="--n:1"></i><i></i><i></i><i></i></span></li>
+                </ul>
+              </section>
+            </div>
           </div>
-          <figcaption><span>UCLL Heverlee</span><span>Leuven, BE</span></figcaption>
-        </figure>
-
-        <div class="about-copy">
-          <p class="about-lead" data-reveal>Ik ben Kobe. Een warme, reflectieve mens met een bewogen achtergrond en een duidelijke drive om verder te groeien.</p>
-          <p data-reveal>Wat begon als overleven, is geëvolueerd tot een bewuste keuze om betekenisvol werk te doen. De residentiële zorg voelt als thuis: een plek waar ik mijn eigen ervaring kan omzetten in écht contact.</p>
-          <p data-reveal>Ik rondde mijn graduaat Orthopedagogische Begeleiding af aan UCLL, met grote onderscheiding. In september 2026 startte ik de bachelor.</p>
-
-          <dl class="facts" data-reveal>
-            <div>
-              <dt>Leeftijd</dt>
-              <dd><span data-age>26</span> jaar <small>° 26 mei 2000</small></dd>
-            </div>
-            <div>
-              <dt>Woonplaats</dt>
-              <dd>Leuven</dd>
-            </div>
-            <div>
-              <dt>Talen</dt>
-              <dd>Nederlands <small>moedertaal</small><br>Engels <small>professioneel</small><br>Frans <small>basis</small></dd>
-            </div>
-            <div>
-              <dt>Opleiding</dt>
-              <dd>Graduaat Orthopedagogische Begeleiding <small>UCLL Sociale School Heverlee</small></dd>
-            </div>
-          </dl>
+          <div class="interests">
+            <h3>buiten het werk</h3>
+            <ul class="pills" aria-label="Interesses">
+              <li><span class="pill pill--orange" style="--n:0">videografie</span></li>
+              <li><span class="pill pill--pink" style="--n:1">hond Bink 🐕</span></li>
+              <li><span class="pill pill--green" style="--n:2">hardlopen</span></li>
+              <li><span class="pill pill--blue" style="--n:3">culturen ontdekken</span></li>
+              <li><span class="pill" style="--n:4">tech-geek</span></li>
+              <li><span class="pill pill--purple" style="--n:5">psychologie</span></li>
+              <li><span class="pill pill--yellow" style="--n:6">popmuziek</span></li>
+              <li><span class="pill pill--teal" style="--n:7">natuur</span></li>
+              <li><span class="pill" style="--n:8">mensenrechten</span></li>
+              <li><span class="pill pill--pride" style="--n:9">inclusie</span></li>
+            </ul>
+          </div>
         </div>
       </div>
 
-      <ul class="stats">
-        <li data-reveal>
-          <span class="stat-num" data-count="3">3</span>
-          <span class="stat-label">Stages voltooid</span>
-        </li>
-        <li data-reveal>
-          <span class="stat-num" data-count="700">700</span>
-          <span class="stat-label">Uur praktijkervaring</span>
-        </li>
-        <li data-reveal>
-          <span class="stat-num">’26</span>
-          <span class="stat-label">Afgestudeerd aan UCLL</span>
-        </li>
-        <li data-reveal>
-          <span class="stat-num stat-num--text"><em>Grote</em> onder&shy;scheiding</span>
-          <span class="stat-label">Graduaat OB</span>
-        </li>
-      </ul>
-
-      <div class="interests">
-        <div class="interests-head">
-          <h3>Buiten het werk</h3>
-          <p class="interests-hint">Klein spelletje: vang al mijn interesses.</p>
-        </div>
-        <div class="pillbox" id="pillbox">
-          <ul class="pills" aria-label="Interesses">
-            <li class="pill" style="--c: var(--amber)">videografie</li>
-            <li class="pill pill--big" style="--c: var(--rose)">hond Bink 🐕</li>
-            <li class="pill" style="--c: var(--sage)">hardlopen</li>
-            <li class="pill" style="--c: var(--sky)">culturen ontdekken</li>
-            <li class="pill pill--ink">tech-geek</li>
-            <li class="pill" style="--c: var(--lilac)">psychologie</li>
-            <li class="pill" style="--c: var(--amber)">popmuziek</li>
-            <li class="pill" style="--c: var(--sage)">natuur</li>
-            <li class="pill pill--line">mensenrechten</li>
-            <li class="pill pill--spectrum">inclusie</li>
-          </ul>
-        </div>
-      </div>
     </div>
   </section>
 
+  <hr class="dotline">
+
   <!-- ═══════════ 02 · VISIE ═══════════ -->
-  <section class="vision" id="visie" data-theme="light" data-rail="Visie">
-    <div class="container">
-      <h2 class="eyebrow"><span>02</span>Mijn visie</h2>
-      <blockquote class="quote">
-        <p data-scrub>“Iedereen verdient begeleiding die vertrekt vanuit <em>respect</em>. Zonder oordeel, met begrip en op <em>eigen tempo.</em>”</p>
+  <section class="sec vision" id="visie">
+    <div class="wrap">
+      <h2 class="plabel">mijn visie</h2>
+      <blockquote class="quote" data-watch>
+        <p>“Iedereen verdient begeleiding die vertrekt vanuit <mark>respect</mark>. Zonder oordeel, met begrip en op <mark>eigen tempo</mark>.”</p>
       </blockquote>
+      <ul class="ftags" aria-label="Waarden" data-reveal>
+        <li><i style="--c:#ff5f57"></i>verbinding</li>
+        <li><i style="--c:#ff9f0a"></i>gelijkwaardigheid</li>
+        <li><i style="--c:#febc2e"></i>authenticiteit</li>
+        <li><i style="--c:#28c840"></i>groei</li>
+        <li><i style="--c:#0a84ff"></i>empowerment</li>
+        <li><i style="--c:#bf5af2"></i>inclusie</li>
+      </ul>
 
       <div class="pillars">
         <article class="pillar" data-reveal>
-          <div class="pillar-top">
-            <span class="pillar-num">01</span>
-            <svg class="icon" viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="18"/><path d="M15 20h18M15 28h18"/></svg>
+          <span class="app-ico ig-green"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 9.500h10M7 14.500h10"/></svg></span>
+          <div>
+            <h3>gelijkwaardigheid</h3>
+            <p>Echte begeleiding begint bij het erkennen van de ander als evenwaardig mens, ongeacht diagnose, achtergrond of identiteit.</p>
           </div>
-          <h3>Gelijkwaardigheid</h3>
-          <p>Echte begeleiding begint bij het erkennen van de ander als evenwaardig mens, ongeacht diagnose, achtergrond of identiteit.</p>
         </article>
-        <article class="pillar" data-reveal>
-          <div class="pillar-top">
-            <span class="pillar-num">02</span>
-            <svg class="icon" viewBox="0 0 48 48" aria-hidden="true"><path d="M24 42V22"/><path d="M24 27c0-7.5-5-12-13-12 0 7.5 5 12 13 12z"/><path d="M24 22c0-6.5 4.5-11 12-11 0 6.5-4.5 11-12 11z"/></svg>
+        <article class="pillar" data-reveal style="--d:90ms">
+          <span class="app-ico ig-blue"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21V11"/><path d="M12 13.500c0-3.700-2.500-6-6.500-6 0 3.700 2.500 6 6.500 6z"/><path d="M12 11c0-3.200 2.200-5.500 6-5.500 0 3.200-2.200 5.500-6 5.500z"/></svg></span>
+          <div>
+            <h3>herstelgericht werken</h3>
+            <p>Ik vertrek vanuit de mens en niet vanuit het probleem. Met focus op kracht, veerkracht en het creëren van ruimte voor groei.</p>
           </div>
-          <h3>Herstelgericht werken</h3>
-          <p>Ik vertrek vanuit de mens en niet vanuit het probleem. Met focus op kracht, veerkracht en het creëren van ruimte voor groei.</p>
         </article>
-        <article class="pillar" data-reveal>
-          <div class="pillar-top">
-            <span class="pillar-num">03</span>
-            <svg class="icon icon--spectrum" viewBox="0 0 48 48" aria-hidden="true"><path d="M24 40S7 30.5 7 18.5A8.5 8.5 0 0 1 24 16a8.5 8.5 0 0 1 17 2.5C41 30.5 24 40 24 40z"/></svg>
+        <article class="pillar" data-reveal style="--d:180ms">
+          <span class="app-ico ig-pride"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20S3.500 15.200 3.500 9.200A4.200 4.200 0 0 1 12 8a4.200 4.200 0 0 1 8.500 1.200C20.500 15.200 12 20 12 20z"/></svg></span>
+          <div>
+            <h3>inclusieve zorg</h3>
+            <p>Voor mij is LGBTQ+-vriendelijke en gendersensitieve begeleiding gewoon een basisvoorwaarde voor veilige zorg.</p>
           </div>
-          <h3>Inclusieve zorg</h3>
-          <p>Voor mij is LGBTQ+-vriendelijke en gendersensitieve begeleiding gewoon een basisvoorwaarde voor veilige zorg.</p>
         </article>
       </div>
     </div>
   </section>
+
+  <hr class="dotline">
 
   <!-- ═══════════ 03 · COMPETENTIES ═══════════ -->
-  <section class="skills" id="competenties" data-theme="light" data-rail="Competenties">
-    <div class="container">
-      <header class="sec-head sec-head--split">
-        <div>
-          <p class="eyebrow"><span>03</span>Competenties</p>
-          <h2 class="display" data-split>Wat ik <em>meebreng</em></h2>
-        </div>
-        <p class="sec-intro" data-reveal>Vaardigheden die ik in de praktijk heb opgebouwd, van de leefgroep tot het mobiele team.</p>
+  <section class="sec" id="competenties">
+    <div class="wrap skills">
+      <header class="skills-head" data-reveal>
+        <span class="plabel">competenties</span>
+        <h2 class="h-display">wat ik meebreng</h2>
+        <p class="lead">Vaardigheden die ik in de praktijk heb opgebouwd, van de leefgroep tot het mobiele team.</p>
       </header>
 
-      <div class="bento">
-        <article class="card card--wide" data-spot data-reveal>
-          <svg class="icon" viewBox="0 0 48 48" aria-hidden="true"><path d="M8 10h22a4 4 0 0 1 4 4v10a4 4 0 0 1-4 4H18l-7 6v-6H8a4 4 0 0 1-4-4V14a4 4 0 0 1 4-4z"/><path d="M38 18h2a4 4 0 0 1 4 4v10a4 4 0 0 1-4 4h-1v5l-6-5h-9a4 4 0 0 1-4-4v-1"/></svg>
-          <div class="card-body">
-            <h3>Communicatie &amp; contact</h3>
-            <p>Helder communiceren, actief luisteren en verbinding maken, ook wanneer het moeilijk wordt.</p>
-          </div>
-        </article>
-        <article class="card" data-spot data-reveal>
-          <svg class="icon" viewBox="0 0 48 48" aria-hidden="true"><path d="M4 24s7.5-12 20-12 20 12 20 12-7.5 12-20 12S4 24 4 24z"/><circle cx="24" cy="24" r="6"/><circle cx="24" cy="24" r="1.4"/></svg>
-          <div class="card-body">
-            <h3>Observatie &amp; analyse</h3>
-            <p>Achter gedrag kijken, patronen herkennen en onderbouwd rapporteren vanuit een orthopedagogisch kader.</p>
-          </div>
-        </article>
-        <article class="card" data-spot data-reveal>
-          <svg class="icon" viewBox="0 0 48 48" aria-hidden="true"><circle cx="11" cy="24" r="7"/><circle cx="37" cy="24" r="7"/><path d="M20 24h8M22.5 21 19.5 24l3 3M25.5 21l3 3-3 3"/></svg>
-          <div class="card-body">
-            <h3>Nabijheid &amp; afstand</h3>
-            <p>De balans vinden tussen warme betrokkenheid en professionele afstand, afgestemd op de noden van de cliënt.</p>
-          </div>
-        </article>
-        <article class="card" data-spot data-reveal>
-          <svg class="icon" viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="17"/><circle cx="24" cy="24" r="7"/><path d="M12 12l7 7M36 12l-7 7M12 36l7-7M36 36l-7-7"/></svg>
-          <div class="card-body">
-            <h3>Crisisinterventie</h3>
-            <p>Kalm blijven en adequaat handelen in moeilijke situaties.</p>
-          </div>
-        </article>
-        <article class="card card--spectrum" data-spot data-reveal>
-          <svg class="icon icon--venn" viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="17" r="10"/><circle cx="17" cy="29" r="10"/><circle cx="31" cy="29" r="10"/></svg>
-          <div class="card-body">
-            <h3>Inclusieve begeleiding</h3>
-            <p>Gendersensitief en LGBTQ+-vriendelijk werken als onderdeel van een open, respectvolle begeleidingsstijl.</p>
-          </div>
-        </article>
-        <article class="card card--wide card--code" data-spot data-reveal>
-          <svg class="icon" viewBox="0 0 48 48" aria-hidden="true"><rect x="5" y="9" width="38" height="30" rx="4"/><path d="M5 16h38M19 23l-5 5 5 5M29 23l5 5-5 5M26.5 21.5l-5 13"/></svg>
-          <div class="card-body">
-            <h3>Digitale vaardigheden</h3>
-            <p>Webontwikkeling, digitale tools bouwen en creatief inzetten van technologie in de zorg.</p>
-          </div>
-          <pre class="code" aria-hidden="true"><code><b>const</b> zorg = {
-  toegankelijk: <i>true</i>,
-  inclusief: <i>true</i>,
-  opMaat: <i>true</i>,
-};</code></pre>
-        </article>
-        <a class="card card--link" href="#traject" data-reveal>
-          <span>Benieuwd waar ik dit leerde?</span>
-          <strong>Bekijk mijn traject <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M8.5 3.5 13 8l-4.5 4.5"/></svg></strong>
-        </a>
+      <div class="win settings" data-reveal>
+        <div class="win-bar"><span class="dots"><i></i><i></i><i></i></span><span class="win-title">competenties</span></div>
+        <div class="win-body">
+          <label class="set-search"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="7" cy="7" r="4.500"/><path d="m10.500 10.500 3.500 3.500"/></svg><input type="search" placeholder="zoek een competentie" aria-label="Zoek een competentie" data-set-search></label>
+          <ul class="set-group">
+            <li class="set-row" data-watch>
+              <span class="app-ico ig-blue"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h11a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2H9l-3.500 3v-3H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z"/><path d="M19 9h1a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-.500v2.500l-3-2.500H12"/></svg></span>
+              <div><h3>communicatie &amp; contact</h3><p>Helder communiceren, actief luisteren en verbinding maken, ook wanneer het moeilijk wordt.</p></div>
+              <button class="switch" type="button" role="switch" aria-checked="true" style="--d:.2s"></button>
+            </li>
+            <li class="set-row" data-watch>
+              <span class="app-ico ig-green"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.700-6 10-6 10 6 10 6-3.700 6-10 6S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></span>
+              <div><h3>observatie &amp; analyse</h3><p>Achter gedrag kijken, patronen herkennen en onderbouwd rapporteren vanuit een orthopedagogisch kader.</p></div>
+              <button class="switch" type="button" role="switch" aria-checked="true" style="--d:.3s"></button>
+            </li>
+            <li class="set-row" data-watch>
+              <span class="app-ico ig-orange"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="5.500" cy="12" r="3.500"/><circle cx="18.500" cy="12" r="3.500"/><path d="M10 12h4M11.500 10.500 10 12l1.500 1.500M12.500 10.500 14 12l-1.500 1.500"/></svg></span>
+              <div><h3>nabijheid &amp; afstand</h3><p>De balans vinden tussen warme betrokkenheid en professionele afstand, afgestemd op de noden van de cliënt.</p></div>
+              <button class="switch" type="button" role="switch" aria-checked="true" style="--d:.4s"></button>
+            </li>
+            <li class="set-row" data-watch>
+              <span class="app-ico ig-pink"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.500"/><circle cx="12" cy="12" r="3.500"/><path d="M6 6l3.500 3.500M18 6l-3.500 3.500M6 18l3.500-3.500M18 18l-3.500-3.500"/></svg></span>
+              <div><h3>crisisinterventie</h3><p>Kalm blijven en adequaat handelen in moeilijke situaties.</p></div>
+              <button class="switch" type="button" role="switch" aria-checked="true" style="--d:.2s"></button>
+            </li>
+            <li class="set-row" data-watch>
+              <span class="app-ico ig-pride"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8.500" r="5"/><circle cx="8.500" cy="14.500" r="5"/><circle cx="15.500" cy="14.500" r="5"/></svg></span>
+              <div><h3>inclusieve begeleiding</h3><p>Gendersensitief en LGBTQ+-vriendelijk werken als onderdeel van een open, respectvolle begeleidingsstijl.</p></div>
+              <button class="switch" type="button" role="switch" aria-checked="true" style="--d:.3s"></button>
+            </li>
+            <li class="set-row" data-watch>
+              <span class="app-ico ig-dark"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 7-5 5 5 5M16 7l5 5-5 5M13.500 5l-3 14"/></svg></span>
+              <div><h3>digitale vaardigheden</h3><p>Webontwikkeling, digitale tools bouwen en creatief inzetten van technologie in de zorg.</p></div>
+              <button class="switch" type="button" role="switch" aria-checked="true" style="--d:.4s"></button>
+            </li>
+            <li class="set-empty" hidden>geen competentie gevonden</li>
+          </ul>
+          <p class="set-more">benieuwd waar ik dit leerde? <a class="btn btn--sm" href="#traject">bekijk mijn traject <svg aria-hidden="true"><use href="#i-down"/></svg></a></p>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- ═══════════ 04 · TRAJECT ═══════════ -->
-  <section class="journey" id="traject" data-theme="dark" data-rail="Traject">
-    <div class="journey-pin">
-      <div class="journey-track">
-        <header class="journey-intro">
-          <p class="eyebrow"><span>04</span>Stagetraject</p>
-          <h2 class="display" data-split>Waar ik <em>gegroeid</em> ben</h2>
-          <p>Van leefgroep over psychiatrie tot mobiele begeleiding: elke stage bracht me een stap dichter bij de begeleider die ik wil zijn.</p>
-          <span class="journey-hint" aria-hidden="true">Blijf scrollen <svg viewBox="0 0 16 16"><path d="M8 2.5v10.5M3.5 8.5 8 13l4.5-4.5"/></svg></span>
-        </header>
+  <hr class="dotline">
 
-        <ol class="stops">
-          <li class="stop">
-            <div class="stop-head"><span class="stop-dot"></span><span>okt 2024 – jan 2025</span></div>
-            <span class="stop-num" aria-hidden="true">01</span>
-            <p class="stop-kicker">Beroepspraktijk 1 · 200 uur</p>
-            <h3 class="stop-title">Rozemarijn VZW</h3>
-            <p class="stop-org">Leefgroep voor personen met een verstandelijke beperking</p>
-            <p class="stop-desc">Mijn eerste kennismaking met het werkveld. Ik leerde de basishouding van een begeleider: nabijheid, geduld, en het belang van structuur. Een waardevolle ervaring, maar ik merkte dat ik meer uitdaging zocht.</p>
-            <ul class="tags"><li>Verstandelijke beperking</li><li>Leefgroep</li><li>Dagbesteding</li></ul>
+  <!-- ═══════════ 04 · TRAJECT ═══════════ -->
+  <section class="sec" id="traject">
+    <div class="wrap">
+      <header class="head head--split" data-reveal>
+        <div>
+          <span class="plabel">stagetraject</span>
+          <h2 class="h-display">waar ik gegroeid ben</h2>
+        </div>
+        <p class="lead">Van leefgroep over psychiatrie tot mobiele begeleiding: elke stage bracht me een stap dichter bij de begeleider die ik wil zijn.</p>
+      </header>
+
+      <div class="tl-wrap">
+        <p class="tl-total" data-tl-total>
+          <span><b data-tl-hours>700</b> / 700 uur praktijk</span>
+          <span class="tl-total-bar" aria-hidden="true"><i style="--f:2"></i><i style="--f:2"></i><i style="--f:3"></i></span>
+        </p>
+
+        <ol class="tl" data-timeline>
+          <li class="tl-fill" aria-hidden="true"></li>
+
+          <li class="tl-item" data-hours="200">
+            <p class="tl-date">okt 2024 –<br> jan 2025</p>
+            <span class="tl-node" aria-hidden="true"></span>
+            <article class="tl-card">
+              <header class="tl-top">
+                <div><p class="tl-kicker">beroepspraktijk 1</p><h3>Rozemarijn VZW</h3></div>
+                <span class="tl-hours">200 uur</span>
+              </header>
+              <p class="tl-org">Leefgroep voor personen met een verstandelijke beperking</p>
+              <p class="tl-desc">Mijn eerste kennismaking met het werkveld. Ik leerde de basishouding van een begeleider: nabijheid, geduld, en het belang van structuur. Een waardevolle ervaring, maar ik merkte dat ik meer uitdaging zocht.</p>
+              <ul class="tags"><li>Verstandelijke beperking</li><li>Leefgroep</li><li>Dagbesteding</li></ul>
+            </article>
           </li>
-          <li class="stop stop--key">
-            <div class="stop-head"><span class="stop-dot"></span><span>apr 2025 – jun 2025</span><span class="stop-badge">Keerpunt</span></div>
-            <span class="stop-num" aria-hidden="true">02</span>
-            <p class="stop-kicker">Beroepspraktijk 2 · 200 uur</p>
-            <h3 class="stop-title">Sint-Kamillus OPM</h3>
-            <p class="stop-org">Observatie- en behandelunit in een psychiatrisch ziekenhuis</p>
-            <p class="stop-desc">De stage die alles veranderde. Hier ontdekte ik mijn passie voor complexe begeleidingsvragen: de nuance, het échte contact, de uitdaging om achter het gedrag te kijken. Ik leerde omgaan met crisisinterventie en de balans tussen nabijheid en professionele afstand.</p>
-            <ul class="tags"><li>Psychiatrie</li><li>Crisisinterventie</li><li>Observatie</li></ul>
+
+          <li class="tl-item tl-item--key" data-hours="200">
+            <p class="tl-date">apr 2025 –<br> jun 2025</p>
+            <span class="tl-node" aria-hidden="true"></span>
+            <article class="tl-card">
+              <header class="tl-top">
+                <div><p class="tl-kicker">beroepspraktijk 2 <span class="tl-badge">keerpunt</span></p><h3>Sint-Kamillus OPM</h3></div>
+                <span class="tl-hours">200 uur</span>
+              </header>
+              <p class="tl-org">Observatie- en behandelunit in een psychiatrisch ziekenhuis</p>
+              <p class="tl-desc"><strong>De stage die alles veranderde.</strong> Hier ontdekte ik mijn passie voor complexe begeleidingsvragen: de nuance, het échte contact, de uitdaging om achter het gedrag te kijken. Ik leerde omgaan met crisisinterventie en de balans tussen nabijheid en professionele afstand.</p>
+              <ul class="tags"><li>Psychiatrie</li><li>Crisisinterventie</li><li>Observatie</li></ul>
+            </article>
           </li>
-          <li class="stop">
-            <div class="stop-head"><span class="stop-dot"></span><span>2025 – 2026</span></div>
-            <span class="stop-num" aria-hidden="true">03</span>
-            <p class="stop-kicker">Beroepspraktijk 3 · 300 uur</p>
-            <h3 class="stop-title">Alvinnenberg</h3>
-            <p class="stop-org">Mobiel team Dienst Inclusieve Ondersteuning (DIO)</p>
-            <p class="stop-desc">Begeleiding van cliënten met een licht verstandelijke beperking en/of een psychische kwetsbaarheid die zelfstandig wonen en bij kleinschalige woonprojecten. Hier leerde ik werken vanuit autonomie en vertrouwen: ondersteuning op maat, dicht bij het dagelijks leven van de cliënt.</p>
-            <ul class="tags"><li>Mobiele begeleiding</li><li>Zelfstandig wonen</li><li>Inclusieve ondersteuning</li></ul>
+
+          <li class="tl-item" data-hours="300">
+            <p class="tl-date">2025 – 2026</p>
+            <span class="tl-node" aria-hidden="true"></span>
+            <article class="tl-card">
+              <header class="tl-top">
+                <div><p class="tl-kicker">beroepspraktijk 3</p><h3>Alvinnenberg</h3></div>
+                <span class="tl-hours">300 uur</span>
+              </header>
+              <p class="tl-org">Mobiel team Dienst Inclusieve Ondersteuning (DIO)</p>
+              <p class="tl-desc">Begeleiding van cliënten met een licht verstandelijke beperking en/of een psychische kwetsbaarheid die zelfstandig wonen en bij kleinschalige woonprojecten. Hier leerde ik werken vanuit autonomie en vertrouwen: ondersteuning op maat, dicht bij het dagelijks leven van de cliënt.</p>
+              <ul class="tags"><li>Mobiele begeleiding</li><li>Zelfstandig wonen</li><li>Inclusieve ondersteuning</li></ul>
+            </article>
           </li>
-          <li class="stop stop--grad">
-            <div class="stop-head"><span class="stop-dot"></span><span>2026</span></div>
-            <span class="stop-num stop-num--icon" aria-hidden="true">
-              <svg viewBox="0 0 64 64"><path d="M4 24 32 12l28 12-28 12z"/><path d="M16 29.5V42c0 4 7 8 16 8s16-4 16-8V29.5"/><path d="M60 24v14"/></svg>
-            </span>
-            <p class="stop-kicker">Diploma</p>
-            <h3 class="stop-title">Graduaat Orthopedagogische Begeleiding</h3>
-            <p class="stop-org">UCLL Sociale School Heverlee</p>
-            <p class="stop-desc">Afgestudeerd met <strong>grote onderscheiding</strong>, met een graduaatsproef over LGBTQ+ en genderdiversiteit in de residentiële zorg.</p>
-            <ul class="tags"><li>Grote onderscheiding</li><li>UCLL</li></ul>
+
+          <li class="tl-item tl-item--dark">
+            <p class="tl-date">2026</p>
+            <span class="tl-node tl-node--big" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M2 9.500 12 5l10 4.500L12 14z"/><path d="M6 11.500V16c0 1.400 2.700 2.800 6 2.800s6-1.400 6-2.800v-4.500M22 9.500v5"/></svg></span>
+            <article class="tl-card">
+              <p class="tl-kicker">diploma</p>
+              <h3>Graduaat Orthopedagogische Begeleiding</h3>
+              <p class="tl-desc">UCLL Sociale School Heverlee. Afgestudeerd met <strong>grote onderscheiding</strong>, met een graduaatsproef over LGBTQ+ en genderdiversiteit in de residentiële zorg.</p>
+              <div class="tl-foot"><a class="btn btn--sm" href="Cornelis_Kobe_Graduaatsproef.pdf" target="_blank" rel="noopener">lees de graduaatsproef <svg aria-hidden="true"><use href="#i-arrow"/></svg></a></div>
+            </article>
           </li>
-          <li class="stop stop--next">
-            <div class="stop-head"><span class="stop-dot"></span><span>Sinds sept 2026</span></div>
-            <span class="stop-num" aria-hidden="true">→</span>
-            <p class="stop-kicker">Volgend hoofdstuk</p>
-            <h3 class="stop-title">De bachelor</h3>
-            <p class="stop-desc">Verder verdiepen, verder groeien en blijven bouwen aan begeleiding die écht verbindt.</p>
-            <div class="stop-links">
-              <a class="stop-link stop-link--down" href="#projecten">Bekijk mijn projecten <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 2.5v10.5M3.5 8.5 8 13l4.5-4.5"/></svg></a>
-              <a class="stop-link" href="#contact">Laten we kennismaken <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M8.5 3.5 13 8l-4.5 4.5"/></svg></a>
-            </div>
+
+          <li class="tl-item">
+            <p class="tl-date">sinds<br> sept 2026</p>
+            <span class="tl-node tl-node--live" aria-hidden="true"></span>
+            <article class="tl-card">
+              <p class="tl-kicker">volgend hoofdstuk</p>
+              <h3>de bachelor</h3>
+              <p class="tl-desc">Verder verdiepen, verder groeien en blijven bouwen aan begeleiding die écht verbindt.</p>
+              <div class="tl-foot">
+                <a class="btn btn--sm" href="#contact">laten we kennismaken <svg aria-hidden="true"><use href="#i-right"/></svg></a>
+                <span class="busy"><i aria-hidden="true"></i>bezig…</span>
+              </div>
+            </article>
           </li>
         </ol>
       </div>
-      <div class="journey-progress" aria-hidden="true"><span></span></div>
     </div>
   </section>
+
+  <hr class="dotline">
 
   <!-- ═══════════ 05 · PROJECTEN ═══════════ -->
-  <section class="work" id="projecten" data-theme="light" data-rail="Projecten">
-    <div class="container">
-      <header class="sec-head sec-head--split">
+  <section class="sec" id="projecten">
+    <div class="wrap">
+      <header class="head head--split" data-reveal>
         <div>
-          <p class="eyebrow"><span>05</span>Projecten</p>
-          <h2 class="display" data-split>Wat ik <em>maak</em></h2>
+          <span class="plabel">projecten</span>
+          <h2 class="h-display">wat ik maak</h2>
         </div>
-        <p class="sec-intro" data-reveal>Van onderzoek tot digitale tools: projecten die zorg toegankelijker en inclusiever maken.</p>
+        <p class="lead">Van onderzoek tot digitale tools: projecten die zorg toegankelijker en inclusiever maken.</p>
       </header>
 
-      <div class="stack">
-        <article class="stack-item" style="--i: 0">
-          <a class="project project--thesis" href="Cornelis_Kobe_Graduaatsproef.pdf" target="_blank" rel="noopener" data-cursor="Lees PDF">
-            <div class="project-copy">
-              <div class="project-top"><span class="project-num">01</span><span class="project-kind">Onderzoek · Graduaatsproef</span></div>
-              <h3 class="project-title">Graduaatsproef</h3>
-              <p class="project-desc">Onderzoek naar de acceptatie van LGBTQ+ en genderdiversiteit bij begeleiders in residentiële zorgsettings. Hoe kunnen we inclusieve begeleiding versterken voor cliënten met een licht verstandelijke beperking?</p>
-              <ul class="tags"><li>Literatuurstudie</li><li>Kwalitatief</li><li>Inclusie</li><li>Zorgethiek</li></ul>
-              <span class="project-cta">Lees de graduaatsproef <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4.5 11.5l7-7M5.5 4.5h6v6"/></svg></span>
-            </div>
-            <div class="project-visual" aria-hidden="true">
-              <div class="doc doc--back"></div>
-              <div class="doc doc--mid"></div>
-              <div class="doc doc--front">
-                <span class="doc-stripes"></span>
-                <span class="doc-kicker">Graduaatsproef · UCLL</span>
-                <span class="doc-title">LGBTQ+ &amp; gender&shy;diversiteit in de residentiële zorg</span>
-                <span class="doc-lines"><i></i><i></i><i></i><i></i></span>
-                <span class="doc-meta">Kobe Cornelis <b>PDF</b></span>
-              </div>
-            </div>
-          </a>
-        </article>
+      <div class="win finder" data-reveal data-finder>
+        <div class="finder-bar">
+          <span class="dots"><i></i><i></i><i></i></span>
+          <span class="finder-nav" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M10 3 5 8l5 5"/></svg><svg viewBox="0 0 16 16"><path d="m6 3 5 5-5 5"/></svg></span>
+          <span class="finder-title">projecten</span>
+          <span class="finder-tools" aria-hidden="true"><svg viewBox="0 0 16 16"><rect x="2" y="2" width="5" height="5" rx="1"/><rect x="9" y="2" width="5" height="5" rx="1"/><rect x="2" y="9" width="5" height="5" rx="1"/><rect x="9" y="9" width="5" height="5" rx="1"/></svg><svg viewBox="0 0 16 16"><circle cx="7" cy="7" r="4.500"/><path d="m10.500 10.500 3.500 3.500"/></svg></span>
+        </div>
+        <div class="finder-main">
+          <div class="finder-list" role="tablist" aria-label="Projecten">
+            <h3 aria-hidden="true">3 onderdelen</h3>
+            <button type="button" role="tab" id="t-thesis" aria-controls="p-thesis" aria-selected="true">
+              <span class="fico fico--pdf" aria-hidden="true">PDF</span><span><b>graduaatsproef.pdf</b><small>onderzoek</small></span>
+            </button>
+            <button type="button" role="tab" id="t-emfi" aria-controls="p-emfi" aria-selected="false" tabindex="-1">
+              <span class="fico ig-teal" aria-hidden="true">✓</span><span><b>emfi-check-in.app</b><small>web-app</small></span>
+            </button>
+            <button type="button" role="tab" id="t-gids" aria-controls="p-gids" aria-selected="false" tabindex="-1">
+              <span class="fico ig-pride" aria-hidden="true">◠</span><span><b>regenbooggids.webloc</b><small>kennisplatform</small></span>
+            </button>
+          </div>
 
-        <article class="stack-item" style="--i: 1">
-          <a class="project project--emfi" href="https://kobec00.github.io/EMFI/" target="_blank" rel="noopener" data-cursor="Open app">
-            <div class="project-copy">
-              <div class="project-top"><span class="project-num">02</span><span class="project-kind">Web-app · PWA</span></div>
-              <h3 class="project-title">EMFI <em>Check-in</em> App</h3>
-              <p class="project-desc">Een dagelijkse check-in voor cliënten of patiënten in een residentiële zorgsetting, rond vier gebieden: emoties, mentaal, fysiek en interactie. Met een eenvoudige modus voor personen met een verstandelijke beperking of autisme, en een werkplek waar begeleiders alles opvolgen.</p>
-              <ul class="tags"><li>UX Design</li><li>Toegankelijkheid</li><li>Welzijn</li><li>PWA</li></ul>
-              <span class="project-cta">Open de app <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4.5 11.5l7-7M5.5 4.5h6v6"/></svg></span>
-            </div>
-            <div class="project-visual" aria-hidden="true">
-              <span class="emfi-glow"></span>
-              <div class="phone">
-                <img src="assets/img/emfi.jpg" width="788" height="1704" alt="" loading="lazy" decoding="async">
+          <div class="finder-preview">
+            <article class="proj" id="p-thesis" role="tabpanel" aria-labelledby="t-thesis">
+              <a class="desktop wall-paper" href="Cornelis_Kobe_Graduaatsproef.pdf" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+                <div class="win">
+                  <div class="win-bar"><span class="dots"><i></i><i></i><i></i></span><span class="win-title">voorvertoning</span></div>
+                  <div class="win-body paper-view">
+                    <div class="paper">
+                      <span class="paper-stripes"></span>
+                      <small>GRADUAATSPROEF · UCLL</small>
+                      <strong>LGBTQ+ &amp; gender&shy;diversiteit in de residentiële zorg</strong>
+                      <span class="paper-lines"><i></i><i></i><i></i><i></i></span>
+                      <em>Kobe Cornelis <b>PDF</b></em>
+                    </div>
+                  </div>
+                </div>
+              </a>
+              <div class="proj-info">
+                <span class="proj-kind">onderzoek · ucll</span>
+                <h3>graduaatsproef</h3>
+                <p>Onderzoek naar de acceptatie van LGBTQ+ en genderdiversiteit bij begeleiders in residentiële zorgsettings. Hoe kunnen we inclusieve begeleiding versterken voor cliënten met een licht verstandelijke beperking?</p>
+                <ul class="tags"><li>Literatuurstudie</li><li>Kwalitatief</li><li>Inclusie</li><li>Zorgethiek</li></ul>
+                <a class="btn" href="Cornelis_Kobe_Graduaatsproef.pdf" target="_blank" rel="noopener">lees de graduaatsproef <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
               </div>
-              <span class="emfi-chip emfi-chip--ai">
-                <span class="emfi-orb"><svg viewBox="0 0 24 24"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"/></svg></span>
-                <span class="emfi-chip-txt"><b>Linde <span>AI</span></b><small>Je dag in het kort</small></span>
-              </span>
-              <span class="emfi-chip emfi-chip--switch"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>Eenvoudige modus<span class="emfi-track"></span></span>
-            </div>
-          </a>
-        </article>
+            </article>
 
-        <article class="stack-item" style="--i: 2">
-          <a class="project project--gids" href="https://deregenbooggids.be" target="_blank" rel="noopener" data-cursor="Bezoek">
-            <div class="project-copy">
-              <div class="project-top"><span class="project-num">03</span><span class="project-kind">Kennisplatform · deregenbooggids.be</span></div>
-              <h3 class="project-title">De Regenbooggids</h3>
-              <p class="project-desc">Een praktische hub voor begeleiders en organisaties in de Vlaamse zorg, ontstaan als bijkomend project bij mijn graduaatsproef. Je vindt er tools, methodieken, contactorganisaties en beleidsondersteuning rond LGBTQ+ en genderdiversiteit bij cliënten met een verstandelijke beperking.</p>
-              <ul class="tags"><li>Inclusie</li><li>LGBTQ+</li><li>Methodieken</li><li>Beleidsondersteuning</li></ul>
-              <span class="project-cta">Bezoek de website <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4.5 11.5l7-7M5.5 4.5h6v6"/></svg></span>
-            </div>
-            <div class="project-visual" aria-hidden="true">
-              <svg class="gids-glow" viewBox="0 0 640 345"><path d="M32 344A288 288 0 0 1 608 344"/><path d="M64 344A256 256 0 0 1 576 344"/><path d="M96 344A224 224 0 0 1 544 344"/><path d="M128 344A192 192 0 0 1 512 344"/><path d="M160 344A160 160 0 0 1 480 344"/><path d="M192 344A128 128 0 0 1 448 344"/></svg>
-              <div class="browser">
-                <div class="browser-bar"><i></i><i></i><i></i><span><svg class="browser-fav" viewBox="0 0 64 64"><path d="M6 41a26 26 0 0 1 52 0"/><path d="M12.1 41a19.9 19.9 0 0 1 39.8 0"/><path d="M18.2 41a13.8 13.8 0 0 1 27.6 0"/></svg>deregenbooggids.be</span></div>
-                <img src="assets/img/regenbooggids.jpg" width="1800" height="1125" alt="" loading="lazy" decoding="async">
+            <article class="proj" id="p-emfi" role="tabpanel" aria-labelledby="t-emfi">
+              <a class="desktop wall-green" href="https://kobec00.github.io/EMFI/" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+                <div class="iphone"><i class="iphone-keys"></i><div class="iphone-screen"><img src="assets/img/emfi.jpg" width="788" height="1704" alt=""></div></div>
+              </a>
+              <div class="proj-info">
+                <span class="proj-kind">web-app · pwa</span>
+                <h3>EMFI check-in app</h3>
+                <p>Een dagelijkse check-in voor cliënten of patiënten in een residentiële zorgsetting, rond vier gebieden: emoties, mentaal, fysiek en interactie. Met een eenvoudige modus voor personen met een verstandelijke beperking of autisme, en een werkplek waar begeleiders alles opvolgen.</p>
+                <ul class="tags"><li>UX Design</li><li>Toegankelijkheid</li><li>Welzijn</li><li>PWA</li></ul>
+                <a class="btn" href="https://kobec00.github.io/EMFI/" target="_blank" rel="noopener">open de app <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
               </div>
-            </div>
-          </a>
-        </article>
+            </article>
+
+            <article class="proj" id="p-gids" role="tabpanel" aria-labelledby="t-gids">
+              <a class="desktop wall-rainbow" href="https://deregenbooggids.be" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+                <div class="win">
+                  <div class="win-bar"><span class="dots"><i></i><i></i><i></i></span><span class="win-title">🔒 deregenbooggids.be</span></div>
+                  <div class="win-body browser-shot"><img src="assets/img/regenbooggids.jpg" width="1800" height="1125" alt="" loading="lazy" decoding="async"></div>
+                </div>
+              </a>
+              <div class="proj-info">
+                <span class="proj-kind">kennisplatform · deregenbooggids.be</span>
+                <h3>de regenbooggids</h3>
+                <p>Een praktische hub voor begeleiders en organisaties in de Vlaamse zorg, ontstaan als bijkomend project bij mijn graduaatsproef. Je vindt er tools, methodieken, contactorganisaties en beleidsondersteuning rond LGBTQ+ en genderdiversiteit bij cliënten met een verstandelijke beperking.</p>
+                <ul class="tags"><li>Inclusie</li><li>LGBTQ+</li><li>Methodieken</li><li>Beleidsondersteuning</li></ul>
+                <a class="btn" href="https://deregenbooggids.be" target="_blank" rel="noopener">bezoek de website <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+              </div>
+            </article>
+          </div>
+        </div>
+        <p class="finder-status"><span>3 onderdelen · meer onderweg…</span><a href="https://github.com/kobec00" target="_blank" rel="noopener">volg mee op github ↗</a></p>
       </div>
-
-      <p class="work-more" data-reveal>
-        <span class="work-more-plus" aria-hidden="true">+</span>
-        <span>Meer onderweg…</span>
-        <a href="https://github.com/kobec00" target="_blank" rel="noopener">Volg mee op GitHub ↗</a>
-      </p>
     </div>
   </section>
 
+  <hr class="dotline">
+
   <!-- ═══════════ 06 · CERTIFICATEN ═══════════ -->
-  <section class="certs" id="certificaten" data-theme="light" data-rail="Certificaten">
-    <div class="container certs-inner">
-      <header class="sec-head certs-head">
-        <p class="eyebrow"><span>06</span>Certificaten</p>
-        <h2 class="display" data-split>Blijven <em>leren</em></h2>
-        <p class="sec-intro" data-reveal>Bijscholingen en cursussen die mijn praktijk verdiepen.</p>
+  <section class="sec" id="certificaten">
+    <div class="wrap certs-sec">
+      <header class="certs-head" data-reveal>
+        <span class="plabel">certificaten</span>
+        <h2 class="h-display">blijven leren</h2>
+        <p class="lead">Bijscholingen en cursussen die mijn praktijk verdiepen.</p>
       </header>
 
-      <ul class="cert-list">
-        <li data-reveal>
-          <a class="cert" href="https://coursera.org/share/2d4270b6cde45d2e7e779ac6a45296f8" target="_blank" rel="noopener">
-            <span class="cert-year">2025</span>
-            <span class="cert-main"><span class="cert-title">Psychological First Aid</span><span class="cert-org">Johns Hopkins University</span></span>
-            <span class="cert-platform">Coursera</span>
-            <span class="cert-arrow" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M4.5 11.5l7-7M5.5 4.5h6v6"/></svg></span>
-          </a>
-        </li>
-        <li data-reveal>
-          <a class="cert" href="https://coursera.org/share/243639fad6c604bc6e9fe5b40a6b2a3c" target="_blank" rel="noopener">
+      <ul class="certs" data-reveal>
+        <li>
+          <a class="cert" href="https://coursera.org/share/243639fad6c604bc6e9fe5b40a6b2a3c" target="_blank" rel="noopener" style="--c:#8a72e0">
+            <svg class="seal" viewBox="0 0 58 66" aria-hidden="true"><use href="#i-seal"/><text x="29" y="31" text-anchor="middle">2026</text></svg>
+            <span><span class="cert-title">Queering Identities: LGBTQ+ Sexuality and Gender Identity</span><span class="cert-org">University of Colorado · Coursera</span></span>
             <span class="cert-year">2026</span>
-            <span class="cert-main"><span class="cert-title">Queering Identities: LGBTQ+ Sexuality and Gender Identity</span><span class="cert-org">University of Colorado</span></span>
-            <span class="cert-platform">Coursera</span>
-            <span class="cert-arrow" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M4.5 11.5l7-7M5.5 4.5h6v6"/></svg></span>
+            <svg aria-hidden="true"><use href="#i-arrow"/></svg>
           </a>
         </li>
-        <li data-reveal>
-          <a class="cert" href="vbm-certificaat.pdf" target="_blank" rel="noopener">
-            <span class="cert-year">2025</span>
-            <span class="cert-main"><span class="cert-title">Vrijheidsbeperkende Maatregelen (VBM)</span><span class="cert-org">Sint-Kamillus Zorggroep</span></span>
-            <span class="cert-platform">E-learning</span>
-            <span class="cert-arrow" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M4.5 11.5l7-7M5.5 4.5h6v6"/></svg></span>
-          </a>
-        </li>
-        <li data-reveal>
-          <a class="cert" href="https://coursera.org/share/fa6f59888cfb55cd9e94e5ffbdecad36" target="_blank" rel="noopener">
+        <li>
+          <a class="cert" href="https://coursera.org/share/fa6f59888cfb55cd9e94e5ffbdecad36" target="_blank" rel="noopener" style="--c:#1a73f0">
+            <svg class="seal" viewBox="0 0 58 66" aria-hidden="true"><use href="#i-seal"/><text x="29" y="31" text-anchor="middle">2026</text></svg>
+            <span><span class="cert-title">Philosophy and the Sciences: Introduction to the Philosophy of Cognitive Sciences</span><span class="cert-org">The University of Edinburgh · Coursera</span></span>
             <span class="cert-year">2026</span>
-            <span class="cert-main"><span class="cert-title">Philosophy and the Sciences: Introduction to the Philosophy of Cognitive Sciences</span><span class="cert-org">The University of Edinburgh</span></span>
-            <span class="cert-platform">Coursera</span>
-            <span class="cert-arrow" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M4.5 11.5l7-7M5.5 4.5h6v6"/></svg></span>
+            <svg aria-hidden="true"><use href="#i-arrow"/></svg>
+          </a>
+        </li>
+        <li>
+          <a class="cert" href="https://coursera.org/share/2d4270b6cde45d2e7e779ac6a45296f8" target="_blank" rel="noopener" style="--c:#e8386d">
+            <svg class="seal" viewBox="0 0 58 66" aria-hidden="true"><use href="#i-seal"/><text x="29" y="31" text-anchor="middle">2025</text></svg>
+            <span><span class="cert-title">Psychological First Aid</span><span class="cert-org">Johns Hopkins University · Coursera</span></span>
+            <span class="cert-year">2025</span>
+            <svg aria-hidden="true"><use href="#i-arrow"/></svg>
+          </a>
+        </li>
+        <li>
+          <a class="cert" href="vbm-certificaat.pdf" target="_blank" rel="noopener" style="--c:#24a148">
+            <svg class="seal" viewBox="0 0 58 66" aria-hidden="true"><use href="#i-seal"/><text x="29" y="31" text-anchor="middle">2025</text></svg>
+            <span><span class="cert-title">Vrijheidsbeperkende Maatregelen (VBM)</span><span class="cert-org">Sint-Kamillus Zorggroep · E-learning</span></span>
+            <span class="cert-year">2025</span>
+            <svg aria-hidden="true"><use href="#i-arrow"/></svg>
           </a>
         </li>
       </ul>
     </div>
   </section>
 
-  <!-- ═══════════ 07 · VIDEOGRAFIE ═══════════ -->
-  <section class="reel-sec" id="videografie" data-theme="dark" data-rail="Videografie">
-    <div class="container reel-head">
-      <div>
-        <p class="eyebrow"><span>07</span>Naast de zorg</p>
-        <h2 class="display" data-split>Verhalen in <em>beweging.</em></h2>
-      </div>
-      <div class="reel-side" data-reveal>
-        <p>Sinds 2019 film en monteer ik trouwfilms, reisbeelden en visuele verhalen. Altijd met oog voor sfeer en emotie.</p>
-        <a class="btn btn--solid" href="video/" data-magnetic>
-          <span>Bekijk videografie</span>
-          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M8.5 3.5 13 8l-4.5 4.5"/></svg>
-        </a>
-      </div>
-    </div>
+  <hr class="dotline">
 
-    <div class="reel" aria-hidden="true" data-cursor="Bekijk">
-      <div class="reel-row">
-        <div class="reel-track" data-marquee="1">
-          <div class="reel-group">
-            <a class="tile" href="video/" tabindex="-1" data-yt="1aSgwH5nDEA"><span class="tile-cap"><b>Febe &amp; Seppe</b><small>2024 · Trouwfilm</small></span></a>
-            <a class="tile" href="video/" tabindex="-1" data-yt="LOpTFsjrGvw"><span class="tile-cap"><b>Kinderboek voor Lannoo</b><small>2021 · Stop-motion</small></span></a>
-            <a class="tile" href="video/" tabindex="-1" data-yt="PwpixmMHLhE"><span class="tile-cap"><b>The Smoky Mountains</b><small>2019 · Reisfilm</small></span></a>
-            <a class="tile" href="video/" tabindex="-1" data-yt="4OBGTtQVUYo"><span class="tile-cap"><b>Ines &amp; Sander</b><small>2021 · Trouwfilm</small></span></a>
-            <a class="tile" href="video/" tabindex="-1" data-yt="WDYyBPZgw1M"><span class="tile-cap"><b>New York City</b><small>2018 · Reisfilm</small></span></a>
-          </div>
+  <!-- ═══════════ 07 · VIDEOGRAFIE ═══════════ -->
+  <section class="sec" id="videografie">
+    <div class="wrap">
+      <header class="head head--split" data-reveal>
+        <div>
+          <span class="plabel">naast de zorg</span>
+          <h2 class="h-display">verhalen in beweging</h2>
         </div>
-      </div>
-      <div class="reel-row">
-        <div class="reel-track" data-marquee="-1">
-          <div class="reel-group">
-            <a class="tile" href="video/" tabindex="-1" data-yt="s_slyU9heV4"><span class="tile-cap"><b>Louis Cornelis · 1936–2023</b><small>2020 · Reportage</small></span></a>
-            <a class="tile" href="video/" tabindex="-1" data-yt="Aky2uWTmonw"><span class="tile-cap"><b>Schotland</b><small>2018 · Reisfilm</small></span></a>
-            <a class="tile" href="video/" tabindex="-1" data-yt="Q8kLe0-2gnc"><span class="tile-cap"><b>Caroline &amp; Bram</b><small>2019 · Trouwfilm</small></span></a>
-            <a class="tile" href="video/" tabindex="-1" data-yt="ZKUQl-iN1tE"><span class="tile-cap"><b>Euromillions Volley League</b><small>2021 · Teaser</small></span></a>
+        <div>
+          <p class="lead">Sinds 2019 film en monteer ik trouwfilms, reisbeelden en visuele verhalen. Altijd met oog voor sfeer en emotie.</p>
+          <a class="btn btn--blue" href="video/">bekijk videografie <svg aria-hidden="true"><use href="#i-right"/></svg></a>
+        </div>
+      </header>
+
+      <!-- Cover Flow: blader met de pijltjes, de schuifbalk of een klik -->
+      <div class="win cfwin" data-reveal>
+        <div class="finder-bar">
+          <span class="dots"><i></i><i></i><i></i></span>
+          <span class="finder-title">films</span>
+          <span class="finder-tools" aria-hidden="true"><svg viewBox="0 0 16 16"><rect x="5" y="3" width="6" height="8" rx="1"/><path d="M2.500 5v4M13.500 5v4M3 13.500h10"/></svg></span>
+        </div>
+        <div class="cflow" data-cflow tabindex="0" role="group" aria-label="Blader door mijn films">
+          <div class="cflow-stage"></div>
+          <p class="cflow-cap"><b></b><span></span></p>
+          <div class="cflow-ctl">
+            <button type="button" data-step="-1" aria-label="Vorige film"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3 5 8l5 5"/></svg></button>
+            <input type="range" min="0" max="8" value="0" step="1" aria-label="Kies een film">
+            <button type="button" data-step="1" aria-label="Volgende film"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m6 3 5 5-5 5"/></svg></button>
           </div>
+          <noscript><p class="cflow-cap"><a href="video/">Bekijk alle films op de videopagina</a></p></noscript>
         </div>
       </div>
     </div>
   </section>
 
   <!-- ═══════════ 08 · CONTACT ═══════════ -->
-  <section class="contact is-fixed-theme" id="contact" data-theme="dark" data-rail="Contact">
-    <canvas class="ribbons contact-ribbons" id="contactRibbons" aria-hidden="true"></canvas>
-    <div class="contact-shade" aria-hidden="true"></div>
-    <div class="container contact-inner">
-      <p class="eyebrow"><span>08</span>Contact</p>
-      <h2 class="contact-title" data-split>Laten we <em>connecten.</em></h2>
-      <p class="contact-text" data-reveal>Interesse in samenwerking, een gesprek of gewoon even hallo zeggen? Je vindt me hier.</p>
-
-      <div class="contact-mail" data-reveal>
-        <a class="mail" href="mailto:kobe.cornelis4@gmail.com" data-magnetic>
-          <span class="mail-icon" aria-hidden="true"><svg viewBox="0 0 20 20"><rect x="2.5" y="4.5" width="15" height="11" rx="2.2"/><path d="m3.2 5.6 6.8 5.4 6.8-5.4"/></svg></span>
-          <span>E-mail versturen</span>
-          <svg class="mail-arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M8.5 3.5 13 8l-4.5 4.5"/></svg>
-        </a>
-        <button class="copy" type="button" data-copy="kobe.cornelis4@gmail.com">
-          <svg viewBox="0 0 16 16" aria-hidden="true"><rect x="5" y="5" width="8.5" height="8.5" rx="2"/><path d="M10.5 5V3.5a1 1 0 0 0-1-1h-6a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1H5"/></svg>
-          <span class="copy-label">Kopieer adres</span>
-        </button>
+  <section class="reach-sec" id="contact">
+    <div class="wrap reach">
+      <div class="reach-copy" data-reveal>
+        <span class="plabel">contact</span>
+        <h2 class="reach-title">laten we connecten</h2>
+        <p class="lead">Interesse in samenwerking, een gesprek of gewoon even hallo zeggen? Je vindt me hier.</p>
+        <div class="hero-btns">
+          <a class="btn btn--blue" href="mailto:kobe.cornelis4@gmail.com">e-mail versturen <svg aria-hidden="true"><use href="#i-right"/></svg></a>
+          <button class="btn" type="button" data-copy="kobe.cornelis4@gmail.com">kopieer adres</button>
+        </div>
+        <ul class="socials">
+          <li><a href="https://www.linkedin.com/in/kobecornelis/" target="_blank" rel="noopener">linkedin ↗</a></li>
+          <li><a href="https://github.com/kobec00" target="_blank" rel="noopener">github ↗</a></li>
+          <li><a href="video/">videografie ↗</a></li>
+        </ul>
       </div>
 
-      <ul class="socials" data-reveal>
-        <li><a href="https://www.linkedin.com/in/kobecornelis/" target="_blank" rel="noopener">LinkedIn <span aria-hidden="true">↗</span></a></li>
-        <li><a href="https://github.com/kobec00" target="_blank" rel="noopener">GitHub <span aria-hidden="true">↗</span></a></li>
-        <li><a href="video/">Videografie <span aria-hidden="true">↗</span></a></li>
-      </ul>
+      <div class="win msg" data-reveal data-chat>
+        <div class="msg-bar"><span class="dots"><i></i><i></i><i></i></span><img src="assets/img/kobe-avatar.jpg" width="76" height="76" alt="" loading="lazy"><span>berichten</span></div>
+        <div class="msg-body">
+          <time>vandaag</time>
+          <p class="b b--in">hey! 👋</p>
+          <p class="b b--in">interesse in samenwerking, een gesprek of gewoon even hallo zeggen?</p>
+          <p class="b b--in">je vindt me hier ↓</p>
+          <span class="typing" aria-hidden="true"><i></i><i></i><i></i></span>
+          <a class="composer" href="mailto:kobe.cornelis4@gmail.com" aria-label="Stuur een e-mail">stuur een e-mail…<i><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 13V3M3.500 7.500 8 3l4.500 4.500"/></svg></i></a>
+        </div>
+      </div>
     </div>
   </section>
 </main>
 
-<footer class="footer" data-theme="dark">
-  <div class="container footer-inner">
-    <p>© <span data-year>2026</span> Kobe Cornelis. Gemaakt met <span class="heart" role="img" aria-label="liefde">♥</span> en late avonden.</p>
-    <a href="#top" class="footer-top">Terug naar boven <span aria-hidden="true">↑</span></a>
+<footer class="footer">
+  <hr class="dotline">
+  <div class="wrap">
+    <nav class="dock" aria-label="Snelkoppelingen">
+      <a href="mailto:kobe.cornelis4@gmail.com" class="ig-blue"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5.500" width="18" height="13" rx="2.500"/><path d="m4 7 8 6.200L20 7"/></svg><span>e-mail</span></a>
+      <a href="https://www.linkedin.com/in/kobecornelis/" target="_blank" rel="noopener" style="--ig:linear-gradient(#3b9be8,#0a66c2)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 10v8M5 6v.01M10 18v-8M10 13.500c0-2 1.500-3.500 3.500-3.500S17 11.500 17 13.500V18" stroke-width="2.300"/></svg><span>linkedin</span></a>
+      <a href="https://github.com/kobec00" target="_blank" rel="noopener" class="ig-dark"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 7-5 5 5 5M16 7l5 5-5 5M13.500 5l-3 14"/></svg><span>github</span></a>
+      <a href="video/" style="--ig:linear-gradient(#ff8a6b,#f0453a)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.500v13l11-6.500z" fill="#fff"/></svg><span>videografie</span></a>
+      <a href="Cornelis_Kobe_Graduaatsproef.pdf" target="_blank" rel="noopener" style="--ig:linear-gradient(#fff,#e9e9ec);--is:#333"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h7l4 4v14H7z"/><path d="M14 3v4h4M10 12h5M10 15.500h5"/></svg><span>graduaatsproef</span></a>
+      <i class="dock-sep" aria-hidden="true"></i>
+      <a href="#top" style="--is:#333"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"/></svg><span>naar boven</span></a>
+    </nav>
+    <p class="copyright">© <span data-year>2026</span> Kobe Cornelis · gemaakt met <span class="heart" role="img" aria-label="liefde">♥</span> en late avonden in Leuven</p>
   </div>
 </footer>
 
-<a class="to-top" href="#top" aria-label="Terug naar boven">
-  <svg viewBox="0 0 48 48" aria-hidden="true">
-    <circle class="to-top-track" cx="24" cy="24" r="22"/>
-    <circle class="to-top-bar" cx="24" cy="24" r="22" pathLength="100"/>
-    <path class="to-top-arrow" d="M24 31V17M18.5 22.5 24 17l5.5 5.5"/>
-  </svg>
-</a>
-
+<div class="notif" data-notif role="status" aria-live="polite"></div>
 <div class="toast" role="status" aria-live="polite"></div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/gsap.min.js" integrity="sha384-XmJ9SoHtVOHoQUcKvFAzVXwdkKo1Ie3bhmSoIAkcdsHGaIrVJIkmozyq0FJeb/Ly" crossorigin="anonymous" defer></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/ScrollTrigger.min.js" integrity="sha384-wl5TeDVvOWt30Pbf8aSo2ZrzsOjddu3avOBvHe+p+OhJt9gP6w9YXmDkN5DK2/dF" crossorigin="anonymous" defer></script>
-<script src="https://cdn.jsdelivr.net/npm/lenis@1.3.26/dist/lenis.min.js" integrity="sha384-jqpi9VmOdhyLoLURgjCn7EpnG9BbnHW57ibIZoeaIU+erWDH3k8fQQg0xH2ySjnw" crossorigin="anonymous" defer></script>
-<script src="assets/js/ribbons.js" defer></script>
 <script src="assets/js/main.js" defer></script>
 </body>
 </html>

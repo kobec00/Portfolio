@@ -1,17 +1,18 @@
 <!DOCTYPE html>
-<html lang="nl">
+<html lang="nl-BE">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Kobe Cornelis | Videografie</title>
 <meta name="description" content="Videografie van Kobe Cornelis: trouwfilms, sfeerbeelden en visuele verhalen. Cinematische beelden met oog voor sfeer en emotie.">
 <meta name="author" content="Kobe Cornelis">
-<meta name="theme-color" content="#0E0C0B">
+<meta name="theme-color" content="#f5f5f5">
 <link rel="canonical" href="https://kobecornelis.com/video/">
 
 <link rel="icon" type="image/svg+xml" href="../favicon.svg">
 <link rel="icon" type="image/x-icon" href="../favicon.ico">
 <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="manifest" href="../site.webmanifest">
 
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://kobecornelis.com/video/">
@@ -21,186 +22,212 @@
 <meta property="og:locale" content="nl_BE">
 <meta name="twitter:card" content="summary_large_image">
 
-<script>
-  document.documentElement.classList.add('js');
-  setTimeout(function () { document.documentElement.classList.add('is-ready'); }, 3500);
-</script>
+<script>document.documentElement.classList.add('js');</script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://i.ytimg.com">
-<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
-<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,100..900,0..100,0..1;1,9..144,100..900,0..100,0..1&family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500&family=Geist+Mono:wght@400;500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/css/style.css">
-<link rel="stylesheet" href="../assets/css/video.css">
 </head>
-<body data-theme="dark" class="page-video">
+<body>
 
-<a class="skip-link" href="#trouwfilms">Naar de films</a>
-<div class="grain" aria-hidden="true"></div>
-<div class="cursor" aria-hidden="true"><span class="cursor-label"></span></div>
+<a class="skip-link" href="#films">Naar de films</a>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-right" viewBox="0 0 18 18"><path d="M3.5 9h11M10 4.5 14.5 9 10 13.5"/></symbol>
+  <symbol id="i-down" viewBox="0 0 18 18"><path d="M9 3.5v11M4.5 10 9 14.5 13.5 10"/></symbol>
+  <symbol id="i-play" viewBox="0 0 13 14"><path d="M1 1.2v11.600a.6.6 0 0 0 .9.500l10-5.800a.6.6 0 0 0 0-1L1.900.700a.6.6 0 0 0-.9.500z"/></symbol>
+</svg>
 
 <!-- ═══════════ NAVIGATIE ═══════════ -->
-<header class="nav" id="nav">
-  <a class="nav-brand" href="../" aria-label="Terug naar het portfolio van Kobe Cornelis">
-    <span class="nav-mark" aria-hidden="true">K</span>
-    <span class="nav-name">Kobe Cornelis</span>
+<header class="nav">
+  <a class="nav-brand" href="../" aria-label="Terug naar het portfolio">
+    <svg viewBox="0 0 64 64" aria-hidden="true"><path d="M22 15v34M22 35 40 15M28.5 28.5 42 49"/><circle cx="51" cy="46" r="5"/></svg>
+    <span>kobe cornelis</span>
   </a>
   <nav class="nav-links" aria-label="Videografie">
-    <a href="#trouwfilms">Trouwfilms</a>
-    <a href="#projecten">Reisbeelden &amp; projecten</a>
-    <a href="#contact">Offerte</a>
+    <i class="nav-ind" aria-hidden="true"></i>
+    <a href="#films" data-filter="wedding">trouwfilms</a>
+    <a href="#films" data-filter="other">reisbeelden &amp; projecten</a>
+    <a href="#contact">offerte</a>
   </nav>
-  <a class="nav-back" href="../" aria-label="Terug naar Orthopedagogie">
-    <span class="nav-back-arrow" aria-hidden="true">←</span>
-    <span class="nav-back-label">Orthopedagogie</span>
-  </a>
+  <div class="nav-right">
+    <button class="cc-btn" type="button" aria-expanded="false" aria-controls="cc" aria-label="Bedieningspaneel">
+      <svg class="bat" viewBox="0 0 25 14" aria-hidden="true"><rect x="1" y="2" width="20" height="10" rx="3"/><path d="M23.300 5.400v3.200"/><rect class="bat-fill" x="3" y="4" width="16" height="6" rx="1.300"/></svg>
+      <span data-clock aria-hidden="true"></span>
+      <svg viewBox="0 0 17 14" aria-hidden="true"><rect x="1" y="1.500" width="15" height="4.500" rx="2.250"/><circle cx="12.500" cy="3.750" r="1" fill="currentColor"/><rect x="1" y="8" width="15" height="4.500" rx="2.250"/><circle cx="4.500" cy="10.250" r="1" fill="currentColor"/></svg>
+    </button>
+    <a class="btn btn--sm nav-cta" href="../">← orthopedagogie</a>
+    <button class="mb-toggle" type="button" aria-expanded="false" aria-controls="dropmenu">menu</button>
+  </div>
 </header>
 
-<main id="main">
+<!-- bedieningspaneel -->
+<div class="cc" id="cc" role="group" aria-label="Bedieningspaneel">
+  <button class="cc-tile" type="button" data-calm aria-pressed="false">
+    <i class="cc-ico"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M13.500 9.800A5.800 5.800 0 0 1 6.200 2.500a5.800 5.800 0 1 0 7.300 7.300z"/></svg></i>
+    <span><b>rustige modus</b><small data-calm-label>uit</small></span>
+  </button>
+  <div class="cc-tile">
+    <svg class="cc-ring" viewBox="0 0 36 36" aria-hidden="true"><circle class="trk" cx="18" cy="18" r="15"/><circle class="val" cx="18" cy="18" r="15" pathLength="100"/></svg>
+    <span><b data-read>0%</b><small>gelezen</small></span>
+  </div>
+  <div class="cc-tile cc-wide cc-col">
+    <b>accentkleur</b>
+    <div class="cc-colors">
+      <button type="button" data-accent="blue" style="--c:#0f7fff" aria-label="Blauw" aria-pressed="true"></button>
+      <button type="button" data-accent="purple" style="--c:#8a5cf6" aria-label="Paars" aria-pressed="false"></button>
+      <button type="button" data-accent="pink" style="--c:#f0468a" aria-label="Roze" aria-pressed="false"></button>
+      <button type="button" data-accent="orange" style="--c:#f58a1f" aria-label="Oranje" aria-pressed="false"></button>
+      <button type="button" data-accent="green" style="--c:#28a745" aria-label="Groen" aria-pressed="false"></button>
+      <button type="button" data-accent="graphite" style="--c:#6e6e73" aria-label="Grafiet" aria-pressed="false"></button>
+    </div>
+  </div>
+  <div class="cc-tile cc-wide">
+    <span><b data-date></b><small>Leuven · <span data-clock></span></small></span>
+  </div>
+</div>
+
+<nav class="dropmenu" id="dropmenu" aria-label="Menu">
+  <a href="#films" data-filter="wedding">trouwfilms <span>01</span></a>
+  <a href="#films" data-filter="other">reisbeelden &amp; projecten <span>02</span></a>
+  <a href="#contact">offerte <span>@</span></a>
+  <hr>
+  <a href="../">orthopedagogie <span>←</span></a>
+</nav>
+
+<main id="top">
 
   <!-- ═══════════ HERO ═══════════ -->
-  <section class="vhero" id="top" aria-label="Introductie">
-    <div class="vhero-still" aria-hidden="true">
-      <img src="https://i.ytimg.com/vi/1aSgwH5nDEA/maxresdefault.jpg" alt="" data-yt-fallback="1aSgwH5nDEA">
-    </div>
-    <div class="vhero-video" id="heroVidWrap" aria-hidden="true">
-      <iframe id="heroVid"
-        title="Achtergrondvideo"
-        data-src="https://www.youtube-nocookie.com/embed/1aSgwH5nDEA?autoplay=1&mute=1&controls=0&loop=1&playlist=1aSgwH5nDEA&playsinline=1&rel=0&modestbranding=1&disablekb=1&start=5&enablejsapi=1"
-        referrerpolicy="strict-origin-when-cross-origin"
-        allow="autoplay; encrypted-media" tabindex="-1"></iframe>
-    </div>
-    <div class="vhero-shade" aria-hidden="true"></div>
-
-    <div class="container vhero-inner">
-      <div class="hero-meta" data-intro>
-        <span><i class="rec-dot" aria-hidden="true"></i>Rec · 24 fps</span>
-        <span class="hero-meta-mid">Videografie · sinds 2019</span>
-        <span class="hero-meta-end"><i class="avail-dot" aria-hidden="true"></i>Beschikbaar voor projecten</span>
+  <section class="hero" aria-label="Introductie">
+    <div class="wrap hero-grid hero-grid--video">
+      <div class="hero-copy">
+        <span class="status"><i></i>beschikbaar voor nieuwe projecten</span>
+        <h1 class="hero-title">verhalen in beweging</h1>
+        <p class="hero-sub">Trouwfilms, reisbeelden en visuele verhalen. Ik film de momenten die blijven hangen en monteer ze tot iets dat je voelt.</p>
+        <div class="hero-btns">
+          <a class="btn btn--blue" href="#contact">vraag een offerte</a>
+          <a class="btn" href="#films">bekijk de films <svg aria-hidden="true"><use href="#i-down"/></svg></a>
+        </div>
+        <ul class="specs" aria-label="In het kort">
+          <li><b data-film-count>9</b> films</li>
+          <li>sinds <b>2019</b></li>
+          <li><span class="spec">4K</span><span class="spec">HDR</span></li>
+          <li><span class="pill pill--pride lib-pride">LGBTQ+ friendly</span></li>
+        </ul>
       </div>
 
-      <h1 class="vhero-title" data-hero-split>Verhalen<br>in <em>beweging.</em></h1>
-
-      <div class="vhero-foot">
-        <p class="vhero-lead" data-intro>Trouwfilms, reisbeelden en visuele verhalen. Ik film de momenten die <em>blijven hangen</em> en monteer ze tot iets dat je voelt.</p>
-        <dl class="vhero-stats" data-intro>
-          <div><dt>Films</dt><dd data-count="9" data-film-count>9</dd></div>
-          <div><dt>Actief</dt><dd>Sinds 2019</dd></div>
-          <div><dt>Specialiteit</dt><dd>Sfeer &amp; emotie</dd></div>
-        </dl>
+      <!-- speler -->
+      <div class="player" data-reveal>
+        <div class="player-bar"><span class="dots"><i></i><i></i><i></i></span><span class="player-title">febe-en-seppe.mov</span></div>
+        <button class="film-frame" type="button" data-id="1aSgwH5nDEA" data-title="Febe &amp; Seppe" aria-label="Speel Febe &amp; Seppe af">
+          <img src="https://i.ytimg.com/vi/1aSgwH5nDEA/maxresdefault.jpg" alt="" data-yt="1aSgwH5nDEA">
+          <span class="play"><svg aria-hidden="true"><use href="#i-play"/></svg>speel af</span>
+        </button>
+        <div class="player-ctl" aria-hidden="true">
+          <svg viewBox="0 0 13 14"><use href="#i-play"/></svg>
+          <span>0:00</span>
+          <i class="scrub"><i></i></i>
+          <span>trouwfilm · 2024</span>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- ═══════════ 01 · TROUWFILMS ═══════════ -->
-  <section class="films" id="trouwfilms">
-    <div class="container">
-      <header class="films-head">
+  <hr class="dotline">
+
+  <!-- ═══════════ FILMS: bibliotheek ═══════════ -->
+  <section class="sec" id="films">
+    <div class="wrap">
+      <header class="head head--split" data-reveal>
         <div>
-          <p class="eyebrow"><span>01</span>Trouwfilms</p>
-          <h2 class="display" data-split>De dag, <em>opnieuw beleefd.</em></h2>
+          <span class="plabel">films</span>
+          <h2 class="h-display" data-lib-title>de breedte van wat ik maak</h2>
         </div>
-        <div class="films-side" data-reveal>
-          <p>De dag zelf vliegt voorbij. Met een trouwfilm beleef je hem opnieuw. Die ene blik, de lach, het feest. Ik beweeg ongezien mee tussen de gasten en vang de echte momenten, en daar maak ik een sfeervideo van waar je jaren later nog naar teruggrijpt.</p>
-          <div class="films-side-foot">
-            <span class="films-count" data-count-for="wedding">03 films</span>
-            <span class="pride-pill"><i class="pride-dot" aria-hidden="true"></i>LGBTQ+ friendly</span>
+        <div>
+          <p class="lead" data-lib-lead>Van trouwfilms en sfeerbeelden op reis tot commerciële opdrachten en een persoonlijke reportage.</p>
+          <span class="pill pill--pride lib-pride" data-lib-pride hidden>LGBTQ+ friendly</span>
+        </div>
+      </header>
+
+      <div class="win lib">
+        <div class="lib-bar">
+          <span class="dots"><i></i><i></i><i></i></span>
+          <div class="seg" role="group" aria-label="Filter films">
+            <button type="button" data-cat="all" aria-pressed="true">alles <small></small></button>
+            <button type="button" data-cat="wedding" aria-pressed="false">trouwfilms <small></small></button>
+            <button type="button" data-cat="other" aria-pressed="false">reisbeelden &amp; projecten <small></small></button>
           </div>
         </div>
-      </header>
-      <div class="film-grid" id="gridWedding">
-        <noscript>
-          <ul class="tags">
-            <li><a href="https://www.youtube.com/watch?v=1aSgwH5nDEA">Febe &amp; Seppe</a></li>
-            <li><a href="https://www.youtube.com/watch?v=4OBGTtQVUYo">Ines &amp; Sander</a></li>
-            <li><a href="https://www.youtube.com/watch?v=Q8kLe0-2gnc">Caroline &amp; Bram</a></li>
-          </ul>
-        </noscript>
+        <div class="lib-body">
+          <div class="film-grid" id="filmGrid">
+            <noscript>
+              <ul class="tags">
+                <li><a href="https://www.youtube.com/watch?v=1aSgwH5nDEA">Febe &amp; Seppe</a></li>
+                <li><a href="https://www.youtube.com/watch?v=4OBGTtQVUYo">Ines &amp; Sander</a></li>
+                <li><a href="https://www.youtube.com/watch?v=Q8kLe0-2gnc">Caroline &amp; Bram</a></li>
+                <li><a href="https://www.youtube.com/watch?v=LOpTFsjrGvw">Kinderboek voor Lannoo</a></li>
+                <li><a href="https://www.youtube.com/watch?v=s_slyU9heV4">Louis Cornelis · 1936–2023</a></li>
+                <li><a href="https://www.youtube.com/watch?v=PwpixmMHLhE">The Smoky Mountains</a></li>
+                <li><a href="https://www.youtube.com/watch?v=Aky2uWTmonw">Schotland</a></li>
+                <li><a href="https://www.youtube.com/watch?v=WDYyBPZgw1M">New York City</a></li>
+                <li><a href="https://www.youtube.com/watch?v=ZKUQl-iN1tE">Euromillions Volley League</a></li>
+              </ul>
+            </noscript>
+          </div>
+        </div>
+        <p class="finder-status"><span data-lib-status>9 films</span><span>klik op een film om hem af te spelen</span></p>
       </div>
     </div>
   </section>
 
-  <!-- ═══════════ 02 · REISBEELDEN & PROJECTEN ═══════════ -->
-  <section class="films" id="projecten">
-    <div class="container">
-      <header class="films-head">
-        <div>
-          <p class="eyebrow"><span>02</span>Reisbeelden &amp; projecten</p>
-          <h2 class="display" data-split>De breedte van <em>wat ik maak.</em></h2>
-        </div>
-        <div class="films-side" data-reveal>
-          <p>Van sfeerbeelden op reis tot commerciële opdrachten en een persoonlijke reportage. Hier zie je de breedte van wat ik maak.</p>
-          <span class="films-count" data-count-for="other">06 films</span>
-        </div>
-      </header>
-      <div class="film-grid" id="gridOther">
-        <noscript>
-          <ul class="tags">
-            <li><a href="https://www.youtube.com/watch?v=LOpTFsjrGvw">Kinderboek voor Lannoo</a></li>
-            <li><a href="https://www.youtube.com/watch?v=s_slyU9heV4">Louis Cornelis · 1936–2023</a></li>
-            <li><a href="https://www.youtube.com/watch?v=PwpixmMHLhE">The Smoky Mountains</a></li>
-            <li><a href="https://www.youtube.com/watch?v=Aky2uWTmonw">Schotland</a></li>
-            <li><a href="https://www.youtube.com/watch?v=WDYyBPZgw1M">New York City</a></li>
-            <li><a href="https://www.youtube.com/watch?v=ZKUQl-iN1tE">Euromillions Volley League</a></li>
-          </ul>
-        </noscript>
+  <!-- ═══════════ OFFERTE: nieuw bericht ═══════════ -->
+  <section class="reach-sec" id="contact">
+    <div class="wrap reach">
+      <div class="reach-copy" data-reveal>
+        <span class="plabel">offerte</span>
+        <h2 class="reach-title">iets moois vastleggen?</h2>
+        <p class="lead">Op zoek naar een filmer voor een trouw, event of project? Ik denk graag mee over hoe we jouw verhaal in beeld brengen. Vraag gerust vrijblijvend een offerte aan.</p>
+        <p class="loc"><i aria-hidden="true"></i>Gevestigd in Leuven, maar ik verplaats me over heel België en daarbuiten.</p>
+        <p class="loc"><i aria-hidden="true" style="background:linear-gradient(135deg,#f0668a,#f2d544,#5cc27a,#4ea4e8,#8a72e0);box-shadow:none"></i>LGBTQ+ friendly: elk koppel en elk verhaal is welkom.</p>
       </div>
-    </div>
-  </section>
 
-  <!-- ═══════════ OFFERTE / CONTACT ═══════════ -->
-  <section class="contact voutro is-fixed-theme" id="contact" data-theme="dark">
-    <canvas class="ribbons" id="outroRibbons" aria-hidden="true"></canvas>
-    <div class="contact-shade" aria-hidden="true"></div>
-    <div class="container voutro-inner">
-      <div class="voutro-avatar">
-        <img src="../assets/img/kobe-avatar.jpg" alt="Kobe Cornelis" width="400" height="400" loading="lazy" decoding="async">
+      <div class="win mail" data-reveal>
+        <div class="win-bar"><span class="dots"><i></i><i></i><i></i></span><span class="win-title">nieuw bericht</span></div>
+        <div class="mail-body">
+          <p class="mail-row"><span>aan</span><b><img src="../assets/img/kobe-avatar.jpg" width="40" height="40" alt="" loading="lazy">Kobe Cornelis</b></p>
+          <p class="mail-row"><span>onderwerp</span>Offerteaanvraag videografie</p>
+          <p class="mail-text" aria-hidden="true">Vertel kort iets over je trouw, event of project…<i class="caret"></i></p>
+          <div class="mail-foot">
+            <a class="btn btn--blue" href="mailto:kobe.cornelis4@gmail.com?subject=Offerteaanvraag%20videografie">vraag een offerte <svg aria-hidden="true"><use href="#i-right"/></svg></a>
+            <button class="btn" type="button" data-copy="kobe.cornelis4@gmail.com">kopieer adres</button>
+          </div>
+        </div>
       </div>
-      <p class="avail-badge"><i class="avail-dot" aria-hidden="true"></i>Beschikbaar voor nieuwe projecten</p>
-      <h2 class="contact-title" data-split>Iets moois <em>vastleggen?</em></h2>
-      <p class="contact-text" data-reveal>Op zoek naar een filmer voor een trouw, event of project? Ik denk graag mee over hoe we jouw verhaal in beeld brengen. Vraag gerust <em>vrijblijvend een offerte</em> aan.</p>
-      <div class="voutro-actions" data-reveal>
-        <a class="btn btn--solid" href="mailto:kobe.cornelis4@gmail.com?subject=Offerteaanvraag%20videografie" data-magnetic>
-          <span>Vraag een offerte</span>
-          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M8.5 3.5 13 8l-4.5 4.5"/></svg>
-        </a>
-        <a class="btn btn--line" href="mailto:kobe.cornelis4@gmail.com" data-magnetic><span>Contact</span></a>
-      </div>
-      <p class="voutro-loc" data-reveal><span class="loc-pin" aria-hidden="true">⌖</span> Gevestigd in <strong>Leuven</strong>, maar ik verplaats me over heel België en daarbuiten.</p>
     </div>
   </section>
 </main>
 
-<footer class="footer" data-theme="dark">
-  <div class="container footer-inner">
-    <p>© <span data-year>2026</span> Kobe Cornelis</p>
-    <p class="footer-specs" role="group" aria-label="Opnamekwaliteit"><span class="spec-badge">4K</span><span class="spec-badge">HDR</span></p>
-    <p><a href="../" class="footer-top">Orthopedagogie</a> · Videografie</p>
-  </div>
+<footer class="footer">
+  <hr class="dotline">
+  <p class="copyright">© <span data-year>2026</span> Kobe Cornelis · <a href="../">orthopedagogie</a> · videografie</p>
 </footer>
 
-<!-- Lightbox (native dialog: focus-trap en Escape gratis) -->
-<dialog class="lightbox" id="lightbox" aria-labelledby="lbTitle" data-lenis-prevent>
-  <button class="lightbox-close" id="lbClose" type="button" aria-label="Sluiten">
-    <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg>
-  </button>
-  <div class="lightbox-inner">
-    <div class="lightbox-frame">
-      <iframe id="lbFrame" title="Video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<!-- Lightbox: een venster dat de film afspeelt -->
+<dialog class="lightbox" id="lightbox" aria-labelledby="lbTitle">
+  <div class="win">
+    <div class="win-bar">
+      <span class="dots"><button type="button" id="lbClose" aria-label="Sluiten"></button><i style="background:#febc2e"></i><i style="background:#28c840"></i></span>
+      <span class="win-title" id="lbTitle"></span>
     </div>
-    <div class="lightbox-cap">
-      <h2 class="lightbox-title" id="lbTitle"></h2>
-      <p class="lightbox-meta" id="lbMeta"></p>
-    </div>
+    <div class="win-body"><iframe id="lbFrame" title="Video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
   </div>
 </dialog>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/gsap.min.js" integrity="sha384-XmJ9SoHtVOHoQUcKvFAzVXwdkKo1Ie3bhmSoIAkcdsHGaIrVJIkmozyq0FJeb/Ly" crossorigin="anonymous" defer></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/ScrollTrigger.min.js" integrity="sha384-wl5TeDVvOWt30Pbf8aSo2ZrzsOjddu3avOBvHe+p+OhJt9gP6w9YXmDkN5DK2/dF" crossorigin="anonymous" defer></script>
-<script src="https://cdn.jsdelivr.net/npm/lenis@1.3.26/dist/lenis.min.js" integrity="sha384-jqpi9VmOdhyLoLURgjCn7EpnG9BbnHW57ibIZoeaIU+erWDH3k8fQQg0xH2ySjnw" crossorigin="anonymous" defer></script>
-<script src="../assets/js/ribbons.js" defer></script>
+<div class="toast" role="status" aria-live="polite"></div>
+
+<script src="../assets/js/main.js" defer></script>
 <script src="../assets/js/video.js" defer></script>
 </body>
 </html>
