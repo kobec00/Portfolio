@@ -25,6 +25,8 @@
   let age = now.getFullYear() - born.getFullYear();
   if (now < new Date(now.getFullYear(), born.getMonth(), born.getDate())) age--;
   $$('[data-age]').forEach(el => { el.textContent = age; });
+  // beschikbaar vanaf 1 januari 2027: vanaf die dag toont elke [data-avail] zijn "nu"-tekst
+  if (now >= new Date(2027, 0, 1)) $$('[data-avail]').forEach(el => { el.textContent = el.dataset.avail; });
 
   /* ── Uitklapmenu (mobiel) ── */
   const toggle = $('.mb-toggle');
