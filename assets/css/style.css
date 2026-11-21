@@ -265,6 +265,7 @@ mark { color: #000; border-radius: 3px; padding: 1px 3px; -webkit-box-decoration
 .ig-orange { --ig: linear-gradient(#ffb866, #f57c1f); } .ig-pink { --ig: linear-gradient(#ff8fb0, #e8386d); }
 .ig-purple { --ig: linear-gradient(#b79bff, #6b45e0); } .ig-teal { --ig: linear-gradient(#6fe0d2, #0f9c8d); }
 .ig-dark { --ig: linear-gradient(#4a4a4f, #1c1c1e); }
+.ig-ice { --ig: radial-gradient(circle at 50% 45%, #9ee7ff 0 18%, #1b2a33 19% 60%, #0b0d0f 61%); }
 .ig-pride { --ig: linear-gradient(135deg, #f0668a, #f5a04a 28%, #e9c93a 46%, #5cc27a 64%, #4ea4e8 82%, #8a72e0); }
 
 /* ── HERO ── */
@@ -488,6 +489,7 @@ a.status:hover { color: #000; border-color: var(--ink-3); }
 .wall-paper { --wall: radial-gradient(120% 90% at 10% 0%, #ffe3ec 0%, transparent 55%), radial-gradient(120% 90% at 100% 10%, #dfe9ff 0%, transparent 55%), radial-gradient(120% 100% at 50% 100%, #fff3c9 0%, transparent 60%), #f3ecff; }
 .wall-green { --wall: radial-gradient(110% 90% at 80% 0%, #cdeedd 0%, transparent 60%), linear-gradient(160deg, #2e6b58, #1d4a3d); }
 .wall-rainbow { --wall: radial-gradient(90% 80% at 0% 0%, #ffd7e2 0%, transparent 60%), radial-gradient(90% 80% at 100% 0%, #d3ecf5 0%, transparent 60%), radial-gradient(100% 90% at 50% 100%, #fdf0c8 0%, transparent 60%), #faf6f1; }
+.wall-ice { --wall: radial-gradient(90% 80% at 85% 0%, rgba(158, 231, 255, .45) 0%, transparent 60%), radial-gradient(80% 70% at 0% 100%, rgba(199, 201, 255, .3) 0%, transparent 60%), linear-gradient(160deg, #1b2530, #0b0d0f); }
 .paper-view { background: #8d8d92; padding: 18px; display: flex; justify-content: center; }
 .paper { width: min(100%, 230px); aspect-ratio: 210 / 285; background: #fff; box-shadow: 0 6px 18px rgba(0, 0, 0, .3); padding: 9% 9% 7%; display: flex; flex-direction: column; text-align: left; }
 .paper-stripes { height: 6px; border-radius: 3px; background: linear-gradient(90deg, #f0668a, #f5a04a, #f2d544, #5cc27a, #4ea4e8, #8a72e0); margin-bottom: 14%; }
