@@ -381,10 +381,83 @@
     }
   }
 
+  /* ── Projecten: voorvertoningen spelen zichzelf af ──
+     data-demo = stappen "frame,x,y": toon het frame, beweeg naar (x%, y%) en klik.
+     Speelt enkel als het project open staat en in beeld is; extra beelden laden pas dan. */
+  const demoPlayers = $$('[data-demo]').map(el => {
+    const steps = el.dataset.demo.trim().split(/\s+/).map(s => s.split(',').map(Number));
+    const frames = $$('.demo-frame', el);
+    const flip = el.classList.contains('demo--flip');
+    const touch = el.classList.contains('demo--touch');
+    const panel = el.closest('[role="tabpanel"]');
+    const cursor = document.createElement('span');
+    cursor.className = 'demo-cursor';
+    cursor.setAttribute('aria-hidden', 'true');
+    if (!touch) cursor.innerHTML = '<svg viewBox="0 0 13 20"><path d="M1 1v15.6l3.7-3.5 2.4 5.6 2.6-1.1-2.4-5.5H12z" fill="#111" stroke="#fff" stroke-width="1.3" stroke-linejoin="round"/></svg>';
+    el.append(cursor);
+    if (flip) frames.forEach((f, k) => { f.style.zIndex = frames.length - k; });
+
+    let i = 0, phase = 0, at = 0, timer = 0, running = false, inView = !hasIO, loaded = false;
+    const show = n => {
+      if (flip) {
+        // terug naar de kaft: de bladzijden vallen één voor één terug
+        const back = n < at;
+        frames.forEach((f, k) => {
+          f.style.transitionDelay = back && k < at ? (at - 1 - k) * 0.12 + 's' : '';
+          f.classList.toggle('is-turned', k < n);
+        });
+      } else {
+        el.classList.add('is-live');
+        frames.forEach((f, k) => {
+          f.classList.toggle('is-prev', k === at && k !== n);
+          f.classList.toggle('is-on', k === n);
+        });
+      }
+      at = n;
+    };
+    const tick = () => {
+      if (phase === 0) {
+        cursor.classList.remove('is-click');
+        cursor.style.left = steps[i][1] + '%';
+        cursor.style.top = steps[i][2] + '%';
+        cursor.classList.add('is-shown');
+        phase = 1;
+        timer = setTimeout(tick, touch ? 450 : 1100);
+      } else if (phase === 1) {
+        cursor.classList.add('is-click');
+        phase = 2;
+        timer = setTimeout(tick, touch ? 380 : 260);
+      } else {
+        if (touch) cursor.classList.remove('is-click');
+        i = (i + 1) % steps.length;
+        show(steps[i][0]);
+        phase = 0;
+        timer = setTimeout(tick, 2300);
+      }
+    };
+    const sync = () => {
+      const on = inView && !panel.hidden && !document.hidden && !isCalm();
+      if (on === running) return;
+      running = on;
+      if (!on) { clearTimeout(timer); return; }
+      if (!loaded) {
+        loaded = true;
+        frames.forEach(f => { if (f.dataset.src) f.src = f.dataset.src; });
+      }
+      timer = setTimeout(tick, phase === 0 ? 1500 : 300);
+    };
+    if (hasIO) new IntersectionObserver(e => { inView = e[0].isIntersecting; sync(); }, { threshold: 0.35 }).observe(el);
+    return sync;
+  });
+  const syncDemos = () => requestAnimationFrame(() => demoPlayers.forEach(sync => sync()));
+  document.addEventListener('visibilitychange', syncDemos);
+  $$('[data-calm]').forEach(b => b.addEventListener('click', syncDemos));
+
+
   /* ── Projecten: Finder-venster met tabs ── */
   const finder = $('[data-finder]');
   if (finder) {
-    const select = initTabs(finder);
+    const select = initTabs(finder, syncDemos);
     // tip zodra je bij de projecten aankomt: de bestanden zijn klikbaar
     if (hasIO) {
       const io = new IntersectionObserver(entries => {
